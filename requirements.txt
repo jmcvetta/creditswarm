@@ -5,3 +5,4 @@ ipython
 dj_database_url
 pillow
 django-registration
+gunicorn
