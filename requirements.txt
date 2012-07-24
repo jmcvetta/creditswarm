@@ -1,0 +1,7 @@
+django
+psycopg2
+south
+ipython
+dj_database_url
+pillow
+django-registration
