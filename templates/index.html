@@ -2,6 +2,27 @@
 
 {% block content %}
 
-Foobar!
+<header class="jumbotron subhead">
+	<h1>
+		Credit Disputes
+	</h1>
+	<p class="lead">
+		Don't let their mistake become your problem!
+	</p>
+</header>
+
+<section id="login">
+	<div class="row">
+		<div class="span8">
+			<p>Duis non purus non turpis mattis euismod et quis ligula. Maecenas libero lacus, viverra quis auctor nec, feugiat dictum nunc. Maecenas ut enim eu enim sollicitudin porta. Ut ac eros arcu. Etiam vitae urna ut metus consectetur tristique quis dictum metus. Praesent pretium sodales orci quis lacinia. Suspendisse sit amet ipsum orci, ac luctus turpis. Suspendisse vulputate pharetra leo in faucibus. Vestibulum id bibendum leo. Proin ac eros arcu, ac gravida tellus.</p>
+			<a href="{% url auth_login %}" class="btn">Login</a>
+			<a href="{% url registration_register %}" class="btn btn-primary">Sign Up</a>
+		</div>
+		<div class="span2">
+			<p>Nulla sed mollis lacus. Vivamus quis posuere turpis. Sed aliquet dictum justo, nec molestie purus tincidunt sed. Maecenas ac euismod nisl. Nullam mattis eros eget nisi pellentesque at cursus eros ornare. Suspendisse potenti. Sed quis arcu lorem, non adipiscing orci. Etiam a augue viverra eros adipiscing tempus.</p>
+			<p>Praesent elementum erat sed lacus vehicula tempor. Ut vel mi nisi, eu condimentum justo. Phasellus ut libero vitae nunc lacinia cursus in eu odio. Curabitur a sem sed mauris consequat malesuada. Sed non augue turpis. In hac habitasse platea dictumst. Aliquam a velit neque. Quisque scelerisque porttitor metus vel porta. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec vel mauris neque, quis pretium odio. Suspendisse adipiscing urna non ligula imperdiet accumsan. Vestibulum nec nunc orci. Aliquam erat volutpat. Nullam dui ligula, ullamcorper eget fringilla at, volutpat nec tellus. Vivamus ac ante nisl, non posuere arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+		</div>
+	</div>
+</section>
 
 {% endblock %}
