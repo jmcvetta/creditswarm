@@ -169,3 +169,17 @@ REGISTRATION_OPEN = True
 # User Profile
 #
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+
+#
+# Send mail from Heroku using SendGrid
+#
+ADMINS = [('Administrator', os.environ['MAIL_TO'])]
+
+SERVER_EMAIL = os.environ.get('SENDGRID_USERNAME')
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
