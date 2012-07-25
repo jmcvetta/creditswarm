@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, include, url
 from complain.views import IndexView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from registration.backends.default import urls as regurls
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -19,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     
     url(r'^$', IndexView.as_view()),
-    url(r'^accounts/', include(regurls)),
+    #url(r'^accounts/', include(regurls)),
 ) 
 
 urlpatterns += staticfiles_urlpatterns()

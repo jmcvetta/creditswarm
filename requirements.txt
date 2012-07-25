@@ -4,5 +4,5 @@ south
 ipython
 dj_database_url
 pillow
-django-registration
+django-allauth
 gunicorn

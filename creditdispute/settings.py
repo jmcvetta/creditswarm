@@ -123,7 +123,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'south',
-    'registration',
     'gunicorn',
     'complain',
     'accounts',
@@ -159,12 +158,6 @@ LOGGING = {
 }
 
 
-#
-# django-registration
-#
-ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_OPEN = True
-
 # 
 # User Profile
 #
@@ -174,7 +167,7 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 #
 # Send mail from Heroku using SendGrid
 #
-ADMINS = [('Administrator', os.environ['MAIL_TO'])]
+ADMINS = [('Administrator', os.getenv('MAIL_TO', 'admin@yoursite.com'))]
 
 SERVER_EMAIL = os.environ.get('SENDGRID_USERNAME')
 
@@ -183,3 +176,36 @@ EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
 EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+#
+# allauth
+#
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+    )
+
+AUTHENTICATION_BACKENDS = ( 
+    "allauth.account.auth_backends.AuthenticationBackend", 
+    )
+
+INSTALLED_APPS += (
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.linkedin',
+    'allauth.socialaccount.providers.openid',
+    'allauth.socialaccount.providers.twitter',
+    'emailconfirmation',
+    )
