@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'registration',
     'gunicorn',
     'complain',
+    'accounts',
 )
 
 # A sample logging configuration. The only tangible logging
