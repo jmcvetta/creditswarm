@@ -125,7 +125,7 @@ INSTALLED_APPS = (
     'south',
     'gunicorn',
     'complain',
-    'accounts',
+    #'accounts',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -161,7 +161,7 @@ LOGGING = {
 # 
 # User Profile
 #
-AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+#AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 
 #
@@ -209,3 +209,7 @@ INSTALLED_APPS += (
     'allauth.socialaccount.providers.twitter',
     'emailconfirmation',
     )
+
+DEFAULT_FROM_EMAIL = 'jason.mcvetta@gmail.com'
+ACCOUNT_UNIQUE_EMAIL = False
+LOGIN_REDIRECT_URL = '/'

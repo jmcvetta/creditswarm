@@ -14,19 +14,28 @@
 			<div class="navbar-inner">
 				<div class="container">
 					<a class="brand" href="/">Credit Disputes</a>
-					<ul class="nav">
+					<ul class="nav pull-right">
+						{% if user.is_authenticated %}
 						<li>
-							<a href="{% url auth_login %}">Login</a>
+							<a href="#">{{ user.email }}</a>
 						</li>
 						<li>
-							<a href="{% url registration_register %}">Sign Up</a>
+							<a href="{{ account_logout }}">Logout</a>
 						</li>
+						{% else %}
+						<li>
+							<a href="{% url account_login %}">Login</a>
+						</li>
+						<li>
+							<a href="{% url account_signup %}">Sign Up</a>
+						</li>
+						{% endif %}
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="container">
-			{% block container %}
+			{% block content %}
 			Content goes here.
 			{% endblock %}
 		</div><!-- /container -->

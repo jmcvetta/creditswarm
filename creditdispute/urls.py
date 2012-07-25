@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     
     url(r'^$', IndexView.as_view()),
     #url(r'^accounts/', include(regurls)),
+    url(r'^accounts/', include('allauth.urls')),
 ) 
 
 urlpatterns += staticfiles_urlpatterns()
