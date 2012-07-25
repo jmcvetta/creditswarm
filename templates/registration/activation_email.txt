@@ -1,6 +1,0 @@
-You recently registed for an account with {{ site.name }}.  Please click the
-link below within {{ expiration_days }} days to confirm your registration:
-
-	https://{{ site.domain }}/activate/{{ activation_key}}
-	
-
