@@ -164,3 +164,8 @@ LOGGING = {
 #
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_OPEN = True
+
+# 
+# User Profile
+#
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
