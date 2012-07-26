@@ -20,7 +20,7 @@
 							<a href="#">Logged in: {{ user }}</a>
 						</li>
 						<li>
-							<a href="{{ url account_logout }}">Logout</a>
+							<a href="{% url account_logout %}">Logout</a>
 						</li>
 						{% else %}
 						<li>
