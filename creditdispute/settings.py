@@ -201,3 +201,6 @@ ACCOUNT_EMAIL_UNIQUE = False
 SOCIALACCOUNT_PROVIDERS = \
     { 'google':
         { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile'] } }
+
+
+LOGIN_REDIRECT_URL = "/"

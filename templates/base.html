@@ -17,7 +17,7 @@
 					<ul class="nav pull-right">
 						{% if user.is_authenticated %}
 						<li>
-							<a href="#">{{ user.email }}</a>
+							<a href="#">Logged in: {{ user }}</a>
 						</li>
 						<li>
 							<a href="{{ account_logout }}">Logout</a>
