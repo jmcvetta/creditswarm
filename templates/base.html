@@ -1,3 +1,4 @@
+{% load account_tags %}
 <!DOCTYPE html>
 <html lang="en" class=" js no-touch csstransforms csstransforms3d csstransitions fontface video audio">
 <head>
@@ -78,7 +79,7 @@ function imposeMaxLength(Object, MaxLen)
 		</div>
 		<div class="actions">
 			{% if user.is_authenticated %}
-			<h2>Logged in as: {{ user }}</h2>
+			<p><b>Logged in as: {% user_display user %}</b></p>
 			<a href="{% url account_logout %}" class="orange-button small-button signup-button">Sign Up</a>
 			{% else %}
 			<a href="{% url account_signup %}" class="orange-button small-button signup-button">Sign Up</a>
