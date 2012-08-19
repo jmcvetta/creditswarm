@@ -80,7 +80,7 @@ function imposeMaxLength(Object, MaxLen)
 		<div class="actions">
 			{% if user.is_authenticated %}
 			<p><b>Logged in as: {% user_display user %}</b></p>
-			<a href="{% url account_logout %}" class="orange-button small-button signup-button">Sign Up</a>
+			<a href="{% url account_logout %}" class="small-button logout-button">Log Out</a>
 			{% else %}
 			<a href="{% url account_signup %}" class="orange-button small-button signup-button">Sign Up</a>
 			<a href="{% url account_login %}" class="primary-button small-button signin-button">&nbsp;Log In</a> 
