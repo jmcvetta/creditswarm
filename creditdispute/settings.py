@@ -181,6 +181,7 @@ INSTALLED_APPS += (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'social_auth.backends.google.GoogleBackend',
+    'social_auth.backends.facebook.FacebookBackend',
     )
 
 GOOGLE_OAUTH2_CLIENT_ID      = os.getenv('GOOGLE_OAUTH2_CLIENT_ID')
