@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
+{% block extracss %}
+{% endblock %}
+
 {% block content %}
 
-<header class="jumbotron subhead">
-	<h1>
-		Credit Disputes
-	</h1>
-	<p class="lead">
-		Don't let their mistake become your problem!
-	</p>
-</header>
+{% if user.is_authenticated %}
 
-<b>Put Hamid's landing page here</b>
+<b>Account summary goes here</b>
+
+{% else %}
+
+
+{% include "landing.html" %}
+
+{% endif %}
+
 
 {% endblock %}

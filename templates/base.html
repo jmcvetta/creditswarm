@@ -4,17 +4,19 @@
 	<head>
 		<link href="{{ STATIC_URL }}/css/bootstrap.css" rel="stylesheet">
 		<link href="{{ STATIC_URL }}/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="{{ STATIC_URL }}css/styles.css" rel="stylesheet" type="text/css" media="all">
+		{% block extracss %}
+		{% endblock %}
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 		<title>
-			{% block title %}Credit Dispute{% endblock %}
+			{% block title %}Pijyn - File credit disputes online for free{% endblock %}
 		</title>
 	</head>
 	<body>
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container">
-					<a class="brand" href="/">Credit Disputes</a>
+					<a class="brand" href="/">Pijyn - File credit disputes online for free</a>
 					<ul class="nav pull-right">
 						{% if user.is_authenticated %}
 						<li>
@@ -41,4 +43,25 @@
 			{% endblock %}
 		</div><!-- /container -->
 	</body>
+
+	<footer class="main-footer">
+	  <nav class="footer-nav">
+		<ul class="nav-list">
+		  <li class="nav-item"><a href="https://pijynup.com/news">What is Pijyn?</a></li>
+		  <li class="nav-item"><a href="https://pijynup.com/testimonials">How it works</a></li>
+		  <li class="nav-item"><a href="https://pijynup.com/pricing">Disclosures</a></li>
+		  <li class="nav-item"><a href="https://pijynup.com/security">Contact</a></li>
+		  <li class="nav-item">
+			<ul id="social">
+			  <li class="twitter"><a href="https://twitter.com/pijyn">Twitter</a></li>
+			  <li class="tumblr"><a href="http://www.tumblr.com/blog/pijyntalk">Tumblr</a></li>
+			  <li class="fb"><a href="http://www.facebook.com/pijyn">Facebook</a></li>
+			  <li class="rss"><a href="services.html">RSS Feed</a></li>
+			</ul>
+		  </li>
+		</ul>
+		<p class="copyright">© 2012 Pijyn Inc. All rights reserved.</p>
+	  </nav>
+	</footer>
+
 </html>
