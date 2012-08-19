@@ -15,8 +15,15 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('allauth.urls')),
+    url(r'', include('social_auth.urls')),
     url(r'^$', IndexView.as_view()),
+    url(r'^logout/$', 
+        'django.contrib.auth.views.logout', 
+        #{'template_name': 'accounts/logged_out.html'}
+        {'template_name': 'index.html'},
+        name='logout',
+        ),
+
 )
 
 urlpatterns += staticfiles_urlpatterns()

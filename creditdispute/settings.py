@@ -162,11 +162,45 @@ LOGGING = {
 #
 #-------------------------------------------------------------------------------
 
-EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+EMAIL_HOST_USER = os.getenv('SENDGRID_USERNAME')
 EMAIL_HOST= 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
+
+#-------------------------------------------------------------------------------
+#
+# django-social-auth
+#
+#-------------------------------------------------------------------------------
+
+INSTALLED_APPS += (
+	'social_auth', 
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_auth.backends.google.GoogleBackend',
+    )
+
+GOOGLE_OAUTH2_CLIENT_ID      = os.getenv('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET  = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET')
+FACEBOOK_APP_ID              = os.getenv('FACEBOOK_APP_ID')
+FACEBOOK_API_SECRET          = os.getenv('FACEBOOK_API_SECRET')
+
+LOGIN_URL          = '/login-form/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL    = '/login-error/'
+
+#SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
+#SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
+
+SOCIAL_AUTH_DEFAULT_USERNAME = 'pijyn_user'
+
+#SOCIAL_AUTH_EXPIRATION = 'expires'
+
+
+
 
 
 #-------------------------------------------------------------------------------
@@ -174,49 +208,50 @@ EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
 # allauth
 #
 #-------------------------------------------------------------------------------
+#
+#TEMPLATE_CONTEXT_PROCESSORS = (
+#    # Default:
+#    "django.contrib.auth.context_processors.auth",
+#    "django.core.context_processors.debug",
+#    "django.core.context_processors.i18n",
+#    "django.core.context_processors.media",
+#    "django.core.context_processors.static",
+#    "django.core.context_processors.tz",
+#    "django.contrib.messages.context_processors.messages",
+#    # Allauth dependencies:
+#    "django.core.context_processors.request",
+#    "allauth.account.context_processors.account",
+#    "allauth.socialaccount.context_processors.socialaccount",
+#
+#    )
+#
+#AUTHENTICATION_BACKENDS = (
+#    'django.contrib.auth.backends.ModelBackend',
+#    "allauth.account.auth_backends.AuthenticationBackend", 
+#    )
+#
+#INSTALLED_APPS += (
+#    'allauth',
+#    'allauth.account',
+#    'allauth.socialaccount',
+#    #'allauth.socialaccount.providers.facebook',
+#    'allauth.socialaccount.providers.google',
+#    #'allauth.socialaccount.providers.github',
+#    #'allauth.socialaccount.providers.linkedin',
+#    #'allauth.socialaccount.providers.openid',
+#    #'allauth.socialaccount.providers.twitter',
+#    'emailconfirmation',
+#    )
+#
+#ACCOUNT_EMAIL_UNIQUE = False
+#
+#SOCIALACCOUNT_PROVIDERS = \
+#    { 'google':
+#        { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile'] } }
+#
+#
+#LOGIN_REDIRECT_URL = "/"
+#
+#ACCOUNT_EMAIL_REQUIRED = True
+#EMAIL_CONFIRMATION_DAYS = 14
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    # Default:
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    # Allauth dependencies:
-    "django.core.context_processors.request",
-    "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
-
-    )
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    "allauth.account.auth_backends.AuthenticationBackend", 
-    )
-
-INSTALLED_APPS += (
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    #'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
-    #'allauth.socialaccount.providers.github',
-    #'allauth.socialaccount.providers.linkedin',
-    #'allauth.socialaccount.providers.openid',
-    #'allauth.socialaccount.providers.twitter',
-    'emailconfirmation',
-    )
-
-ACCOUNT_EMAIL_UNIQUE = False
-
-SOCIALACCOUNT_PROVIDERS = \
-    { 'google':
-        { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile'] } }
-
-
-LOGIN_REDIRECT_URL = "/"
-
-ACCOUNT_EMAIL_REQUIRED = True
-EMAIL_CONFIRMATION_DAYS = 14

@@ -4,5 +4,6 @@ south
 ipython
 dj_database_url
 pillow
-django-allauth
+# django-allauth
 gunicorn
+django-social-auth
