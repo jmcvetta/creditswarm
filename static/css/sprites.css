@@ -1,0 +1,28 @@
+.twitter, .tumblr, .fb, .rss{
+	background: url(sprites.png) no-repeat;
+}
+
+.twitter{
+	background-position: 0 0;
+	width: 20px;
+	height: 21px;
+}
+
+.tumblr{
+	background-position: -22px 0;
+	width: 22px;
+	height: 21px;
+}
+
+.fb{
+	background-position: -47px 0;
+	width: 21px;
+	height: 21px;
+}
+
+.rss{
+	background-position: -70px 0;
+	width: 21px;
+	height: 21px;
+}
+
