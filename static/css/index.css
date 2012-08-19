@@ -36,7 +36,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 .logo {
-	background: url(logo.png) no-repeat;
+	background: url(../img/logo.png) no-repeat;
 	height: 96px;
 	width: 97px;
 	margin-top:18px; margin-left:100px
@@ -201,7 +201,7 @@ html {
 	top: 0px;
 	width: 100%;
 	z-index: 100;
-	background: url(1-145.png) repeat-x;
+	background: url(../img/1-145.png) repeat-x;
 	height: 129px;
 	border-bottom: 2px solid #dbe8be;
 }
@@ -1263,7 +1263,7 @@ body {
 #social a{display:block}
 
 .twitter, .tumblr, .fb, .rss{
-	background: url(sprites.png) no-repeat;text-indent: -1000em
+	background: url(../img/sprites.png) no-repeat;text-indent: -1000em
 }
 
 .twitter{
