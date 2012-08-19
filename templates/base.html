@@ -1,43 +1,122 @@
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:"en-us" }}">
-	<head>
-		<link href="{{ STATIC_URL }}/css/bootstrap.css" rel="stylesheet">
-		<link href="{{ STATIC_URL }}/css/bootstrap-responsive.css" rel="stylesheet">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en" class=" js no-touch csstransforms csstransforms3d csstransitions fontface video audio">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="utf-8">
+<script language="JavaScript">
 
-		<title>
-			{% block title %}Credit Dispute{% endblock %}
-		</title>
-	</head>
-	<body>
-		<div class="navbar">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="brand" href="/">Credit Disputes</a>
-					<ul class="nav pull-right">
-						{% if user.is_authenticated %}
-						<li>
-							<a href="#">Logged in: {{ user }}</a>
-						</li>
-						<li>
-							<a href="{% url account_logout %}">Logout</a>
-						</li>
-						{% else %}
-						<li>
-							<a href="{% url account_login %}">Login</a>
-						</li>
-						<li>
-							<a href="{% url account_signup %}">Sign Up</a>
-						</li>
-						{% endif %}
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="container">
-			{% block content %}
-			Content goes here.
-			{% endblock %}
-		</div><!-- /container -->
-	</body>
+function imposeMaxLength(Object, MaxLen)
+{
+  return (Object.value.length <= MaxLen);
+}
+
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+<!--[if lt IE 8 ]>
+  <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+  <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <style>
+    .chromeFrameOverlayContent {
+      top: 50px;
+      margin-top: 0;
+    }
+  </style>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<![endif]-->
+
+<!--[if gte IE 9]>
+        <link rel="stylesheet" type="text/css" href="ie9.css" />
+<![endif]-->
+
+
+<title>Send credit card disputes online for free</title>
+<meta name="viewport" content="width=1024">
+<meta name="description" content="Accept credit card payments anywhere with your iPhone, Android or iPad. Download the free pijyn app to get started.">
+<meta content="[&quot;#business-settings&quot;,&quot;#deposits&quot;,&quot;#payment&quot;,&quot;#payments&quot;,&quot;#user-settings&quot;]" id="dashboard-path-prefixes" name="dashboard-path-prefixes">
+<meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="xH0kqd86pGn5guuZj8Mb7BWxzXc540EUTfebARg8xIo=">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/index.css" media="all">
+</head>
+<body style="display: block;" class="locale-en locale-en-US country-US public sitepage has-hero-section">
+<section class="inverted-section nav-drawer">
+  <div class="prose signin-section drawer-content" id="signin"> <a href="#close" class="close-drawer">Close</a>
+    <h2 class="title">Sign In</h2>
+    <form action="https://pijynup.com/login" class="signin-form " method="post" novalidate>
+      <div style="margin: 0px; padding: 0px; display: inline;">
+        <input name="authenticity_token" value="xH0kqd86pGn5guuZj8Mb7BWxzXc540EUTfebARg8xIo=" type="hidden">
+      </div>
+      <div class="field email-field fade-label">
+        <label class="text" for="email"><span style="">Email address</span></label>
+        <input autocapitalize="off" autocomplete="off" autocorrect="off" class="text" id="email" name="email" size="30" spellcheck="false" value="" type="email">
+      </div>
+      <div class="field password-field fade-label">
+        <label class="text" for="password"><span style="">Password</span></label>
+        <input class="text" id="password" name="password" size="30" value="" type="password">
+      </div>
+      <div class="footer">
+        <div class="message-box-error"></div>
+        <input class="button primary-button track-event" value="Sign In" type="submit">
+      </div>
+    </form>
+    <p class="account-actions"> <a href="https://pijynup.com/password">Forgot password?</a> </p>
+  </div>
+</section>
+<div class="header-wrapper">
+  <header class="main-header main-header-home">
+    <nav class="header-nav">
+      <div class="logo">
+        <div class="home-link ">Pijyn</div>
+      </div>
+      <div class="actions"> <a href="" class="orange-button small-button signup-button">Sign Up</a> <a href="" class="primary-button small-button signin-button">&nbsp;Log In</a> </div>
+    </nav>
+  </header>
+</div>
+
+<div class="main-content" id="content">
+  <section id="" class="hero-section inverted-section pijyn-scene ready">
+    <div class="disputeForm">
+        {% block content %}
+        Content goes here.
+        {% endblock %}
+    </div>
+</div>
+<footer class="main-footer">
+  <nav class="footer-nav">
+    <ul class="nav-list">
+      <li class="nav-item"><a href="https://pijynup.com/news">What is Pijyn?</a></li>
+      <li class="nav-item"><a href="https://pijynup.com/testimonials">How it works</a></li>
+      <li class="nav-item"><a href="https://pijynup.com/pricing">Disclosures</a></li>
+      <li class="nav-item"><a href="https://pijynup.com/security">Contact</a></li>
+      <li class="nav-item">
+        <ul id="social">
+          <li class="twitter"><a href="https://twitter.com/pijyn">Twitter</a></li>
+          <li class="tumblr"><a href="http://www.tumblr.com/blog/pijyntalk">Tumblr</a></li>
+          <li class="fb"><a href="http://www.facebook.com/pijyn">Facebook</a></li>
+          <li class="rss"><a href="services.html">RSS Feed</a></li>
+        </ul>
+      </li>
+    </ul>
+    <p class="copyright">© 2012 Pijyn Inc. All rights reserved.</p>
+  </nav>
+</footer>
+<div class="hidden">
+  <div id="activation-data"></div>
+  <div id="jquery_and_jelly"> </div>
+  <img src="p-e9kdqb0wizvj6.gif" style="display: none;" height="1" width="1" border="0"> <img src="pixel" height="1" width="1"> 
+  <!-- Advertiser 'pijyn, Inc.',  Include user in segment 'HP_pijyn_Retargeting' - DO NOT MODIFY THIS PIXEL IN ANY WAY --> 
+  <img src="pixel_001.dat" height="1" width="1"> 
+  <!-- End of segment tag --> 
+  
+  <img src="trackconversion" height="1" width="1"> </div>
+<div id="gaw_content"><img src="untitled" height="1" width="1" border="0"></div>
+</body>
 </html>
