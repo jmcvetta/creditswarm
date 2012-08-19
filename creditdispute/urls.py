@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from complain.views import IndexView
+from complain.views import IndexView, LoginView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 
@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('social_auth.urls')),
     url(r'^$', IndexView.as_view()),
+    url(r'^login/$', LoginView.as_view(), name="login"),
     url(r'^logout/$', 
         'django.contrib.auth.views.logout', 
         #{'template_name': 'accounts/logged_out.html'}
