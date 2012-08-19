@@ -73,10 +73,18 @@ function imposeMaxLength(Object, MaxLen)
 <div class="header-wrapper">
   <header class="main-header main-header-home">
     <nav class="header-nav">
-      <div class="logo">
-        <div class="home-link ">Pijyn</div>
-      </div>
-      <div class="actions"> <a href="" class="orange-button small-button signup-button">Sign Up</a> <a href="" class="primary-button small-button signin-button">&nbsp;Log In</a> </div>
+		<div class="logo">
+			<div class="home-link ">Pijyn</div>
+		</div>
+		<div class="actions">
+			{% if user.is_authenticated %}
+			<h2>Logged in as: {{ user }}</h2>
+			<a href="{% url account_logout %}" class="orange-button small-button signup-button">Sign Up</a>
+			{% else %}
+			<a href="{% url account_signup %}" class="orange-button small-button signup-button">Sign Up</a>
+			<a href="{% url account_login %}" class="primary-button small-button signin-button">&nbsp;Log In</a> 
+			{% endif %}
+		</div>
     </nav>
   </header>
 </div>
