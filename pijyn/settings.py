@@ -124,7 +124,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 	'django_bcrypt',
     'south',
-    'complain',
+    'creditdispute',
 	'bootstrap_toolkit',
 )
 

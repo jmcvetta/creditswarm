@@ -2,8 +2,8 @@ from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
-from complain.views import LoginView
-from complain.views import home_view
+from creditdispute.views import LoginView
+from creditdispute.views import home_view
 
 admin.autodiscover()
 
