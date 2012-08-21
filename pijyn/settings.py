@@ -1,4 +1,4 @@
-# Django settings for creditdispute project.
+# Django settings for pijyn project.
 
 import dj_database_url
 import os
@@ -99,10 +99,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'creditdispute.urls'
+ROOT_URLCONF = 'pijyn.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'creditdispute.wsgi.application'
+WSGI_APPLICATION = 'pijyn.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".

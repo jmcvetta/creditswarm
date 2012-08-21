@@ -1,1 +1,1 @@
-web: gunicorn creditdispute.wsgi -b 0.0.0.0:$PORT
+web: gunicorn pijyn.wsgi -b 0.0.0.0:$PORT
