@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'south',
     'complain',
+	'django_bcrypt',
 )
 
 # A sample logging configuration. The only tangible logging
