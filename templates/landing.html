@@ -1,3 +1,4 @@
+{% load url from future %}
 </head>
 <body style="display: block;" class="locale-en locale-en-US country-US public homepage laptop has-hero-section">
 <section class="inverted-section nav-drawer">
@@ -29,7 +30,7 @@
       <div class="logo">
         <div class="home-link ">Pijyn</div>
       </div>
-      <div class="actions"> <a href="" class="orange-button small-button signup-button">Sign Up</a> <a href="" class="primary-button small-button signin-button">&nbsp;Log In</a> </div>
+      <div class="actions"> <a href="{% url "login" %}" class="orange-button small-button signup-button">Sign Up</a> <a href="{% url "login" %}" class="primary-button small-button signin-button">&nbsp;Log In</a> </div>
     </nav>
   </header>
 </div>
@@ -62,7 +63,7 @@
             </div>
           </form>
         </div>
-        <i style="background-image: url('laptop-bg.jpg');"class="pijyn-bg"></i> <i style="background-image: url('ipad-bg.jpg');" class="register-bg"></i> <i style="background-image: url('{{ STATIC_URL }}img/laptop.png');" class="pijyn-fg"></i> <i class="glass"></i> <i style="background-image: url('ipad.png');" class="register-fg"></i> <i class="glass"></i> </div>
+        <i style="background-image: url('{{ STATIC_URL}}img/laptop-bg.jpg');"class="pijyn-bg"></i> <i style="background-image: url('{{ STATIC_URL}}img/ipad-bg.jpg');" class="register-bg"></i> <i style="background-image: url('{{ STATIC_URL }}img/laptop.png');" class="pijyn-fg"></i> <i class="glass"></i> <i style="background-image: url('{{ STATIC_URL}}img/ipad.png');" class="register-fg"></i> <i class="glass"></i> </div>
     </div>
   </section>
 </div>
