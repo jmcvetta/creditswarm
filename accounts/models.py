@@ -7,12 +7,14 @@ from django.contrib.localflavor.us.models import USPostalCodeField
 
 class UserProfile(models.Model):  
     user = models.OneToOneField(User)  
-    address1 = models.CharField(max_length=255, blank=False)
+    address1 = models.CharField(max_length=255, blank=False, null=False)
     address2 = models.CharField(max_length=255, blank=True, null=True)
     city = models.CharField(max_length=255, blank=False)
     state = USPostalCodeField(blank=False)
     zip = models.CharField(max_length=5, blank=False)
     
+# Do we really want to handle profile creation with a signal?  Will that even
+# work with mandatory fields?
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)

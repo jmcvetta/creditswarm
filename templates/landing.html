@@ -1,3 +1,4 @@
+{% load url from future %}
 <!DOCTYPE html>
 <html lang="en" class=" js no-touch csstransforms csstransforms3d csstransitions fontface video audio">
 <head>
@@ -35,7 +36,7 @@
       <div class="logo">
         <div class="home-link ">Pijyn</div>
       </div>
-      <div class="actions"> <a href="" class="orange-button small-button signup-button">Sign Up</a> <a href="" class="primary-button small-button signin-button">&nbsp;Log In</a> </div>
+      <div class="actions"> <a href="" class="orange-button small-button signup-button">Sign Up</a> <a href="{% url "login" %}" class="primary-button small-button signin-button">&nbsp;Log In</a> </div>
     </nav>
   </header>
 </div>

@@ -1,5 +1,4 @@
 {% load url from future %}
-{% if user.is_authenticated %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}">
 	<head>
@@ -13,6 +12,7 @@
 		</title>
 	</head>
 	<body>
+		{% block navigation %}
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container">
@@ -37,12 +37,14 @@
 				</div>
 			</div>
 		</div>
+		{% endblock %}
 		<div class="container">
 
 			{% block content %}
 			Content goes here.
 			{% endblock %}
 
+			{% block footer %}
 			<hr/>
 			<footer class="footer">
 				  <div class="pull-right">
@@ -58,13 +60,9 @@
 				  <p class="copyright">© 2012 Pijyn Inc. All rights reserved.</p>
 			  </nav>
 			</footer>
+			{% endblock %}
 		</div><!-- /container -->
 	</body>
 
 
 </html>
-{% else %}
-
-{% include "landing.html" %}
-
-{% endif %}
