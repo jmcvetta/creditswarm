@@ -1,7 +1,9 @@
 from django.conf.urls import patterns, include, url
-from complain.views import IndexView, LoginView
+from django.core.urlresolvers import reverse
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
+from complain.views import LoginView
+from complain.views import home_view
 
 admin.autodiscover()
 
@@ -16,12 +18,11 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('social_auth.urls')),
-    url(r'^$', IndexView.as_view()),
+    url(r'^$', home_view, name='home'),
     url(r'^login/$', LoginView.as_view(), name="login"),
     url(r'^logout/$', 
         'django.contrib.auth.views.logout', 
-        #{'template_name': 'accounts/logged_out.html'}
-        {'template_name': 'index.html'},
+        { 'next_page': '/' },
         name='logout',
         ),
 	url(r'^accounts/', include('registration.backends.default.urls')),

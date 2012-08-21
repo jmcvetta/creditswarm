@@ -4,24 +4,11 @@
 		<link href="{{ STATIC_URL }}css/styles.css" rel="stylesheet" type="text/css" media="all">
 {% endblock %}
 
-{% block navigation %}
-{% endblock %}
 
-{% block footer %}
-{% endblock %}
 
 {% block content %}
 
-{% if user.is_authenticated %}
-
 <b>Account summary goes here</b>
 
-{% else %}
-
-
-{% include "landing.html" %}
-
-{% endif %}
-
-
 {% endblock %}
+
