@@ -122,9 +122,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+	'django_bcrypt',
     'south',
     'complain',
-	'django_bcrypt',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -174,35 +174,45 @@ EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
 # django-social-auth
 #
 #-------------------------------------------------------------------------------
-#
-#INSTALLED_APPS += (
-#	'social_auth', 
-#)
-#
-#AUTHENTICATION_BACKENDS = (
-#    'django.contrib.auth.backends.ModelBackend',
-#    'social_auth.backends.google.GoogleBackend',
-#    'social_auth.backends.facebook.FacebookBackend',
-#    )
-#
-#GOOGLE_OAUTH2_CLIENT_ID      = os.getenv('GOOGLE_OAUTH2_CLIENT_ID')
-#GOOGLE_OAUTH2_CLIENT_SECRET  = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET')
-#FACEBOOK_APP_ID              = os.getenv('FACEBOOK_APP_ID')
-#FACEBOOK_API_SECRET          = os.getenv('FACEBOOK_API_SECRET')
-#
-#LOGIN_URL          = '/login-form/'
-#LOGIN_REDIRECT_URL = '/'
-#LOGIN_ERROR_URL    = '/login-error/'
-#
-##SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
-##SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
-#
-#SOCIAL_AUTH_DEFAULT_USERNAME = 'pijyn_user'
-#
-##SOCIAL_AUTH_EXPIRATION = 'expires'
-#
+
+INSTALLED_APPS += (
+	'social_auth', 
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_auth.backends.google.GoogleBackend',
+    'social_auth.backends.facebook.FacebookBackend',
+    )
+
+GOOGLE_OAUTH2_CLIENT_ID      = os.getenv('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET  = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET')
+FACEBOOK_APP_ID              = os.getenv('FACEBOOK_APP_ID')
+FACEBOOK_API_SECRET          = os.getenv('FACEBOOK_API_SECRET')
+
+LOGIN_URL          = '/login-form/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL    = '/login-error/'
+
+#SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
+#SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
+
+SOCIAL_AUTH_DEFAULT_USERNAME = 'pijyn_user'
+
+#SOCIAL_AUTH_EXPIRATION = 'expires'
 
 
+#-------------------------------------------------------------------------------
+#
+# django-registration
+#
+#-------------------------------------------------------------------------------
+
+INSTALLED_APPS += (
+	'registration', 
+)
+
+ACCOUNT_ACTIVATION_DAYS = 14 
 
 
 #-------------------------------------------------------------------------------

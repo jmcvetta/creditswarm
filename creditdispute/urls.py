@@ -24,6 +24,7 @@ urlpatterns = patterns('',
         {'template_name': 'index.html'},
         name='logout',
         ),
+	url(r'^accounts/', include('registration.backends.default.urls')),
 
 )
 
