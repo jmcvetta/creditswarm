@@ -1,4 +1,5 @@
 {% load url from future %}
+{% if user.is_authenticated %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}">
 	<head>
@@ -62,3 +63,8 @@
 
 
 </html>
+{% else %}
+
+{% include "landing.html" %}
+
+{% endif %}
