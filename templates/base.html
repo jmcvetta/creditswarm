@@ -1,70 +1,118 @@
 {% load url from future %}
 {% block completehtml %}
+
+
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:"en-us" }}">
-	<head>
-		<link href="{{ STATIC_URL }}/css/bootstrap.css" rel="stylesheet">
-		<link href="{{ STATIC_URL }}/css/bootstrap-responsive.css" rel="stylesheet">
-		{% block extracss %}
+<!-- saved from url=(0066)http://twitter.github.com/bootstrap/examples/starter-template.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+	{% block navigation %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+		  <a class="brand" href="/">Pijyn - File credit disputes online for free</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+				{% if user.is_authenticated %}
+				<li>
+				<a href="#">Logged in: {{ user }}</a>
+				</li>
+				<li>
+				<a href="{% url "logout" %}">Logout</a>
+				</li>
+				{% else %}
+				<li>
+				<a href="{% url "login" %}">Login</a>
+				</li>
+				<li>
+				<a href="{% url "login" %}">Sign Up</a>
+				</li>
+				{% endif %}
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+	{% endblock %}
+
+    <div class="container">
+
+		{% block content %}
+		Content goes here.
 		{% endblock %}
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>
-			{% block title %}Pijyn - File credit disputes online for free{% endblock %}
-		</title>
-	</head>
-	<body>
-		{% block navigation %}
-		<div class="navbar">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="brand" href="/">Pijyn - File credit disputes online for free</a>
-					<ul class="nav pull-right">
-						{% if user.is_authenticated %}
-						<li>
-							<a href="#">Logged in: {{ user }}</a>
-						</li>
-						<li>
-							<a href="{% url "logout" %}">Logout</a>
-						</li>
-						{% else %}
-						<li>
-							<a href="{% url "login" %}">Login</a>
-						</li>
-						<li>
-							<a href="{% url "login" %}">Sign Up</a>
-						</li>
-						{% endif %}
-					</ul>
-				</div>
-			</div>
+
+		{% block footer %}
+		<hr/>
+		<footer class="footer">
+		<div class="pull-right">
+		<a class="twitter"><a href="https://twitter.com/pijyn">Twitter</a></li>
+		<a class="tumblr"><a href="http://www.tumblr.com/blog/pijyntalk">Tumblr</a></li>
+		<a class="fb"><a href="http://www.facebook.com/pijyn">Facebook</a></li>
+		<a class="rss"><a href="services.html">RSS Feed</a></li>
 		</div>
+		<a href="https://pijynup.com/news">What is Pijyn?</a></li>
+		<a href="https://pijynup.com/testimonials">How it works</a></li>
+		<a href="https://pijynup.com/pricing">Disclosures</a></li>
+		<a href="https://pijynup.com/security">Contact</a></li>
+		<p class="copyright">© 2012 Pijyn Inc. All rights reserved.</p>
+		</nav>
+		</footer>
 		{% endblock %}
-		<div class="container">
 
-			{% block content %}
-			Content goes here.
-			{% endblock %}
+    </div> <!-- /container -->
 
-			{% block footer %}
-			<hr/>
-			<footer class="footer">
-				  <div class="pull-right">
-					  <a class="twitter"><a href="https://twitter.com/pijyn">Twitter</a></li>
-					  <a class="tumblr"><a href="http://www.tumblr.com/blog/pijyntalk">Tumblr</a></li>
-					  <a class="fb"><a href="http://www.facebook.com/pijyn">Facebook</a></li>
-					  <a class="rss"><a href="services.html">RSS Feed</a></li>
-				  </div>
-				  <a href="https://pijynup.com/news">What is Pijyn?</a></li>
-				  <a href="https://pijynup.com/testimonials">How it works</a></li>
-				  <a href="https://pijynup.com/pricing">Disclosures</a></li>
-				  <a href="https://pijynup.com/security">Contact</a></li>
-				  <p class="copyright">© 2012 Pijyn Inc. All rights reserved.</p>
-			  </nav>
-			</footer>
-			{% endblock %}
-		</div><!-- /container -->
-	</body>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./bootstrap_files/jquery.js"></script>
+    <script src="./bootstrap_files/bootstrap-transition.js"></script>
+    <script src="./bootstrap_files/bootstrap-alert.js"></script>
+    <script src="./bootstrap_files/bootstrap-modal.js"></script>
+    <script src="./bootstrap_files/bootstrap-dropdown.js"></script>
+    <script src="./bootstrap_files/bootstrap-scrollspy.js"></script>
+    <script src="./bootstrap_files/bootstrap-tab.js"></script>
+    <script src="./bootstrap_files/bootstrap-tooltip.js"></script>
+    <script src="./bootstrap_files/bootstrap-popover.js"></script>
+    <script src="./bootstrap_files/bootstrap-button.js"></script>
+    <script src="./bootstrap_files/bootstrap-collapse.js"></script>
+    <script src="./bootstrap_files/bootstrap-carousel.js"></script>
+    <script src="./bootstrap_files/bootstrap-typeahead.js"></script>
 
+  
 
-</html>
+</body><link rel="stylesheet" type="text/css" href="data:text/css,"></html>
 {% endblock %}
