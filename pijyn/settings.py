@@ -125,6 +125,7 @@ INSTALLED_APPS = (
 	'django_bcrypt',
     'south',
     'complain',
+	'bootstrap_toolkit',
 )
 
 # A sample logging configuration. The only tangible logging
