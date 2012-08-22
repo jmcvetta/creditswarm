@@ -124,8 +124,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 	'django_bcrypt',
     'south',
-    'creditdispute',
 	'bootstrap_toolkit',
+    'accounts',
+    'creditdispute',
 )
 
 # A sample logging configuration. The only tangible logging
