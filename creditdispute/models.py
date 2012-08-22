@@ -1,3 +1,6 @@
+# Copyright (c) 2012 Jason McVetta.  This is Free Software, released under the
+# terms of the AGPL v3.  See www.gnu.org/licenses/agpl-3.0.html for details.
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -26,7 +29,7 @@ ACCT_DISPUTE_REASON_CHOICES = [
     ('other', 'Other'),
     ]
 
-WRONG_INFO_TYPE_CHOICES = [
+BAD_INFO_TYPE_CHOICES = [
     ('name', 'Name'),
     ('dob', 'Date of Birth'),
     ('employer', 'Employer'),
@@ -53,8 +56,8 @@ class CreditReport(models.Model):
 
 class Inquiry(models.Model):
     '''
-    What is this?  Is it tied to a user in general, or only to a specific 
-    credit report, or...?
+    What is this?  An inquiry about what?  Is it tied to a user in general, or 
+    only to a specific credit report, or...?
     '''
     inquiry_company_name = models.CharField(max_length=128, blank=True, null=True)
     inquiry_date = models.DateField(blank=True, null=True)
@@ -62,18 +65,24 @@ class Inquiry(models.Model):
 
 class Detail(models.Model):
     '''
-    A disputed item on a credit report
+    A disputed account detail
     '''
     report = models.ForeignKey(CreditReport, blank=False)
-    #
-    # Disputed Account
-    # - This should be split into a separate model with a M2M relationship
-    #
     company_name = models.CharField(max_length=128, blank=True, null=True)
     account_number = models.CharField(max_length=128, blank=True, null=True)
     reason = models.CharField(max_length=32, blank=True, null=True, 
         choices=ACCT_DISPUTE_REASON_CHOICES)
     other_reason = models.TextField(blank=True, null=True)
+
+
+class BadInfo(models.Model):
+    '''
+    Bad demographic info
+    '''
+    report = models.ForeignKey(CreditReport, blank=False)
+    problem = models.CharField(max_length=32, blank=True, null=True, 
+        choices=BAD_INFO_TYPE_CHOICES)
+    explanation = models.TextField(blank=True, null=True)
 
 
 class Dispute(models.Model):
@@ -86,9 +95,3 @@ class Dispute(models.Model):
     ts_updated = models.DateTimeField(auto_now=True, blank=False, 
         verbose_name='Updated Timestamp')
     status = models.CharField(max_length=3, blank=False, choices=STATUS_CHOICES)
-    #
-    # Wrong Info
-    #
-    wrong_info_type = models.CharField(max_length=32, blank=True, null=True, 
-        choices=WRONG_INFO_TYPE_CHOICES)
-    wrong_info_explain = models.TextField(blank=True, null=True)
