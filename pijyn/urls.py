@@ -7,6 +7,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 from creditdispute.views import LoginView
 from creditdispute.views import home_view
+from creditdispute.views import dispute_wizard_view
 
 admin.autodiscover()
 
@@ -29,6 +30,10 @@ urlpatterns = patterns('',
         name='logout',
         ),
 	url(r'^accounts/', include('registration.backends.default.urls')),
+    #
+    # creditdispute module
+    #
+    url(r'^dispute/new/$', dispute_wizard_view, name='new_dispute'),
 
 )
 

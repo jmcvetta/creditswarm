@@ -17,7 +17,7 @@ CRA_CHOICES = [
     ('tu', 'TransUnion'),
     ]
 
-ACCT_DISPUTE_REASON_CHOICES = [
+DETAIL_REASON_CHOICES = [
     ('unknown_acct', 'Unknown Account'),
     ('not_mine', 'Not Mine'),
     ('on_time', 'Paid On Time'),
@@ -71,7 +71,7 @@ class Detail(models.Model):
     company_name = models.CharField(max_length=128, blank=True, null=True)
     account_number = models.CharField(max_length=128, blank=True, null=True)
     reason = models.CharField(max_length=32, blank=True, null=True, 
-        choices=ACCT_DISPUTE_REASON_CHOICES)
+        choices=DETAIL_REASON_CHOICES)
     other_reason = models.TextField(blank=True, null=True)
 
 
