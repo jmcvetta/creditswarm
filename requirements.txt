@@ -6,7 +6,7 @@ dj_database_url
 pillow
 #django-allauth
 gunicorn
-#django-social-auth
+django-social-auth
 django-bcrypt
 django-registration
 django-bootstrap-toolkit
