@@ -9,4 +9,5 @@ gunicorn
 django-social-auth
 django-bcrypt
 django-registration
-django-bootstrap-toolkit
+django-bootstrap-form
+docutils
