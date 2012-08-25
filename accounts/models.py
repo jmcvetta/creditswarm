@@ -23,11 +23,3 @@ class UserProfile(models.Model):
     zip = models.CharField(max_length=128)
     date_of_birth = models.DateField()
     ssn = models.CharField(max_length=128)
-    
-# Do we really want to handle profile creation with a signal?  Will that even
-# work with mandatory fields?
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-post_save.connect(create_user_profile, sender=User)
