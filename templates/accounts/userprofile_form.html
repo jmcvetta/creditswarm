@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block extracss %} 
+<link href="{{ STATIC_URL }}/css/datepicker.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block extrascript %} 
+<script src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
+<script>
+	$(function(){
+		$('#id_date_of_birth').datepicker({
+			format: 'yyyy-mm-dd'
+		});
+	})
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+<form class="form-horizontal" method="POST">
+	{% csrf_token %}
+	<legend>
+		Personal Information
+	</legend>
+	{{ form|bootstrap }}
+	<input type="submit" value="Sumbit" />
+</form>
+
+
+{% endblock %}
+
