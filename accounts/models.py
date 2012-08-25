@@ -15,15 +15,15 @@ class UserProfile(models.Model):
     # Personal Info 
     # - use encrypted fields before running in production!
     #
-    given_name = models.CharField(max_length=128)
-    family_name = models.CharField(max_length=128)
+    given_name = models.CharField(max_length=128, verbose_name='Given Name')
+    family_name = models.CharField(max_length=128, verbose_name='Famile Name')
     address1 = models.CharField(max_length=128, verbose_name='Address 1')
     address2 = models.CharField(max_length=128, null=True, blank=True, verbose_name="Address 2")
     city = models.CharField(max_length=128)
     state = models.CharField(max_length=128)
-    zip = models.CharField(max_length=128)
-    date_of_birth = models.DateField()
-    ssn = models.CharField(max_length=128)
+    zip = models.CharField(max_length=128, verbose_name='Zip Code')
+    date_of_birth = models.DateField(verbose_name='Date of Birth')
+    ssn = models.CharField(max_length=128, verbose_name='Social Security Number')
 
 def profile_required(method):
     '''
