@@ -127,7 +127,7 @@ INSTALLED_APPS = (
     'south',
 	'bootstrap_toolkit',
     'accounts',
-    'creditdispute',
+    'dispute',
 )
 
 # A sample logging configuration. The only tangible logging

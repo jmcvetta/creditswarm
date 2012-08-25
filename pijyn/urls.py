@@ -5,9 +5,9 @@ from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
-from creditdispute.views import LoginView
-from creditdispute.views import home_view
-from creditdispute.views import dispute_wizard_view
+from dispute.views import LoginView
+from dispute.views import home_view
+from dispute.views import dispute_wizard_view
 
 admin.autodiscover()
 
@@ -31,7 +31,7 @@ urlpatterns = patterns('',
         ),
 	url(r'^accounts/', include('registration.backends.default.urls')),
     #
-    # creditdispute module
+    # 'dispute' module
     #
     url(r'^dispute/new/$', dispute_wizard_view, name='new_dispute'),
 

@@ -7,9 +7,9 @@ from django.views.generic import TemplateView
 from django.views.generic import ListView
 from django.contrib.formtools.wizard.views import SessionWizardView
 
-from creditdispute.models import Dispute
-from creditdispute.forms import CreditReportForm
-from creditdispute.forms import DetailFormSet
+from dispute.models import Dispute
+from dispute.forms import CreditReportForm
+from dispute.forms import DetailFormSet
 
 
 class LoginView(TemplateView):
@@ -29,6 +29,9 @@ class DisputeListView(ListView):
         return Dispute.objects.filter(user=self.request.user)
 
 class DisputeWizard(SessionWizardView):
+    
+    template_name = 'dispute/dispute_wizard.html'
+    
     def done(self, form_list, **kwargs):
         #do_something_with_the_form_data(form_list)
         for form in form_list:

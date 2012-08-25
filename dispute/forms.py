@@ -5,8 +5,8 @@ from django import forms
 from django.forms import widgets
 from django.forms.formsets import formset_factory
 
-from creditdispute.models import CRA_CHOICES
-from creditdispute.models import DETAIL_REASON_CHOICES
+from dispute.models import CRA_CHOICES
+from dispute.models import DETAIL_REASON_CHOICES
 
 class CreditReportForm(forms.Form):
     cra = forms.ChoiceField(choices=CRA_CHOICES, required=True,
@@ -20,4 +20,4 @@ class DetailForm(forms.Form):
     reason = forms.ChoiceField(choices=DETAIL_REASON_CHOICES, required=True)
     other_reason = forms.CharField(widget=widgets.Textarea, required=False)
 
-DetailFormSet = formset_factory(DetailForm)
+DetailFormSet = formset_factory(DetailForm, extra=2)
