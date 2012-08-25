@@ -9,19 +9,20 @@ from django.contrib.localflavor.us.models import USPostalCodeField
 
 
 class UserProfile(models.Model):  
+    user = models.OneToOneField(User)
     #
     # Personal Info 
     # - use encrypted fields before running in production!
     #
-    given_name = models.CharField(max_length=128, blank=False)
-    family_name = models.CharField(max_length=128, blank=False)
-    address1 = models.CharField(max_length=128, blank=False)
-    address2 = models.CharField(max_length=128, blank=True, null=True)
-    city = models.CharField(max_length=128, blank=False)
-    state = models.CharField(max_length=128, blank=False)
-    zip = models.CharField(max_length=128, blank=False)
-    date_of_birth = models.DateField(blank=False)
-    ssn = models.CharField(max_length=128, blank=False)
+    given_name = models.CharField(max_length=128)
+    family_name = models.CharField(max_length=128)
+    address1 = models.CharField(max_length=128)
+    address2 = models.CharField(max_length=128)
+    city = models.CharField(max_length=128)
+    state = models.CharField(max_length=128)
+    zip = models.CharField(max_length=128)
+    date_of_birth = models.DateField()
+    ssn = models.CharField(max_length=128)
     
 # Do we really want to handle profile creation with a signal?  Will that even
 # work with mandatory fields?
