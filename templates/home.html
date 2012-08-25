@@ -1,14 +1,39 @@
 {% extends "base.html" %}
-
-{% block extracss %}
-		<link href="{{ STATIC_URL }}css/styles.css" rel="stylesheet" type="text/css" media="all">
-{% endblock %}
-
-
+{% load url from future %}
 
 {% block content %}
 
-<b>Account summary goes here</b>
+<p>
+	<a class="btn btn-primary" href="{% url "new_dispute" %}">File New Dispute</a>
+</p>
+
+<hr />
+
+<h2>Disputes on File</h2>
+{% if object_list %}
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Dispute #</td>
+			<td>Last Updated</td>
+			<td>Bureau</td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for dispute in object_list %}
+		<tr>
+			<td>{{ dispute.pk }}</td>
+			<td>{{ dispute.ts_updated }}</td>
+			<td>{{ dispute.get_bureau_display }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+<p>
+	You have not filed any disputes.
+</p>
+{% endif %}
 
 {% endblock %}
 

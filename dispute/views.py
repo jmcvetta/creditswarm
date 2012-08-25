@@ -24,9 +24,11 @@ def home_view(request):
 
 class DisputeListView(ListView):
     model = Dispute
+    template_name = 'home.html'
     
     def get_queryset(self):
         return Dispute.objects.filter(user=self.request.user)
+
 
 class DisputeWizard(SessionWizardView):
     
