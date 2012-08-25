@@ -1,4 +1,4 @@
-django
+django >= 1.4
 psycopg2
 south
 ipython
