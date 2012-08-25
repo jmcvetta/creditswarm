@@ -35,6 +35,6 @@ def profile_required(method):
         try:
             request.user.get_profile()
         except UserProfile.DoesNotExist:
-            return HttpResponseRedirect(reverse('new_profile'))
+            return HttpResponseRedirect(reverse('edit_profile'))
         return method(request, *args, **kwargs)
     return wrapper
