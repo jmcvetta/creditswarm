@@ -1,7 +1,25 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block extracss %} 
+<link href="{{ STATIC_URL }}/css/datepicker.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block extrascript %} 
+<script src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
+<script>
+	$(function(){
+		$('#id_0-date_of_birth').datepicker({
+			format: 'yyyy-mm-dd'
+		});
+	})
+</script>
+{% endblock %}
+
+
 {% block head %}
+<!-- wizard.form.media --> 
 {{ wizard.form.media }}
 {% endblock %}
 
@@ -12,7 +30,7 @@
 {{ wizard.management_form }}
 {% if wizard.form.forms %}
     {{ wizard.form.management_form }}
-    {% for form in wizard.form.forms %}
+    {% for form in wizard.form %}
 		{{ form.management_form }}
         {{ form }}
     {% endfor %}
@@ -24,6 +42,6 @@
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
 {% endif %}
-<input type="submit" value="{% trans "submit" %}"/>
+<input type="submit" value="{% trans "Next" %}"/>
 </form>
 {% endblock %}

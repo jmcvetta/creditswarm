@@ -8,7 +8,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 from accounts.models import UserProfile
 from accounts.views import UserProfileView
-from accounts.models import profile_required
+from accounts.views import profile_required
 from dispute.views import LoginView
 from dispute.views import home_view
 from dispute.views import dispute_wizard_view
@@ -44,7 +44,7 @@ urlpatterns = patterns('',
     #
     # 'dispute' module
     #
-    url(r'^dispute/new/$', profile_required(dispute_wizard_view), name='new_dispute'),
+    url(r'^dispute/new/$', dispute_wizard_view, name='new_dispute'),
 
 )
 

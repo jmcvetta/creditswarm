@@ -7,8 +7,12 @@ from django.views.generic import TemplateView
 from django.views.generic import ListView
 from django.contrib.formtools.wizard.views import SessionWizardView
 
+from accounts.models import UserProfile
+from accounts.forms import UserProfileForm
+
 from dispute.models import Dispute
-from dispute.forms import CreditReportForm
+from dispute.forms import DisputeForm
+from dispute.forms import CreditReportFormSet
 from dispute.forms import DetailFormSet
 
 
@@ -39,8 +43,22 @@ class DisputeWizard(SessionWizardView):
         for form in form_list:
             print form.cleaned_data # FIXME: this is useless debug output
         return HttpResponseRedirect('/') # FIXME: redirect somewhere sensible
+    
 
-dispute_wizard_view = DisputeWizard.as_view([
-    CreditReportForm,
-    DetailFormSet,
-    ])
+def dispute_wizard_view(request):
+    instance_dict = {}
+    try:
+        profile = request.user.get_profile()
+        instance_dict[0] = profile
+    except UserProfile.DoesNotExist:
+        pass
+    print instance_dict
+    return DisputeWizard.as_view(
+        [
+            UserProfileForm,
+            DisputeForm,
+            CreditReportFormSet,
+            DetailFormSet,
+            ],
+        instance_dict = instance_dict,
+        )(request)

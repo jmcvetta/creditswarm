@@ -1,23 +1,35 @@
-from django.forms import ModelForm
+# Copyright (c) 2012 Jason McVetta.  This is Free Software, released under the
+# terms of the AGPL v3.  See www.gnu.org/licenses/agpl-3.0.html for details.
+
+from functools import wraps
+
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.views.generic.edit import FormView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import CreateView
-from django.contrib.localflavor.us.forms import USSocialSecurityNumberField
-from django.contrib.localflavor.us.forms import USStateField
-from django.contrib.localflavor.us.forms import USStateSelect
-from django.contrib.localflavor.us.forms import USZipCodeField
+from django.contrib import messages
 
 from accounts.models import UserProfile
+from accounts.forms import UserProfileForm
 
 
-class UserProfileForm(ModelForm):
-    class Meta:
-        model = UserProfile
-        exclude = ['user']
-    
-    ssn = USSocialSecurityNumberField(required=True)
-    state = USStateField(required=True, widget=USStateSelect)
-    zip = USZipCodeField(required=False)
+def profile_required(method):
+    '''
+    Decorator that redirects user to profile creation page if they 
+    do not have a user profile.
+    '''
+    @wraps(method)
+    def wrapper(request, *args, **kwargs):
+        try:
+            request.user.get_profile()
+        except UserProfile.DoesNotExist:
+            
+            messages.add_message(request, messages.INFO, 'Hello world.')
+            return HttpResponseRedirect(reverse('edit_profile'))
+        return method(request, *args, **kwargs)
+    return wrapper
+
 
 class UserProfileView(UpdateView):
     '''

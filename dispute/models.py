@@ -38,17 +38,29 @@ BAD_INFO_TYPE_CHOICES = [
     ('phone', 'Telephone'),
     ]
 
+class Dispute(models.Model):
+    '''
+    A credit report dispute
+    '''
+    user = models.ForeignKey(User)
+    ts_created = models.DateTimeField(auto_now_add=True,
+        verbose_name='Created Timestamp')
+    ts_updated = models.DateTimeField(auto_now=True,
+        verbose_name='Updated Timestamp')
+    status = models.CharField(max_length=3, choices=STATUS_CHOICES)
+
+
 class CreditReport(models.Model):
     '''
     A credit report, furnished by a Credit Reporting Agency
     '''
-    user = models.ForeignKey(User, blank=False)
+    dispute = models.ForeignKey(Dispute)
     cra = models.CharField(max_length=128, blank=False, choices=CRA_CHOICES, 
         verbose_name='Credit Reporting Agency')
     report_number = models.CharField(max_length=128, blank=False)
     
     class Meta:
-        unique_together = ['user', 'cra', 'report_number']
+        unique_together = ['dispute', 'cra', 'report_number']
     
     def __str__(self):
         return '%s:%s' % (self.get_cra_display().lower(), self.report_number)
@@ -59,6 +71,7 @@ class Inquiry(models.Model):
     What is this?  An inquiry about what?  Is it tied to a user in general, or 
     only to a specific credit report, or...?
     '''
+    dispute = models.ForeignKey(Dispute) # Maybe should be attached to CreditReport?
     inquiry_company_name = models.CharField(max_length=128, blank=True, null=True)
     inquiry_date = models.DateField(blank=True, null=True)
 
@@ -67,7 +80,7 @@ class Detail(models.Model):
     '''
     A disputed account detail
     '''
-    report = models.ForeignKey(CreditReport, blank=False)
+    dispute = models.ForeignKey(Dispute)
     company_name = models.CharField(max_length=128, blank=True, null=True)
     account_number = models.CharField(max_length=128, blank=True, null=True)
     reason = models.CharField(max_length=32, blank=True, null=True, 
@@ -84,14 +97,3 @@ class BadInfo(models.Model):
         choices=BAD_INFO_TYPE_CHOICES)
     explanation = models.TextField(blank=True, null=True)
 
-
-class Dispute(models.Model):
-    '''
-    A credit report dispute
-    '''
-    user = models.ForeignKey(User, blank=False)
-    ts_created = models.DateTimeField(auto_now_add=True, blank=False, 
-        verbose_name='Created Timestamp')
-    ts_updated = models.DateTimeField(auto_now=True, blank=False, 
-        verbose_name='Updated Timestamp')
-    status = models.CharField(max_length=3, blank=False, choices=STATUS_CHOICES)
