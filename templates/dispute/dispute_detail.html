@@ -12,7 +12,7 @@
 		Status: {{ object.get_status_display }}
 	</li>
 	<li>
-		Credit Reporting Agency: {{ object.cra }}
+		Credit Reporting Agency: {{ object.get_cra_display }}
 	</li>
 	
 	{% if object.problem %}
