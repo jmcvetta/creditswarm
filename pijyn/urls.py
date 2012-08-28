@@ -10,7 +10,9 @@ from accounts.views import UserProfileView
 from dispute.views import LoginView
 from dispute.views import DisputeCreateView
 from dispute.views import DisputeDetailView
+from dispute.views import DisputeUpdateView
 from dispute.views import DisputeDeleteView
+from dispute.views import dispute_submit
 from dispute.views import home_view
 #from dispute.views import dispute_wizard_view
 
@@ -47,7 +49,9 @@ urlpatterns = patterns('',
     #
     url(r'^dispute/new/$', DisputeCreateView.as_view(), name='dispute-new'),
     url(r'^dispute/(?P<pk>\d+)/$', DisputeDetailView.as_view(), name='dispute-detail'),
+    url(r'^dispute/(?P<pk>\d+)/edit/$', DisputeUpdateView.as_view(), name='dispute-edit'),
     url(r'^dispute/(?P<pk>\d+)/delete/$', DisputeDeleteView.as_view(), name='dispute-delete'),
+    url(r'^dispute/(?P<pk>\d+)/submit/$', dispute_submit, name='dispute-submit'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

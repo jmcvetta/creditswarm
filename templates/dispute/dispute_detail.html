@@ -51,4 +51,18 @@
 	{% endif %}
 </ul>
 
+{% if object.status == "D" %}
+<p>
+	<a href="{% url "dispute-submit" object.pk %}" class="btn btn-primary">
+		<i class="icon-ok"></i> Confirm and Submit Dispute
+	</a>
+	<a href="{% url "dispute-edit" object.pk %}" class="btn">
+		Edit Dispute
+	</a>
+	<a href="{% url "dispute-delete" object.pk %}" class="btn btn-danger">
+		<i class="icon-trash"></i> Delete
+	</a>
+</p>
+{% endif %}
+
 {% endblock %}

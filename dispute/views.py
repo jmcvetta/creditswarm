@@ -2,21 +2,35 @@
 # terms of the AGPL v3.  See www.gnu.org/licenses/agpl-3.0.html for details.
 
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.views.generic import ListView
 from django.views.generic import CreateView
 from django.views.generic import DetailView
+from django.views.generic import UpdateView
 from django.views.generic import DeleteView
+from django.core.urlresolvers import reverse
 from django.contrib.formtools.wizard.views import SessionWizardView
+from django.contrib import messages
 
 from accounts.models import UserProfile
 # from accounts.forms import UserProfileForm
-
 from dispute.models import Dispute
 from dispute.forms import DisputeForm
 from dispute.forms import CreditReportFormSet
 from dispute.forms import DetailFormSet
+
+
+class OwnershipError(RuntimeError):
+    '''
+    You do not own the requested object.
+    '''
+
+class StatusError(RuntimeError):
+    '''
+    Wrong status for requested action.
+    '''
 
 
 class OwnedSingleObjectMixin(object):
@@ -30,8 +44,17 @@ class OwnedSingleObjectMixin(object):
         if obj.user == self.request.user:
             return obj
         else:
-            raise RuntimeError('You do not own the requested object.')
+            raise OwnershipError('You do not own the requested object.')
 
+class DraftMixin(OwnedSingleObjectMixin):
+    '''
+    '''
+    def get_object(self, queryset=None):
+        obj = super(DraftMixin, self).get_object(queryset=queryset)
+        if not obj.status == 'D':
+            raise StatusError('Requested action can only be performed on objects with Draft status.')
+        return obj
+           
 
 class LoginView(TemplateView):
     template_name = 'login.html'
@@ -58,11 +81,35 @@ class DisputeCreateView(CreateView):
         form.instance.user = self.request.user
         return super(DisputeCreateView, self).form_valid(form)
 
+
 class DisputeDetailView(OwnedSingleObjectMixin, DetailView):
     model = Dispute
 
-class DisputeDeleteView(OwnedSingleObjectMixin, DeleteView):
+
+class DisputeUpdateView(DraftMixin, UpdateView):
     model = Dispute
+    form_class = DisputeForm
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(DisputeUpdateView, self).form_valid(form)
+
+
+class DisputeDeleteView(DraftMixin, DeleteView):
+    model = Dispute
+    success_url = '/'
+
+
+def dispute_submit(request, pk):
+    d = get_object_or_404(Dispute, pk=pk)
+    if not d.user == request.user:
+        raise OwnershipError('You do not own the requested object.')
+    if not d.status == 'D':
+        raise RuntimeError('Can only submit disputes that are in Draft status.')
+    d.status = 'Q' # Queued for send
+    d.save()
+    messages.add_message(request, messages.INFO, 'Dispute #%s was queued for submission.' % d.pk)
+    return HttpResponseRedirect(reverse('home'))
 
 
 class DisputeWizard(SessionWizardView):
