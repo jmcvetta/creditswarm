@@ -4,7 +4,7 @@
 {% block content %}
 
 <p>
-	<a class="btn btn-primary" href="{% url "new_dispute" %}">File New Dispute</a>
+	<a class="btn btn-primary" href="{% url "dispute-new" %}">File New Dispute</a>
 </p>
 
 <hr />
@@ -17,14 +17,26 @@
 			<td>Dispute #</td>
 			<td>Last Updated</td>
 			<td>Bureau</td>
+			<td>Submitted</td>
 		</tr>
 	</thead>
 	<tbody>
 		{% for dispute in object_list %}
 		<tr>
-			<td>{{ dispute.pk }}</td>
+			<td>
+				<a href="{% url "dispute-detail" dispute.pk %}">
+					Dispute #{{ dispute.pk }}
+				</a>
+			</td>
 			<td>{{ dispute.ts_updated }}</td>
-			<td>{{ dispute.get_bureau_display }}</td>
+			<td>{{ dispute.get_cra_display }}</td>
+			<td>
+				{% if dispute.status = "D" %}
+				<i class="icon-minus-sign"></i> No
+				{% else %}
+				<i class="icon-ok-sign"></i> Yes
+				{% endif %}
+			</td>
 		</tr>
 		{% endfor %}
 	</tbody>

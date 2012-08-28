@@ -2,16 +2,16 @@
 # terms of the AGPL v3.  See www.gnu.org/licenses/agpl-3.0.html for details.
 
 from django.conf.urls import patterns, include, url
-from django.core.urlresolvers import reverse
-from django.views.generic.edit import CreateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 from accounts.models import UserProfile
 from accounts.views import UserProfileView
-from accounts.views import profile_required
+#from accounts.views import profile_required
 from dispute.views import LoginView
+from dispute.views import DisputeCreateView
+from dispute.views import DisputeDetailView
 from dispute.views import home_view
-from dispute.views import dispute_wizard_view
+#from dispute.views import dispute_wizard_view
 
 admin.autodiscover()
 
@@ -39,13 +39,13 @@ urlpatterns = patterns('',
 	url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^accounts/profile/edit$', 
         UserProfileView.as_view(),
-        name='edit_profile',
+        name='profile-edit',
         ),
     #
     # 'dispute' module
     #
-    url(r'^dispute/new/$', dispute_wizard_view, name='new_dispute'),
-
+    url(r'^dispute/new/$', DisputeCreateView.as_view(), name='dispute-new'),
+    url(r'^dispute/(?P<pk>\d+)/$', DisputeDetailView.as_view(), name='dispute-detail'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

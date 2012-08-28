@@ -2,6 +2,7 @@
 # terms of the AGPL v3.  See www.gnu.org/licenses/agpl-3.0.html for details.
 
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 STATUS_CHOICES = [
@@ -47,7 +48,35 @@ class Dispute(models.Model):
         verbose_name='Created Timestamp')
     ts_updated = models.DateTimeField(auto_now=True,
         verbose_name='Updated Timestamp')
-    status = models.CharField(max_length=3, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='D')
+    #
+    # Credit Report
+    #
+    cra = models.CharField(max_length=128, choices=CRA_CHOICES, 
+        verbose_name='Credit Reporting Agency')
+    report_number = models.CharField(max_length=128)
+    #
+    # Bad Info
+    #
+    problem = models.CharField(max_length=32, blank=True, null=True, 
+        choices=BAD_INFO_TYPE_CHOICES)
+    explanation = models.TextField(blank=True, null=True)
+    #
+    # Inquiry
+    #
+    inquiry_company_name = models.CharField(max_length=128, blank=True, null=True)
+    inquiry_date = models.DateField(blank=True, null=True)
+    #
+    # Detail
+    #
+    company_name = models.CharField(max_length=128, blank=True, null=True)
+    account_number = models.CharField(max_length=128, blank=True, null=True)
+    reason = models.CharField(max_length=32, blank=True, null=True, 
+        choices=DETAIL_REASON_CHOICES)
+    other_reason = models.TextField(blank=True, null=True)
+    
+    def get_absolute_url(self):
+        return reverse('dispute-detail', kwargs={'pk': self.pk})
 
 
 class CreditReport(models.Model):

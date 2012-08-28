@@ -5,15 +5,19 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.views.generic import ListView
+from django.views.generic import CreateView
+from django.views.generic import DetailView
 from django.contrib.formtools.wizard.views import SessionWizardView
 
 from accounts.models import UserProfile
-from accounts.forms import UserProfileForm
+# from accounts.forms import UserProfileForm
 
 from dispute.models import Dispute
 from dispute.forms import DisputeForm
 from dispute.forms import CreditReportFormSet
 from dispute.forms import DetailFormSet
+
+
 
 
 class LoginView(TemplateView):
@@ -32,6 +36,17 @@ class DisputeListView(ListView):
     
     def get_queryset(self):
         return Dispute.objects.filter(user=self.request.user)
+
+class DisputeCreateView(CreateView):
+    model = Dispute
+    form_class = DisputeForm
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(DisputeCreateView, self).form_valid(form)
+
+class DisputeDetailView(DetailView):
+    model = Dispute
 
 
 class DisputeWizard(SessionWizardView):

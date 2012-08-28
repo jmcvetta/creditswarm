@@ -17,7 +17,7 @@ from dispute.models import Inquiry
 class DisputeForm(forms.ModelForm):
     class Meta:
         model = Dispute
-        exclude = ['user']
+        exclude = ['user', 'status']
 
 BadInfoFormSet = inlineformset_factory(CreditReport, BadInfo)
 
