@@ -10,7 +10,7 @@ from dispute.models import CRA_CHOICES
 from dispute.models import DETAIL_REASON_CHOICES
 from dispute.models import Dispute
 from dispute.models import BadInfo
-from dispute.models import Detail
+from dispute.models import Account
 from dispute.models import Inquiry
 
 class DisputeForm(forms.ModelForm):
@@ -18,7 +18,7 @@ class DisputeForm(forms.ModelForm):
         model = Dispute
         exclude = ['user', 'status']
 
-class DetailForm(forms.ModelForm):
+class AccountForm(forms.ModelForm):
     class Meta:
-        model = Detail
+        model = Account
         exclude = ['dispute']

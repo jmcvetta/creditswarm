@@ -28,7 +28,7 @@
 	<input type="submit" class="btn btn-primary" value="Save" />
 	{% if object %}
 	<a href="{% url "dispute-detail" object.pk %}" class="btn">Cancel</a>
-	<a href="{% url "detail-delete" object.pk %}" class="btn btn-danger">
+	<a href="{% url "account-delete" object.pk %}" class="btn btn-danger">
 		Delete
 	</a>
 	{% endif %}

@@ -15,9 +15,9 @@ from django.contrib.formtools.wizard.views import SessionWizardView
 from django.contrib import messages
 
 from dispute.models import Dispute
-from dispute.models import Detail
+from dispute.models import Account
 from dispute.forms import DisputeForm
-from dispute.forms import DetailForm
+from dispute.forms import AccountForm
 
 
 #-------------------------------------------------------------------------------
@@ -131,39 +131,37 @@ def dispute_submit(request, pk):
 
 #-------------------------------------------------------------------------------
 #
-# Detail Views
+# Account Views
 #
 #-------------------------------------------------------------------------------
 
-class DetailCreateView(CreateView):
-    model = Detail
-    form_class = DetailForm
+class AccountCreateView(CreateView):
+    model = Account
+    form_class = AccountForm
     
     def form_valid(self, form):
         dispute_pk = self.kwargs.get('dispute_pk', None)
         d = Dispute.objects.get(pk=dispute_pk)
         form.instance.dispute = d
-        return super(DetailCreateView, self).form_valid(form)
+        return super(AccountCreateView, self).form_valid(form)
     
     def get_success_url(self):
         dispute_pk = self.kwargs.get('dispute_pk', None)
         return reverse('dispute-detail', kwargs={'pk': dispute_pk})
 
-class DetailUpdateView(UpdateView):
-    model = Detail
-    form_class = DetailForm
+class AccountUpdateView(UpdateView):
+    model = Account
+    form_class = AccountForm
     
     def get_success_url(self):
         dispute_pk = self.get_object().dispute.pk
         return reverse('dispute-detail', kwargs={'pk': dispute_pk})
     
-class DetailDeleteView(DeleteView):
-    model = Detail
+class AccountDeleteView(DeleteView):
+    model = Account
     
     def get_success_url(self):
         dispute_pk = self.get_object().dispute.pk
         return reverse('dispute-detail', kwargs={'pk': dispute_pk})
     
 
-def detail_create(request, dispute_pk):
-    pass

@@ -28,10 +28,10 @@
 <hr />
 
 <h2>
-	Details
+	Account Details
 </h2>
 
-{% if object.detail_set.all %}
+{% if object.account_set.all %}
 <p>
 	<i>Click to Edit</i>
 </p>
@@ -40,10 +40,10 @@
 	<thead>
 		<tr>
 			<th>
-				Company
+				Creditor
 			</th>
 			<th>
-				Account
+				Account Number
 			</th>
 			<th>
 				Reason
@@ -51,18 +51,18 @@
 		</tr>
 	</thead>
 	<tbody>
-	{% for detail in object.detail_set.all %}
+	{% for account in object.account_set.all %}
 		<tr>
 			<td>
-				<a href="{% url "detail-edit" detail.pk %}">
-					{{ detail.company_name }}
+				<a href="{% url "account-edit" account.pk %}">
+					{{ account.creditor }}
 				</a>
 			</td>
 			<td>
-				{{ detail.account_number }}
+				{{ account.account_number }}
 			</td>
 			<td>
-				{{ detail.get_reason_display }}
+				{{ account.get_reason_display }}
 			</td>
 		</tr>
 	{% endfor %}
@@ -71,21 +71,21 @@
 
 {% else %}
 <p>
-	<strong>No details added yet.</strong>
+	<strong>No account details added yet.</strong>
 </p>
 {% endif %}
 
 <p>
-	<a href="{% url "detail-new" object.pk %}" class="btn">
-		Add new detail...
+	<a href="{% url "account-new" object.pk %}" class="btn">
+		Add new account...
 	</a>
 </p>
 
 <hr />
 
-{% if not object.detail_set.all %}
+{% if not object.account_set.all %}
 <p>
-	<i>You must add at least one detail before sumbitting your dispute.</i>
+	<i>You must add at least one account detail before sumbitting your dispute.</i>
 </p>
 {% endif %}
 

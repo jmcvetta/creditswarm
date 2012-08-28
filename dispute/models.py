@@ -64,31 +64,37 @@ class Dispute(models.Model):
     
     def __str__(self):
         return '#%s' % self.pk
+    
+    def ready_to_submit(self):
+        '''
+        Returns True if this Dispute has enough information attached that it
+        is ready to submit.
+        '''
+        return False
 
 
 class Inquiry(models.Model):
     '''
-    What is this?  An inquiry about what?  Is it tied to a user in general, or 
-    only to a specific credit report, or...?
+    A disputed credit score inquiry
     '''
     dispute = models.ForeignKey(Dispute) # Maybe should be attached to CreditReport?
     inquiry_company_name = models.CharField(max_length=128, blank=True, null=True)
     inquiry_date = models.DateField(blank=True, null=True)
 
 
-class Detail(models.Model):
+class Account(models.Model):
     '''
     A disputed account detail
     '''
     dispute = models.ForeignKey(Dispute)
-    company_name = models.CharField(max_length=128)
+    creditor = models.CharField(max_length=128, help_text='Name of creditor company')
     account_number = models.CharField(max_length=128)
-    reason = models.CharField(max_length=32,
-        choices=DETAIL_REASON_CHOICES)
-    Explanation = models.TextField(blank=True, null=True)
+    reason = models.CharField(max_length=32, choices=DETAIL_REASON_CHOICES, 
+        help_text='Reason you are disputing this account')
+    explanation = models.TextField(blank=True, null=True)
     
     class Meta:
-        unique_together = ['dispute', 'company_name', 'account_number']
+        unique_together = ['dispute', 'creditor', 'account_number']
 
 
 class BadInfo(models.Model):

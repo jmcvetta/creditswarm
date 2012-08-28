@@ -17,10 +17,9 @@ from dispute.views import DisputeUpdateView
 from dispute.views import DisputeDeleteView
 from dispute.views import dispute_submit
 #
-from dispute.views import DetailCreateView
-from dispute.views import detail_create
-from dispute.views import DetailUpdateView
-from dispute.views import DetailDeleteView
+from dispute.views import AccountCreateView
+from dispute.views import AccountUpdateView
+from dispute.views import AccountDeleteView
 
 admin.autodiscover()
 
@@ -59,11 +58,11 @@ urlpatterns = patterns('',
     url(r'^dispute/(?P<pk>\d+)/delete/$', DisputeDeleteView.as_view(), name='dispute-delete'),
     url(r'^dispute/(?P<pk>\d+)/submit/$', dispute_submit, name='dispute-submit'),
     #
-    # Detail
+    # Account
     #
-    url(r'^dispute/(?P<dispute_pk>\d+)/detail/new/$', DetailCreateView.as_view(), name='detail-new'),
-    url(r'^detail/(?P<pk>\d+)/edit/$', DetailUpdateView.as_view(), name='detail-edit'),
-    url(r'^detail/(?P<pk>\d+)/delete/$', DetailDeleteView.as_view(), name='detail-delete'),
+    url(r'^dispute/(?P<dispute_pk>\d+)/account/new/$', AccountCreateView.as_view(), name='account-new'),
+    url(r'^account/(?P<pk>\d+)/edit/$', AccountUpdateView.as_view(), name='account-edit'),
+    url(r'^account/(?P<pk>\d+)/delete/$', AccountDeleteView.as_view(), name='account-delete'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

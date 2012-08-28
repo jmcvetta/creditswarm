@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+
+<p>
+	Are you sure you want to delete this account?
+</p>
+
+<ul>
+	<li>
+		Creditor Name: {{ object.creditor }}
+	</li>
+	<li>
+		Account Number: {{ object.account_number }}
+	</li>
+	<li>
+		Reason: {{ object.get_reason_display }}
+	</li>
+	<li>
+		Explanation: {{ object.explanation }}
+	</li>
+</ul>
+
+<form method="POST">
+	{% csrf_token %}
+	<input type="submit" class="btn btn-danger" value="Yes, Delete It!" />
+	<a href="{% url "dispute-detail" object.pk %}" class="btn">
+		Cancel
+	</a>
+</form>
+
+{% endblock %}
