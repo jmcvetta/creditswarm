@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from django.views.generic import ListView
 from django.views.generic import CreateView
 from django.views.generic import DetailView
+from django.views.generic import DeleteView
 from django.contrib.formtools.wizard.views import SessionWizardView
 
 from accounts.models import UserProfile
@@ -18,6 +19,18 @@ from dispute.forms import CreditReportFormSet
 from dispute.forms import DetailFormSet
 
 
+class OwnedSingleObjectMixin(object):
+    '''
+    Overrides SingleObjectMixin.get_object() to ensure the current user owns
+    the requested object.
+    '''
+    
+    def get_object(self, queryset=None):
+        obj = super(OwnedSingleObjectMixin, self).get_object(queryset=queryset)
+        if obj.user == self.request.user:
+            return obj
+        else:
+            raise RuntimeError('You do not own the requested object.')
 
 
 class LoginView(TemplateView):
@@ -45,7 +58,10 @@ class DisputeCreateView(CreateView):
         form.instance.user = self.request.user
         return super(DisputeCreateView, self).form_valid(form)
 
-class DisputeDetailView(DetailView):
+class DisputeDetailView(OwnedSingleObjectMixin, DetailView):
+    model = Dispute
+
+class DisputeDeleteView(OwnedSingleObjectMixin, DeleteView):
     model = Dispute
 
 
