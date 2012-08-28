@@ -160,8 +160,7 @@ class AccountUpdateView(UpdateView):
 class AccountDeleteView(DeleteView):
     model = Account
     
-    def get_success_url(self):
+    def delete(self, request, *args, **kwargs):
         dispute_pk = self.get_object().dispute.pk
-        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
-    
-
+        self.success_url = reverse('dispute-detail', kwargs={'pk': dispute_pk})
+        return super(AccountDeleteView, self).delete(request, *args, **kwargs)
