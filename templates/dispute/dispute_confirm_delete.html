@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+
+<p>
+	Are you sure you want to delete Dispute #{{ object.pk }}?
+</p>
+
+<form method="POST">
+	{% csrf_token %}
+	<input type="submit" class="btn btn-danger" value="Yes, Delete It!" />
+	<a href="{% url "dispute-detail" object.pk %}" class="btn">
+		Cancel
+	</a>
+</form>
+
+{% endblock %}
