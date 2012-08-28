@@ -77,6 +77,9 @@ class Dispute(models.Model):
     
     def get_absolute_url(self):
         return reverse('dispute-detail', kwargs={'pk': self.pk})
+    
+    class Meta:
+        ordering = ['-ts_updated']
 
 
 class CreditReport(models.Model):
