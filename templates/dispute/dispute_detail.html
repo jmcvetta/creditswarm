@@ -3,9 +3,9 @@
 
 {% block content %}
 
-<h2>
+<h1>
 	Dispute #{{ object.pk }}
-</h2>
+</h1>
 
 <ul>
 	<li>
@@ -16,41 +16,85 @@
 		{{ object.get_status_display }}
 	</li>
 	<li>
-		Credit Reporting Agency: {{ object.get_cra_display }}
-	</li>
-	
-	<li>
-		Problem Type: {{ object.get_problem_display }}
+		Credit Reporting Agency: {{ object.get_agency_display }}
 	</li>
 	<li>
-		Problem Explanation: {{ object.explanation }}
+		Credit Report Number: {{ object.report_number }}
 	</li>
-	
-	<li>
-		Inquiry Company Name: {{ object.inquiry_company_name }}
-	</li>
-	<li>
-		Inquiry Date: {{ object.inquiry_date }}
-	</li>
-	
-	<li>
-		Detail Company Name: {{ object.company_name }}
-	</li>
-	<li>
-		Detail Account Number: {{ object.account_number }}
-	</li>
-	<li>
-		Detail Reason: {{ object.get_reason_display }}
-	</li>
-	<li>
-		Detail Other Reason: {{ object.other_reason }}
-	</li>
-	
 </ul>
 
 {% if object.status == "D" %}
+
+<hr />
+
+<h2>
+	Details
+</h2>
+
+{% if object.detail_set.all %}
 <p>
+	<i>Click to Edit</i>
+</p>
+
+<table class="table table-striped" data-provides="rowlink">
+	<thead>
+		<tr>
+			<th>
+				Company
+			</th>
+			<th>
+				Account
+			</th>
+			<th>
+				Reason
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for detail in object.detail_set.all %}
+		<tr>
+			<td>
+				<a href="{% url "detail-edit" detail.pk %}">
+					{{ detail.company_name }}
+				</a>
+			</td>
+			<td>
+				{{ detail.account_number }}
+			</td>
+			<td>
+				{{ detail.get_reason_display }}
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+{% else %}
+<p>
+	<strong>No details added yet.</strong>
+</p>
+{% endif %}
+
+<p>
+	<a href="{% url "detail-new" object.pk %}" class="btn">
+		Add new detail...
+	</a>
+</p>
+
+<hr />
+
+{% if not object.detail_set.all %}
+<p>
+	<i>You must add at least one detail before sumbitting your dispute.</i>
+</p>
+{% endif %}
+
+<p>
+	{% if object.ready_to_submit %}
 	<a href="{% url "dispute-submit" object.pk %}" class="btn btn-primary">
+	{% else %}
+	<a href="#" class="btn btn-primary disabled">
+	{% endif %}
 		<i class="icon-ok"></i> Confirm and Submit Dispute
 	</a>
 	<a href="{% url "dispute-edit" object.pk %}" class="btn">

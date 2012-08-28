@@ -14,13 +14,17 @@ from django.core.urlresolvers import reverse
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.contrib import messages
 
-from accounts.models import UserProfile
-from accounts.forms import UserProfileForm
 from dispute.models import Dispute
+from dispute.models import Detail
 from dispute.forms import DisputeForm
-from dispute.forms import CreditReportFormSet
-from dispute.forms import DetailFormSet
+from dispute.forms import DetailForm
 
+
+#-------------------------------------------------------------------------------
+#
+# Mixins & Exceptions
+#
+#-------------------------------------------------------------------------------
 
 class OwnershipError(RuntimeError):
     '''
@@ -54,7 +58,13 @@ class DraftMixin(OwnedSingleObjectMixin):
         if not obj.status == 'D':
             raise StatusError('Requested action can only be performed on objects with Draft status.')
         return obj
+
            
+#-------------------------------------------------------------------------------
+#
+# Home & Account Views
+#
+#-------------------------------------------------------------------------------
 
 class LoginView(TemplateView):
     template_name = 'login.html'
@@ -66,12 +76,19 @@ def home_view(request):
     else:
         return render(request, 'landing.html')
 
+#-------------------------------------------------------------------------------
+#
+# Dispute Views
+#
+#-------------------------------------------------------------------------------
+
 class DisputeListView(ListView):
     model = Dispute
     template_name = 'home.html'
     
     def get_queryset(self):
         return Dispute.objects.filter(user=self.request.user)
+
 
 class DisputeCreateView(CreateView):
     model = Dispute
@@ -112,31 +129,41 @@ def dispute_submit(request, pk):
     return HttpResponseRedirect(reverse('home'))
 
 
-class DisputeWizard(SessionWizardView):
+#-------------------------------------------------------------------------------
+#
+# Detail Views
+#
+#-------------------------------------------------------------------------------
+
+class DetailCreateView(CreateView):
+    model = Detail
+    form_class = DetailForm
     
-    template_name = 'dispute/dispute_wizard.html'
+    def form_valid(self, form):
+        dispute_pk = self.kwargs.get('dispute_pk', None)
+        d = Dispute.objects.get(pk=dispute_pk)
+        form.instance.dispute = d
+        return super(DetailCreateView, self).form_valid(form)
     
-    def done(self, form_list, **kwargs):
-        #do_something_with_the_form_data(form_list)
-        for form in form_list:
-            print form.cleaned_data # FIXME: this is useless debug output
-        return HttpResponseRedirect('/') # FIXME: redirect somewhere sensible
+    def get_success_url(self):
+        dispute_pk = self.kwargs.get('dispute_pk', None)
+        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
+
+class DetailUpdateView(UpdateView):
+    model = Detail
+    form_class = DetailForm
+    
+    def get_success_url(self):
+        dispute_pk = self.get_object().dispute.pk
+        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
+    
+class DetailDeleteView(DeleteView):
+    model = Detail
+    
+    def get_success_url(self):
+        dispute_pk = self.get_object().dispute.pk
+        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
     
 
-def dispute_wizard_view(request):
-    instance_dict = {}
-    try:
-        profile = request.user.get_profile()
-        instance_dict[0] = profile
-    except UserProfile.DoesNotExist:
-        pass
-    print instance_dict
-    return DisputeWizard.as_view(
-        [
-            UserProfileForm,
-            DisputeForm,
-            CreditReportFormSet,
-            DetailFormSet,
-            ],
-        instance_dict = instance_dict,
-        )(request)
+def detail_create(request, dispute_pk):
+    pass

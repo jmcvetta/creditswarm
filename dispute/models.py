@@ -52,50 +52,18 @@ class Dispute(models.Model):
     #
     # Credit Report
     #
-    cra = models.CharField(max_length=128, choices=CRA_CHOICES, 
+    agency = models.CharField(max_length=128, choices=CRA_CHOICES, 
         verbose_name='Credit Reporting Agency')
     report_number = models.CharField(max_length=128)
-    #
-    # Bad Info
-    #
-    problem = models.CharField(max_length=32, blank=True, null=True, 
-        choices=BAD_INFO_TYPE_CHOICES)
-    explanation = models.TextField(blank=True, null=True)
-    #
-    # Inquiry
-    #
-    inquiry_company_name = models.CharField(max_length=128, blank=True, null=True)
-    inquiry_date = models.DateField(blank=True, null=True)
-    #
-    # Detail
-    #
-    company_name = models.CharField(max_length=128, blank=True, null=True)
-    account_number = models.CharField(max_length=128, blank=True, null=True)
-    reason = models.CharField(max_length=32, blank=True, null=True, 
-        choices=DETAIL_REASON_CHOICES)
-    other_reason = models.TextField(blank=True, null=True)
     
     def get_absolute_url(self):
         return reverse('dispute-detail', kwargs={'pk': self.pk})
     
     class Meta:
         ordering = ['-ts_updated']
-
-
-class CreditReport(models.Model):
-    '''
-    A credit report, furnished by a Credit Reporting Agency
-    '''
-    dispute = models.ForeignKey(Dispute)
-    cra = models.CharField(max_length=128, blank=False, choices=CRA_CHOICES, 
-        verbose_name='Credit Reporting Agency')
-    report_number = models.CharField(max_length=128, blank=False)
-    
-    class Meta:
-        unique_together = ['dispute', 'cra', 'report_number']
     
     def __str__(self):
-        return '%s:%s' % (self.get_cra_display().lower(), self.report_number)
+        return '#%s' % self.pk
 
 
 class Inquiry(models.Model):
@@ -113,18 +81,21 @@ class Detail(models.Model):
     A disputed account detail
     '''
     dispute = models.ForeignKey(Dispute)
-    company_name = models.CharField(max_length=128, blank=True, null=True)
-    account_number = models.CharField(max_length=128, blank=True, null=True)
-    reason = models.CharField(max_length=32, blank=True, null=True, 
+    company_name = models.CharField(max_length=128)
+    account_number = models.CharField(max_length=128)
+    reason = models.CharField(max_length=32,
         choices=DETAIL_REASON_CHOICES)
-    other_reason = models.TextField(blank=True, null=True)
+    Explanation = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        unique_together = ['dispute', 'company_name', 'account_number']
 
 
 class BadInfo(models.Model):
     '''
     Bad demographic info
     '''
-    report = models.ForeignKey(CreditReport, blank=False)
+    dispute = models.ForeignKey(Dispute)
     problem = models.CharField(max_length=32, blank=True, null=True, 
         choices=BAD_INFO_TYPE_CHOICES)
     explanation = models.TextField(blank=True, null=True)

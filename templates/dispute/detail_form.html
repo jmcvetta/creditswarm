@@ -21,11 +21,17 @@
 
 {% block content %}
 
+{{ object }}
 <form method="post" class="form-horizontal">
 	{% csrf_token %}
 	{{ form|bootstrap }}
-	<input type="submit" class="btn btn-primary" value="Save and Add Detail" />
-	<a href="{% url "home" %}" class="btn">Cancel</a>
+	<input type="submit" class="btn btn-primary" value="Save" />
+	{% if object %}
+	<a href="{% url "dispute-detail" object.pk %}" class="btn">Cancel</a>
+	<a href="{% url "detail-delete" object.pk %}" class="btn btn-danger">
+		Delete
+	</a>
+	{% endif %}
 </form>
 
 {% endblock %}
