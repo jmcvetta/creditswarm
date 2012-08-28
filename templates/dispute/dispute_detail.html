@@ -9,31 +9,30 @@
 
 <ul>
 	<li>
-		Status: {{ object.get_status_display }}
+		Status: 
+		{% if not object.status == "D" %}
+		<i class="icon-ok-sign"></i>
+		{% endif %}
+		{{ object.get_status_display }}
 	</li>
 	<li>
 		Credit Reporting Agency: {{ object.get_cra_display }}
 	</li>
 	
-	{% if object.problem %}
 	<li>
 		Problem Type: {{ object.get_problem_display }}
 	</li>
 	<li>
 		Problem Explanation: {{ object.explanation }}
 	</li>
-	{% endif %}
 	
-	{% if object.inquiry_company_name %}
 	<li>
 		Inquiry Company Name: {{ object.inquiry_company_name }}
 	</li>
 	<li>
 		Inquiry Date: {{ object.inquiry_date }}
 	</li>
-	{% endif %}
 	
-	{% if object.company_name %}
 	<li>
 		Detail Company Name: {{ object.company_name }}
 	</li>
@@ -43,12 +42,10 @@
 	<li>
 		Detail Reason: {{ object.get_reason_display }}
 	</li>
-		{% if object.other_reason %}
-		<li>
-			Detail Other Reason: {{ object.other_reason }}
-		</li>
-		{% endif %}
-	{% endif %}
+	<li>
+		Detail Other Reason: {{ object.other_reason }}
+	</li>
+	
 </ul>
 
 {% if object.status == "D" %}
