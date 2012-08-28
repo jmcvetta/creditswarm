@@ -15,7 +15,7 @@ from django.contrib.formtools.wizard.views import SessionWizardView
 from django.contrib import messages
 
 from accounts.models import UserProfile
-# from accounts.forms import UserProfileForm
+from accounts.forms import UserProfileForm
 from dispute.models import Dispute
 from dispute.forms import DisputeForm
 from dispute.forms import CreditReportFormSet
