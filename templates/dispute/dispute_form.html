@@ -24,7 +24,8 @@
 <form method="post" class="form-horizontal">
 	{% csrf_token %}
 	{{ form|bootstrap }}
-	<input type="submit" value="Review and Submit" />
+	<input type="submit" class="btn btn-primary" value="Review and Submit" />
+	<a href="{% url "home" %}" class="btn">Cancel</a>
 </form>
 
 {% endblock %}
