@@ -3,12 +3,6 @@
 
 {% block content %}
 
-<p>
-	<a class="btn btn-primary" href="{% url "dispute-new" %}">File New Dispute</a>
-</p>
-
-<hr />
-
 <h2>Disputes on File</h2>
 {% if object_list %}
 <table class="table table-striped" data-provides="rowlink">
@@ -48,6 +42,13 @@
 	You have not filed any disputes.
 </p>
 {% endif %}
+
+<hr />
+
+<p>
+	<a class="btn btn-primary" href="{% url "dispute-new" %}">File New Dispute</a>
+</p>
+
 
 {% endblock %}
 
