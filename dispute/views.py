@@ -22,7 +22,7 @@ from dispute.forms import AccountForm
 
 #-------------------------------------------------------------------------------
 #
-# Mixins & Exceptions
+# Mixins, Generic Views, & Exceptions
 #
 #-------------------------------------------------------------------------------
 
@@ -45,7 +45,13 @@ class OwnedSingleObjectMixin(object):
     
     def get_object(self, queryset=None):
         obj = super(OwnedSingleObjectMixin, self).get_object(queryset=queryset)
-        if obj.user == self.request.user:
+        if hasattr(obj, 'user'):
+            user = obj.user
+        elif hasattr(obj, 'dispute'):
+            user = obj.dispute.user
+        else:
+            user = None # WTF?
+        if user == self.request.user:
             return obj
         else:
             raise OwnershipError('You do not own the requested object.')
@@ -55,9 +61,59 @@ class DraftMixin(OwnedSingleObjectMixin):
     '''
     def get_object(self, queryset=None):
         obj = super(DraftMixin, self).get_object(queryset=queryset)
-        if not obj.status == 'D':
+        if hasattr(obj, 'status'):
+            status = obj.status
+        elif hasattr(obj, 'dispute'):
+            status = obj.dispute.status
+        else:
+            status = None # WTF?
+        if not status == 'D':
             raise StatusError('Requested action can only be performed on objects with Draft status.')
         return obj
+
+class DisputeChildCreateView(CreateView):
+    
+    def __get_dispute_from_kwargs(self):
+        dispute_pk = self.kwargs.get('dispute_pk', None)
+        return Dispute.objects.get(pk=dispute_pk)
+    
+    def get(self, request, *args, **kwargs):
+        d = self.__get_dispute_from_kwargs()
+        if not d.user == self.request.user:
+            raise OwnershipError('You do not own the requested object.')
+        if not d.status == 'D':
+            raise StatusError('Requested action can only be performed on objects with Draft status.')
+        return super(DisputeChildCreateView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        d = self.__get_dispute_from_kwargs()
+        if not d.user == self.request.user:
+            raise OwnershipError('You do not own the requested object.')
+        if not d.status == 'D':
+            raise StatusError('Requested action can only be performed on objects with Draft status.')
+        return super(DisputeChildCreateView, self).post(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        form.instance.dispute = self.__get_dispute_from_kwargs()
+        return super(DisputeChildCreateView, self).form_valid(form)
+    
+    def get_success_url(self):
+        dispute_pk = self.kwargs.get('dispute_pk', None)
+        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
+
+
+class DisputeChildUpdateView(DraftMixin, UpdateView):
+    
+    def get_success_url(self):
+        dispute_pk = self.get_object().dispute.pk
+        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
+    
+class DisputeChildDeleteView(DraftMixin, DeleteView):
+    
+    def delete(self, request, *args, **kwargs):
+        dispute_pk = self.get_object().dispute.pk
+        self.success_url = reverse('dispute-detail', kwargs={'pk': dispute_pk})
+        return super(DisputeChildDeleteView, self).delete(request, *args, **kwargs)
 
            
 #-------------------------------------------------------------------------------
@@ -135,32 +191,19 @@ def dispute_submit(request, pk):
 #
 #-------------------------------------------------------------------------------
 
-class AccountCreateView(CreateView):
+class AccountCreateView(DisputeChildCreateView):
     model = Account
     form_class = AccountForm
-    
-    def form_valid(self, form):
-        dispute_pk = self.kwargs.get('dispute_pk', None)
-        d = Dispute.objects.get(pk=dispute_pk)
-        form.instance.dispute = d
-        return super(AccountCreateView, self).form_valid(form)
-    
-    def get_success_url(self):
-        dispute_pk = self.kwargs.get('dispute_pk', None)
-        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
 
-class AccountUpdateView(UpdateView):
+class AccountUpdateView(DisputeChildUpdateView):
     model = Account
     form_class = AccountForm
     
-    def get_success_url(self):
-        dispute_pk = self.get_object().dispute.pk
-        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
-    
-class AccountDeleteView(DeleteView):
+class AccountDeleteView(DisputeChildDeleteView):
     model = Account
-    
-    def delete(self, request, *args, **kwargs):
-        dispute_pk = self.get_object().dispute.pk
-        self.success_url = reverse('dispute-detail', kwargs={'pk': dispute_pk})
-        return super(AccountDeleteView, self).delete(request, *args, **kwargs)
+
+#-------------------------------------------------------------------------------
+#
+# Inquiry Views
+#
+#-------------------------------------------------------------------------------
