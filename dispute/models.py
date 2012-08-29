@@ -1,6 +1,8 @@
 # Copyright (c) 2012 Jason McVetta.  This is Free Software, released under the
 # terms of the AGPL v3.  See www.gnu.org/licenses/agpl-3.0.html for details.
 
+import datetime
+#
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -49,6 +51,7 @@ class Dispute(models.Model):
         verbose_name='Created Timestamp')
     ts_updated = models.DateTimeField(auto_now=True,
         verbose_name='Updated Timestamp')
+    ts_submitted = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='D')
     #
     # Credit Report
@@ -83,14 +86,11 @@ class Inquiry(models.Model):
     A disputed credit score inquiry
     '''
     dispute = models.ForeignKey(Dispute) # Maybe should be attached to CreditReport?
-    company_name = models.CharField(max_length=128, blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
-    explanation = models.TextField(blank=True, null=True, 
+    company_name = models.CharField(max_length=128)
+    date = models.DateField(default=datetime.date.today)
+    explanation = models.TextField(blank=False, null=False, 
         help_text='Explain why this inquiry record is incorrect.')
     
-    class Meta:
-        unique_together = ['dispute', 'company_name', 'date']
-
 
 class Account(models.Model):
     '''
@@ -107,9 +107,6 @@ class Account(models.Model):
         upload_to='evidence',
         help_text='Upload document supporting your dispute.'
         )
-    
-    class Meta:
-        unique_together = ['dispute', 'creditor', 'account_number']
 
 
 class BadInfo(models.Model):

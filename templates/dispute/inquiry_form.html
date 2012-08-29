@@ -11,7 +11,7 @@
 <script src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
 <script>
 	$(function(){
-		$('#id_inquiry_date').datepicker({
+		$('#id_date').datepicker({
 			format: 'yyyy-mm-dd'
 		});
 	})
@@ -27,7 +27,7 @@
 	<input type="submit" class="btn btn-primary" value="Save" />
 	{% if object %}
 	<a href="{% url "dispute-detail" object.dispute.pk %}" class="btn">Cancel</a>
-	<a href="{% url "account-delete" object.pk %}" class="btn btn-danger">
+	<a href="{% url "inquiry-delete" object.pk %}" class="btn btn-danger">
 		Delete
 	</a>
 	{% endif %}

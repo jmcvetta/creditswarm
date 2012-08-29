@@ -2,23 +2,27 @@
 # terms of the AGPL v3.  See www.gnu.org/licenses/agpl-3.0.html for details.
 
 from django import forms
-from django.forms import widgets
-from django.forms.formsets import formset_factory
-from django.forms.models import inlineformset_factory
+from django.core.exceptions import ValidationError
 
-from dispute.models import CRA_CHOICES
-from dispute.models import DETAIL_REASON_CHOICES
 from dispute.models import Dispute
 from dispute.models import BadInfo
 from dispute.models import Account
 from dispute.models import Inquiry
 
+
 class DisputeForm(forms.ModelForm):
     class Meta:
         model = Dispute
-        exclude = ['user', 'status']
+        exclude = ['user', 'status', 'ts_submitted']
+
 
 class AccountForm(forms.ModelForm):
     class Meta:
         model = Account
+        exclude = ['dispute']
+
+
+class InquiryForm(forms.ModelForm):
+    class Meta:
+        model = Inquiry
         exclude = ['dispute']
