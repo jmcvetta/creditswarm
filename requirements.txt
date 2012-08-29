@@ -1,13 +1,14 @@
-django >= 1.4
-psycopg2
-south
-ipython
-dj_database_url
-pillow
-#django-allauth
-gunicorn
-django-social-auth
-django-bcrypt
-django-registration
-django-bootstrap-form
-docutils
+django >= 1.4              # Web application framework
+psycopg2                   # PostgreSQL driver
+south                      # Database migration service
+ipython                    # Interactive Python shell
+dj_database_url            # Get database URL from Heroku environment variables
+pillow                     # Heroku-compatible imaging library
+gunicorn                   # Production webserver
+django-social-auth         # Authenticate using social account
+django-bcrypt              # More secure password hashing
+django-registration        # User registration
+django-bootstrap-form      # Format Django forms to look nice with Twitter Bootstrap 
+docutils                   # Documentation utilities
+django-storages            # S3 storage for file attachments
+boto                       # Python interface to Amazon Web Services

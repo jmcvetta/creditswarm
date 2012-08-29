@@ -47,7 +47,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(PWD, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -220,53 +220,19 @@ ACCOUNT_ACTIVATION_DAYS = 14
 
 #-------------------------------------------------------------------------------
 #
-# allauth
+# django-storages
 #
 #-------------------------------------------------------------------------------
-#
-#TEMPLATE_CONTEXT_PROCESSORS = (
-#    # Default:
-#    "django.contrib.auth.context_processors.auth",
-#    "django.core.context_processors.debug",
-#    "django.core.context_processors.i18n",
-#    "django.core.context_processors.media",
-#    "django.core.context_processors.static",
-#    "django.core.context_processors.tz",
-#    "django.contrib.messages.context_processors.messages",
-#    # Allauth dependencies:
-#    "django.core.context_processors.request",
-#    "allauth.account.context_processors.account",
-#    "allauth.socialaccount.context_processors.socialaccount",
-#
-#    )
-#
-#AUTHENTICATION_BACKENDS = (
-#    'django.contrib.auth.backends.ModelBackend',
-#    "allauth.account.auth_backends.AuthenticationBackend", 
-#    )
-#
-#INSTALLED_APPS += (
-#    'allauth',
-#    'allauth.account',
-#    'allauth.socialaccount',
-#    #'allauth.socialaccount.providers.facebook',
-#    'allauth.socialaccount.providers.google',
-#    #'allauth.socialaccount.providers.github',
-#    #'allauth.socialaccount.providers.linkedin',
-#    #'allauth.socialaccount.providers.openid',
-#    #'allauth.socialaccount.providers.twitter',
-#    'emailconfirmation',
-#    )
-#
-#ACCOUNT_EMAIL_UNIQUE = False
-#
-#SOCIALACCOUNT_PROVIDERS = \
-#    { 'google':
-#        { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile'] } }
-#
-#
-#LOGIN_REDIRECT_URL = "/"
-#
-#ACCOUNT_EMAIL_REQUIRED = True
-#EMAIL_CONFIRMATION_DAYS = 14
+
+INSTALLED_APPS += (
+	'storages', 
+)
+
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'pijyn-attachments'
 

@@ -5,6 +5,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
+
 STATUS_CHOICES = [
     ('D', 'Draft'),
     ('Q', 'Queued for Send'),
@@ -78,8 +79,10 @@ class Inquiry(models.Model):
     A disputed credit score inquiry
     '''
     dispute = models.ForeignKey(Dispute) # Maybe should be attached to CreditReport?
-    inquiry_company_name = models.CharField(max_length=128, blank=True, null=True)
-    inquiry_date = models.DateField(blank=True, null=True)
+    company_name = models.CharField(max_length=128, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
+    explanation = models.TextField(blank=True, null=True, 
+        help_text='Explain why this inquiry record is incorrect.')
 
 
 class Account(models.Model):
@@ -91,7 +94,12 @@ class Account(models.Model):
     account_number = models.CharField(max_length=128)
     reason = models.CharField(max_length=32, choices=DETAIL_REASON_CHOICES, 
         help_text='Reason you are disputing this account')
-    explanation = models.TextField(blank=True, null=True)
+    explanation = models.TextField(blank=True, null=True, 
+        help_text='Explain why this account detail is incorrect.')
+    evidence = models.FileField(null=True, blank=True,
+        upload_to='evidence',
+        help_text='Upload document supporting your dispute.'
+        )
     
     class Meta:
         unique_together = ['dispute', 'creditor', 'account_number']
