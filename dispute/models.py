@@ -71,7 +71,11 @@ class Dispute(models.Model):
         Returns True if this Dispute has enough information attached that it
         is ready to submit.
         '''
-        return False
+        return bool(
+            self.account_set.all() 
+            or self.inquiry_set.all()
+            or self.badinfo_set.all()
+            )
 
 
 class Inquiry(models.Model):
