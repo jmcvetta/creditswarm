@@ -186,7 +186,7 @@ def dispute_submit(request, pk):
     d.status = 'Q' # Queued for send
     d.ts_submitted = timezone.now()
     d.save()
-    messages.add_message(request, messages.INFO, 'Dispute #%s was queued for submission.' % d.pk)
+    messages.add_message(request, messages.INFO, 'Dispute %s has been submitted.' % d)
     return HttpResponseRedirect(reverse('home'))
 
 
