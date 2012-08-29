@@ -64,7 +64,7 @@ class Dispute(models.Model):
         ordering = ['-ts_updated']
     
     def __str__(self):
-        return '#%s' % self.pk
+        return '%s: %s %s (%s)' % (self.pk, self.get_agency_display(), self.report_number, self.user)
     
     def ready_to_submit(self):
         '''
@@ -87,6 +87,9 @@ class Inquiry(models.Model):
     date = models.DateField(blank=True, null=True)
     explanation = models.TextField(blank=True, null=True, 
         help_text='Explain why this inquiry record is incorrect.')
+    
+    class Meta:
+        unique_together = ['dispute', 'company_name', 'date']
 
 
 class Account(models.Model):
