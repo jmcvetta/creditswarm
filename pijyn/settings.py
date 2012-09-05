@@ -3,6 +3,7 @@
 
 import dj_database_url
 import os
+from django.conf import global_settings
 
 PWD = os.getenv("PWD", "/app")
 
@@ -121,10 +122,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-	'django_bcrypt',
+    'django_bcrypt',
     'south',
-	'bootstrapform',
-    'accounts',
+    'bootstrapform',
     'dispute',
 )
 
@@ -179,11 +179,10 @@ EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
 #-------------------------------------------------------------------------------
 
 INSTALLED_APPS += (
-	'social_auth', 
+    'social_auth', 
 )
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
+AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + (
     'social_auth.backends.google.GoogleOAuth2Backend',
     'social_auth.backends.facebook.FacebookBackend',
     )
@@ -207,25 +206,12 @@ SOCIAL_AUTH_DEFAULT_USERNAME = 'pijyn_user'
 
 #-------------------------------------------------------------------------------
 #
-# django-registration
-#
-#-------------------------------------------------------------------------------
-
-INSTALLED_APPS += (
-	'registration', 
-)
-
-ACCOUNT_ACTIVATION_DAYS = 14 
-
-
-#-------------------------------------------------------------------------------
-#
 # django-storages
 #
 #-------------------------------------------------------------------------------
 
 INSTALLED_APPS += (
-	'storages', 
+    'storages', 
 )
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
@@ -235,4 +221,19 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'pijyn-attachments'
+
+
+#-------------------------------------------------------------------------------
+#
+# django-user-accounts
+#
+#-------------------------------------------------------------------------------
+
+INSTALLED_APPS += (
+    'account', 
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    "account.context_processors.account",
+)
 
