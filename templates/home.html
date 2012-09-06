@@ -11,7 +11,6 @@
 	<thead>
 		<tr>
 			<td>Dispute #</td>
-			<td>Last Updated</td>
 			<td>Credit Reporting Agency</td>
 			<td>Credit Report Number</td>
 			<td>Submitted</td>
@@ -25,7 +24,6 @@
 					{{ dispute.pk }}
 				</a>
 			</td>
-			<td>{{ dispute.ts_updated }}</td>
 			<td>{{ dispute.get_agency_display }}</td>
 			<td>{{ dispute.report_number }}</td>
 			<td>
