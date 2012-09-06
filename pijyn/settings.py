@@ -13,6 +13,16 @@ PWD = os.getenv("PWD", "/app")
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+
+# We import DEBUG only from local_settings now, because other settings are
+# controlled by it.  We will re-import the whole local settings module at
+# the end of this file.
+try:
+    from local_settings import DEBUG
+except ImportError:
+    pass
+
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -262,7 +272,18 @@ LOGIN_REDIRECT_URL = '/'
 if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
     MIDDLEWARE_CLASSES = (
         'sslify.middleware.SSLifyMiddleware',
     ) + MIDDLEWARE_CLASSES
+
+
+#-------------------------------------------------------------------------------
+#
+# Local Settings - Must be last item in settings.py!
+#
+#-------------------------------------------------------------------------------
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
