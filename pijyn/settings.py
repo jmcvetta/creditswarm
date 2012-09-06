@@ -74,10 +74,6 @@ MEDIA_URL = ''
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = ''
 
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://creditswarm-public.s3-website-us-east-1.amazonaws.com'
-
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -236,6 +232,7 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY', 'bar')
 #AWS_SECRET_ACCESS_KEY = 'AWS_SECRET_ACCESS_KEY'
 # NOTE: This bucket is publicly accessible
 AWS_STORAGE_BUCKET_NAME = 'creditswarm-public'
+STATIC_URL = 'https://s3.amazonaws.com/creditswarm-public'
 
 
 #-------------------------------------------------------------------------------
