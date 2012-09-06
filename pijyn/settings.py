@@ -5,6 +5,9 @@ import dj_database_url
 import os
 from django.conf import global_settings
 
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS
+AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
+    
 PWD = os.getenv("PWD", "/app")
 
 DEBUG = True
@@ -157,7 +160,7 @@ LOGGING = {
     }
 }
 
-AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+#AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 
 #-------------------------------------------------------------------------------
@@ -166,6 +169,7 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 #
 #-------------------------------------------------------------------------------
 
+DEFAULT_FROM_EMAIL = 'noreply@creditswarm.com'
 EMAIL_HOST_USER = os.getenv('SENDGRID_USERNAME')
 EMAIL_HOST= 'smtp.sendgrid.net'
 EMAIL_PORT = 587
@@ -178,30 +182,30 @@ EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
 #
 #-------------------------------------------------------------------------------
 
-INSTALLED_APPS += (
-    'social_auth', 
-)
-
-AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS + (
-    'social_auth.backends.google.GoogleOAuth2Backend',
-    'social_auth.backends.facebook.FacebookBackend',
-    )
-
-GOOGLE_OAUTH2_CLIENT_ID      = os.getenv('GOOGLE_OAUTH2_CLIENT_ID')
-GOOGLE_OAUTH2_CLIENT_SECRET  = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET')
-FACEBOOK_APP_ID              = os.getenv('FACEBOOK_APP_ID')
-FACEBOOK_API_SECRET          = os.getenv('FACEBOOK_API_SECRET')
-
-LOGIN_URL          = '/login-form/'
-LOGIN_REDIRECT_URL = '/'
-LOGIN_ERROR_URL    = '/login-error/'
-
-#SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
-#SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
-
-SOCIAL_AUTH_DEFAULT_USERNAME = 'pijyn_user'
-
-#SOCIAL_AUTH_EXPIRATION = 'expires'
+#INSTALLED_APPS += (
+#    'social_auth', 
+#)
+#
+#AUTHENTICATION_BACKENDS += (
+#    'social_auth.backends.google.GoogleOAuth2Backend',
+#    'social_auth.backends.facebook.FacebookBackend',
+#    )
+#
+#GOOGLE_OAUTH2_CLIENT_ID      = os.getenv('GOOGLE_OAUTH2_CLIENT_ID')
+#GOOGLE_OAUTH2_CLIENT_SECRET  = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET')
+#FACEBOOK_APP_ID              = os.getenv('FACEBOOK_APP_ID')
+#FACEBOOK_API_SECRET          = os.getenv('FACEBOOK_API_SECRET')
+#
+#LOGIN_URL          = '/login-form/'
+#LOGIN_REDIRECT_URL = '/'
+#LOGIN_ERROR_URL    = '/login-error/'
+#
+##SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
+##SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
+#
+#SOCIAL_AUTH_DEFAULT_USERNAME = 'pijyn_user'
+#
+##SOCIAL_AUTH_EXPIRATION = 'expires'
 
 
 #-------------------------------------------------------------------------------
@@ -233,7 +237,12 @@ INSTALLED_APPS += (
     'account', 
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+TEMPLATE_CONTEXT_PROCESSORS += (
     "account.context_processors.account",
 )
 
+ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
+
+LOGIN_URL          = '/account/login'
+LOGIN_REDIRECT_URL = '/'
