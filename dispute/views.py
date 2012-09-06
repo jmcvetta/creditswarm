@@ -4,6 +4,7 @@
 import datetime
 #
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -15,6 +16,8 @@ from django.views.generic import UpdateView
 from django.views.generic import DeleteView
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 #
 from dispute.models import Dispute
 from dispute.models import Account
@@ -40,8 +43,15 @@ class StatusError(RuntimeError):
     Wrong status for requested action.
     '''
 
+class ProtectedView(object):
 
-class OwnedSingleObjectMixin(object):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProtectedView, self).dispatch(*args, **kwargs)
+
+
+
+class OwnedSingleObjectMixin(ProtectedView):
     '''
     Overrides SingleObjectMixin.get_object() to ensure the current user owns
     the requested object.
@@ -75,7 +85,7 @@ class DraftMixin(OwnedSingleObjectMixin):
             raise StatusError('Requested action can only be performed on objects with Draft status.')
         return obj
 
-class DisputeChildCreateView(CreateView):
+class DisputeChildCreateView(ProtectedView, CreateView):
     
     def __get_dispute_from_kwargs(self):
         dispute_pk = self.kwargs.get('dispute_pk', None)
@@ -150,7 +160,7 @@ class DisputeListView(ListView):
         return Dispute.objects.filter(user=self.request.user)
 
 
-class DisputeCreateView(CreateView):
+class DisputeCreateView(ProtectedView, CreateView):
     model = Dispute
     form_class = DisputeForm
     
@@ -177,6 +187,7 @@ class DisputeDeleteView(DraftMixin, DeleteView):
     success_url = '/'
 
 
+@login_required
 def dispute_submit(request, pk):
     d = get_object_or_404(Dispute, pk=pk)
     if not d.user == request.user:

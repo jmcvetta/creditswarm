@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+
+{% block title %}{% block header %}
+Email Confirmation
+{% endblock %}{% endblock %}
+
+
+{% block content %}
+<form method="POST">
+	{% csrf_token %}
+	<p>
+		Please confirm that your email address is: {{ confirmation.email_address.email }}
+	</p>
+	<button type="submit" class="btn">
+		Confirm
+	</button>
+</form>
+{% endblock %}

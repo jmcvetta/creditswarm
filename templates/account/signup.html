@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% load url from future %}
 {% load bootstrap %}
+
 
 {% block extracss %} 
 <link href="{{ STATIC_URL }}/css/datepicker.css" rel="stylesheet">
@@ -11,7 +11,7 @@
 <script src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
 <script>
 	$(function(){
-		$('#id_date').datepicker({
+		$('#id_date_of_birth').datepicker({
 			format: 'yyyy-mm-dd'
 		});
 	})
@@ -20,22 +20,14 @@
 
 
 {% block title %}{% block header %}
-Disputed Credit Iniquiry
+Sign Up
 {% endblock %}{% endblock %}
 
 
 {% block content %}
-
-<form method="post" class="form-horizontal" enctype="multipart/form-data">
-	{% csrf_token %}
+<form class="form-horizontal" method="POST">
 	{{ form|bootstrap }}
-	<input type="submit" class="btn btn-primary" value="Save" />
-	{% if object %}
-	<a href="{% url "dispute-detail" object.dispute.pk %}" class="btn">Cancel</a>
-	<a href="{% url "inquiry-delete" object.pk %}" class="btn btn-danger">
-		Delete
-	</a>
-	{% endif %}
+	{% csrf_token %}
+	<input type="submit" value="Sign Up">
 </form>
-
 {% endblock %}

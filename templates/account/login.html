@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% load url from future %}
+
+{% block title %}{% block header %}
+Login
+{% endblock %}{% endblock %}
+
+
+{% block content %}
+<form class="form-horizontal" method="POST">
+	{{ form|bootstrap }}
+	{% csrf_token %}
+	<input type="submit" value="Log In">
+</form>
+
+<p>
+	<a href="{% url "account_password_reset" %}">Forgot your password?</a>
+</p>
+
+{% endblock %}

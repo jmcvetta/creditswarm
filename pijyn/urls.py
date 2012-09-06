@@ -5,9 +5,6 @@ from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 
-from accounts.models import UserProfile
-from accounts.views import UserProfileView
-#
 from dispute.views import home_view
 from dispute.views import LoginView
 #
@@ -24,6 +21,9 @@ from dispute.views import AccountDeleteView
 from dispute.views import InquiryCreateView
 from dispute.views import InquiryUpdateView
 from dispute.views import InquiryDeleteView
+#
+from profile.views import SignupView
+from profile.views import SettingsView
 
 admin.autodiscover()
 
@@ -48,11 +48,9 @@ urlpatterns = patterns('',
     #
     # Account management
     #
-	url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^accounts/profile/edit$', 
-        UserProfileView.as_view(),
-        name='profile-edit',
-        ),
+    url(r"^account/signup/$", SignupView.as_view(), name="account_signup"),
+    url(r"^account/settings/$", SettingsView.as_view(), name="account_settings"),
+    url(r"^account/", include("account.urls")),
     #
     # Dispute
     #
@@ -65,14 +63,14 @@ urlpatterns = patterns('',
     # Account
     #
     url(r'^dispute/(?P<dispute_pk>\d+)/account/new/$', AccountCreateView.as_view(), name='account-new'),
-    url(r'^account/(?P<pk>\d+)/edit/$', AccountUpdateView.as_view(), name='account-edit'),
-    url(r'^account/(?P<pk>\d+)/delete/$', AccountDeleteView.as_view(), name='account-delete'),
+    url(r'^dispute/account/(?P<pk>\d+)/edit/$', AccountUpdateView.as_view(), name='account-edit'),
+    url(r'^dispute/account/(?P<pk>\d+)/delete/$', AccountDeleteView.as_view(), name='account-delete'),
     #
     # Inquiry
     #
     url(r'^dispute/(?P<dispute_pk>\d+)/inquiry/new/$', InquiryCreateView.as_view(), name='inquiry-new'),
-    url(r'^inquiry/(?P<pk>\d+)/edit/$', InquiryUpdateView.as_view(), name='inquiry-edit'),
-    url(r'^inquiry/(?P<pk>\d+)/delete/$', InquiryDeleteView.as_view(), name='inquiry-delete'),
+    url(r'^dispute/inquiry/(?P<pk>\d+)/edit/$', InquiryUpdateView.as_view(), name='inquiry-edit'),
+    url(r'^dispute/inquiry/(?P<pk>\d+)/delete/$', InquiryDeleteView.as_view(), name='inquiry-delete'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
