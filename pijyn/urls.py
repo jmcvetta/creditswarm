@@ -21,6 +21,8 @@ from dispute.views import AccountDeleteView
 from dispute.views import InquiryCreateView
 from dispute.views import InquiryUpdateView
 from dispute.views import InquiryDeleteView
+#
+from profile.views import SignupView
 
 admin.autodiscover()
 
@@ -45,6 +47,7 @@ urlpatterns = patterns('',
     #
     # Account management
     #
+    url(r"^account/signup/$", SignupView.as_view(), name="account_signup"),
     url(r"^account/", include("account.urls")),
     #
     # Dispute

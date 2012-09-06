@@ -160,8 +160,6 @@ LOGGING = {
     }
 }
 
-#AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-
 
 #-------------------------------------------------------------------------------
 #
@@ -169,7 +167,7 @@ LOGGING = {
 #
 #-------------------------------------------------------------------------------
 
-DEFAULT_FROM_EMAIL = 'noreply@creditswarm.com'
+DEFAULT_FROM_EMAIL = 'Credit Swarm <noreply@creditswarm.com>'
 EMAIL_HOST_USER = os.getenv('SENDGRID_USERNAME')
 EMAIL_HOST= 'smtp.sendgrid.net'
 EMAIL_PORT = 587
@@ -218,7 +216,7 @@ INSTALLED_APPS += (
     'storages', 
 )
 
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
 
@@ -234,8 +232,12 @@ AWS_STORAGE_BUCKET_NAME = 'pijyn-attachments'
 #-------------------------------------------------------------------------------
 
 INSTALLED_APPS += (
-    'account', 
+    'account',  # django-user-accounts
+    'profile',  # User profile model & views
 )
+
+AUTH_PROFILE_MODULE = 'profile.UserProfile'
+
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     "account.context_processors.account",
