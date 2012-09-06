@@ -1,6 +1,6 @@
 /* ::::: https://d1g145x70srn7h.cloudfront.net/static/bff6a5fa5d251fe2beb8ba6991e1a8b2b46a1ebe/stylesheets/home.css ::::: */
 
-@import url(http://fonts.googleapis.com/css?family=Flamenco);
+@import url(https://fonts.googleapis.com/css?family=Flamenco);
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 	margin: 0px;
@@ -784,7 +784,7 @@ box-shadow: none;
 	padding: 7px 0px;
 }
 .home-sprite, .pijyn-signup-form .divider, .pijyn-signup-form .cards-list-light, .pijyn-signup-form .cards-list-dark, .pijyn-label, .register-label, .cardcase-label, .next-paddle, .previous-paddle, .featured-news .envelope {
-	background: url('https://s3.amazonaws.com/creditswarm-public/home-scf59087aa6.png') no-repeat scroll 0% 0% transparent;
+	background: url('https://s3.amazonaws.com/creditswarm-public/img/home-scf59087aa6.png') no-repeat scroll 0% 0% transparent;
 }
 html {
 	background: none repeat scroll 0% 0% rgb(255, 255, 255);
