@@ -7,9 +7,7 @@ from django.forms.extras.widgets import SelectDateWidget
 import account.forms
 from profile.models import UserProfile
 
-
-class SignupForm(account.forms.SignupForm):
-
+class BaseUserForm(forms.Form):
     given_name = forms.CharField(max_length=128, label='Given Name')
     family_name = forms.CharField(max_length=128, label='Family Name')
     address1 = forms.CharField(max_length=128, label='Address 1')
@@ -20,6 +18,11 @@ class SignupForm(account.forms.SignupForm):
     date_of_birth = forms.DateField(label='Date of Birth')
     ssn = forms.CharField(max_length=128, label='Social Security Number')
 
+class SettingsForm(account.forms.SettingsForm, BaseUserForm):
+    pass
+
+class SignupForm(account.forms.SignupForm, BaseUserForm):
+    pass
 
 class OldUserProfileForm(forms.ModelForm):
     class Meta:
