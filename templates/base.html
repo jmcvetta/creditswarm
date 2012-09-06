@@ -55,7 +55,7 @@
 				<a href="#">Logged in: {{ user }}</a>
 				</li>
 				<li>
-					<a href="{% url "account_settings" %}">Edit Profile</a>
+					<a href="{% url "account_settings" %}?next=/">Edit Profile</a>
 				</li>
 				<li>
 				<a href="{% url "logout" %}">Logout</a>
