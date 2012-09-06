@@ -8,14 +8,17 @@ Login
 
 
 {% block content %}
-<form class="form-horizontal" method="POST">
+<form method="POST">
 	{{ form|bootstrap }}
 	{% csrf_token %}
-	<input type="submit" value="Log In">
+	<input type="submit" value="Log In" class="btn btn-primary">
 </form>
 
 <p>
 	<a href="{% url "account_password_reset" %}">Forgot your password?</a>
+</p>
+<p>
+	Not a Credit Swarm member?  <a href="{% url "account_password_reset" %}">Sign up now!</a>
 </p>
 
 {% endblock %}
