@@ -6,6 +6,8 @@ import datetime
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+#
+from storages.backends.s3boto import S3BotoStorage
 
 
 STATUS_CHOICES = [
@@ -105,7 +107,8 @@ class Account(models.Model):
         help_text='Explain why this account detail is incorrect.')
     evidence = models.FileField(null=True, blank=True,
         upload_to='evidence',
-        help_text='Upload document supporting your dispute.'
+        help_text='Upload document supporting your dispute.',
+        storage=S3BotoStorage(bucket='creditswarm-secure'),
         )
 
 

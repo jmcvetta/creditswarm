@@ -66,7 +66,7 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = 'http://creditswarm-public.s3-website-us-east-1.amazonaws.com'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -220,9 +220,12 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
 
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'pijyn-attachments'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID', 'foo')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY', 'bar')
+#AWS_ACCESS_KEY_ID = 'AWS_ACCESS_KEY_ID'
+#AWS_SECRET_ACCESS_KEY = 'AWS_SECRET_ACCESS_KEY'
+# NOTE: This bucket is publicly accessible
+AWS_STORAGE_BUCKET_NAME = 'creditswarm-public'
 
 
 #-------------------------------------------------------------------------------
@@ -256,11 +259,10 @@ LOGIN_REDIRECT_URL = '/'
 #
 #-------------------------------------------------------------------------------
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-MIDDLEWARE_CLASSES = (
-    'sslify.middleware.SSLifyMiddleware',
-) + MIDDLEWARE_CLASSES
-print MIDDLEWARE_CLASSES
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    MIDDLEWARE_CLASSES = (
+        'sslify.middleware.SSLifyMiddleware',
+    ) + MIDDLEWARE_CLASSES
