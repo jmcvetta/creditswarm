@@ -10,7 +10,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	vertical-align: baseline;
 }
 body {
-	line-height: 1; background:url(green-bg.png) repeat-x
+	line-height: 1; background:url(https://s3.amazonaws.com/creditswarm-public/img/green-bg.png) repeat-x
 }
 ol, ul {
 	list-style: none outside none;
@@ -36,7 +36,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 .logo {
-	background: url(../img/logo.png) no-repeat;
+	background: url(https://s3.amazonaws.com/creditswarm-public/img/logo.png) no-repeat;
 	height: 96px;
 	width: 97px;
 	margin-top:18px; margin-left:100px
@@ -60,10 +60,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 	display: none;
 }
 .icon-sprite, .message-box:after, .message-box-success:after, .message-box-error:after, .cardcase-message-success .sms-success, .icon-iphone:before, .icon-android:before, .icon-twitter:before, .icon-twitter-color:before, .icon-twitter:hover:before, .icon-twitter-color:hover:before, .icon-facebook:before, .icon-facebook-color:before, .icon-facebook:hover:before, .icon-facebook-color:hover:before {
-	background: url('icon-s70abec5d7d.png') no-repeat scroll 0% 0% transparent;
+	background: url('https://s3.amazonaws.com/creditswarm-public/icon-s70abec5d7d.png') no-repeat scroll 0% 0% transparent;
 }
 .navigation-sprite, .navigation-cards-accepted, .navigation-cards-monochrome, .navigation-cards, .navigation-current-left, .navigation-current-right, .navigation-feature-fast, .navigation-feature-price, .navigation-register-monochrome, .navigation-register, .navigation-pijyn-monochrome, .navigation-pijyn, .navigation-x-icon, .navigation-icon-pijyn, .navigation-icon-register, .navigation-icon-cards, .nav-drawer .close-drawer, .nav-drawer .feature-fast-icon, .nav-drawer .feature-price-icon, .nav-drawer .cards-accepted-icon, .video-container .close-window, .pijyn-nav-item .nav-icon-home, .register-nav-item .nav-icon-home, .cards-nav-item .nav-icon-home {
-	background: url('navigation-s9e12abd0a8.png') no-repeat scroll 0% 0% transparent;
+	background: url('https://s3.amazonaws.com/creditswarm-public/navigation-s9e12abd0a8.png') no-repeat scroll 0% 0% transparent;
 }
 @media only screen and (max-device-width: 480px) {
 html {
@@ -101,10 +101,10 @@ h2:first-child {
 	line-height: 24px;
 }
 .icon-sprite, .message-box:after, .message-box-success:after, .message-box-error:after, .cardcase-message-success .sms-success, .icon-iphone:before, .icon-android:before, .icon-twitter:before, .icon-twitter-color:before, .icon-twitter:hover:before, .icon-twitter-color:hover:before, .icon-facebook:before, .icon-facebook-color:before, .icon-facebook:hover:before, .icon-facebook-color:hover:before {
-	background: url('icon-s70abec5d7d.png') no-repeat scroll 0% 0% transparent;
+	background: url('https://s3.amazonaws.com/creditswarm-public/icon-s70abec5d7d.png') no-repeat scroll 0% 0% transparent;
 }
 .navigation-sprite, .navigation-cards-accepted, .navigation-cards-monochrome, .navigation-cards, .navigation-current-left, .navigation-current-right, .navigation-feature-fast, .navigation-feature-price, .navigation-register-monochrome, .navigation-register, .navigation-pijyn-monochrome, .navigation-pijyn, .navigation-x-icon, .navigation-icon-pijyn, .navigation-icon-register, .navigation-icon-cards, .nav-drawer .close-drawer, .nav-drawer .feature-fast-icon, .nav-drawer .feature-price-icon, .nav-drawer .cards-accepted-icon, .video-container .close-window, .pijyn-nav-item .nav-icon-home, .register-nav-item .nav-icon-home, .cards-nav-item .nav-icon-home {
-	background: url('navigation-s9e12abd0a8.png') no-repeat scroll 0% 0% transparent;
+	background: url('https://s3.amazonaws.com/creditswarm-public/navigation-s9e12abd0a8.png') no-repeat scroll 0% 0% transparent;
 }
 .prose p, .prose ul, .prose ol, .prose blockquote, .prose address, .prose pre, .prose form {
 	margin-bottom: 20px;
@@ -148,7 +148,7 @@ a.block, a.block-hover {
 	margin: 0px auto;
 }
 html {
-	background: url('noise.gif') repeat fixed 0% 0% rgb(245, 245, 245);
+	background: url('https://s3.amazonaws.com/creditswarm-public/noise.gif') repeat fixed 0% 0% rgb(245, 245, 245);
 }
 .nav-list {
 	margin: 0px;
@@ -201,7 +201,7 @@ html {
 	top: 0px;
 	width: 100%;
 	z-index: 100;
-	background: url(../img/1-145.png) repeat-x;
+	background: url('https://s3.amazonaws.com/creditswarm-public/img/1-145.png') repeat-x;
 	height: 129px;
 	border-bottom: 2px solid #dbe8be;
 }
@@ -784,7 +784,7 @@ box-shadow: none;
 	padding: 7px 0px;
 }
 .home-sprite, .pijyn-signup-form .divider, .pijyn-signup-form .cards-list-light, .pijyn-signup-form .cards-list-dark, .pijyn-label, .register-label, .cardcase-label, .next-paddle, .previous-paddle, .featured-news .envelope {
-	background: url('home-scf59087aa6.png') no-repeat scroll 0% 0% transparent;
+	background: url('https://s3.amazonaws.com/creditswarm-public/home-scf59087aa6.png') no-repeat scroll 0% 0% transparent;
 }
 html {
 	background: none repeat scroll 0% 0% rgb(255, 255, 255);
@@ -1023,7 +1023,7 @@ h1 {
 }
 }
 .pijyn-fg {
-	background: url('laptop.png') repeat scroll 0% 0% transparent;
+	background: url('https://s3.amazonaws.com/creditswarm-public/laptop.png') repeat scroll 0% 0% transparent;
 	width: 697px;
 	height: 455px;
 	right: 350px;
@@ -1262,7 +1262,7 @@ body {
 #social a{display:block}
 
 .twitter, .tumblr, .fb, .rss{
-	background: url(../img/sprites.png) no-repeat;text-indent: -1000em
+	background: url('https://s3.amazonaws.com/creditswarm-public/img/sprites.png') no-repeat;text-indent: -1000em
 }
 
 .twitter{
@@ -1291,7 +1291,7 @@ body {
 
 .twitter a, .tumblr a, .fb a, .rss a {height:21px} 
 .toggle {
-	background: url(toggle.png) no-repeat;
+	background: url('https://s3.amazonaws.com/creditswarm-public/toggle.png') no-repeat;
 	width: 25px;
 	height: 29px;
 	margin: 17px 0px 0px 4px
