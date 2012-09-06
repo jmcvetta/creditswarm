@@ -78,9 +78,9 @@
     <div class="container">
 	
 		{% if messages %}
-		<div class="alert">  
+		<div class="alert alert-block">  
 			<a class="close" data-dismiss="alert">×</a>  
-			<ul class="messages">
+			<ul class="messages lead">
 			    {% for message in messages %}
 			    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
 			    {% endfor %}
@@ -97,18 +97,6 @@
 		</div>
 		{% endblock %}
 
-
-		{% if messages %}
-		<div class="alert alert-block">
-			<ul class="messages lead">
-				{% for msg in messages %}
-				<li>
-					{{ msg }}
-				</li>
-				{% endfor %}
-			</ul>
-		</div>
-		{% endif %}
 
 		{% block content %}
 		Content goes here.
