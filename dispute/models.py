@@ -93,6 +93,10 @@ class Inquiry(models.Model):
     explanation = models.TextField(blank=False, null=False, 
         help_text='Explain why this inquiry record is incorrect.')
     
+    class Meta:
+        verbose_name = 'Credit Inquiry'
+        verbose_name_plural = 'Credit Inquiries'
+    
 
 class Account(models.Model):
     '''
@@ -110,6 +114,9 @@ class Account(models.Model):
         help_text='Upload document supporting your dispute.',
         storage=S3BotoStorage(bucket='creditswarm-secure'),
         )
+    
+    class Meta:
+        verbose_name = 'Account Detail'
 
 
 class BadInfo(models.Model):
