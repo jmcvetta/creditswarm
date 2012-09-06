@@ -10,7 +10,7 @@ AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
     
 PWD = os.getenv("PWD", "/app")
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -248,3 +248,19 @@ ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 
 LOGIN_URL          = '/account/login'
 LOGIN_REDIRECT_URL = '/'
+
+
+#-------------------------------------------------------------------------------
+#
+# Require SSL
+#
+#-------------------------------------------------------------------------------
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+MIDDLEWARE_CLASSES = (
+    'sslify.middleware.SSLifyMiddleware',
+) + MIDDLEWARE_CLASSES
+print MIDDLEWARE_CLASSES
