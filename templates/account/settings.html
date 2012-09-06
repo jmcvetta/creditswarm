@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% load url from future %}
+
+
+{% block title %}{% block header %}
+Edit User Profile
+{% endblock %}{% endblock %}
+
+
+{% block content %}
+
+<form class="form-horizontal" method="POST">
+	
+	<div class="row">
+		<div class="span12">
+			{{ form|bootstrap }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="span10 offset2">
+				<input type="submit" value="Save Changes" class="btn btn-primary">
+				<a href="{% url "home" %}" class="btn">Cancel</a>
+		</div>
+	</div>
+	
+{% csrf_token %}
+</form>
+
+
+{% endblock %}

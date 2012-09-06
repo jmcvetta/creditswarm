@@ -2,15 +2,16 @@
 {% load url from future %}
 
 
-{% block content %}
+{% block title %}{% block header %}
+Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number }}
+{% endblock %}{% endblock %}
 
-<h1>
-	Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number }}
-</h1>
+
+{% block content %}
 
 <ul>
 	<li>
-		Pijyn Dispute Number: {{ object.pk }}
+		Credit Swarm Dispute Number: {{ object.pk }}
 	</li>
 	<li>
 		Credit Reporting Agency: {{ object.get_agency_display }}

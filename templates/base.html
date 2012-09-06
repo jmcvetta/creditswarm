@@ -6,7 +6,7 @@
 <!-- saved from url=(0066)http://twitter.github.com/bootstrap/examples/starter-template.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>{% block title %}Pijyn - File credit report disputes online for free{% endblock %}</title>
+    <title>{% block title %}File credit report disputes online for free{% endblock %} · Credit Swarm </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Pijyn, Inc.">
@@ -33,7 +33,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}/ico/apple-touch-icon-57-precomposed.png">
     
-    {% block head %}{% endblock %}
+    {% block extrahead %}{% endblock %}
   </head>
 
   <body>
@@ -76,6 +76,15 @@
 	{% endblock %}
 
     <div class="container">
+    	
+    	{% block noheader %}
+		<div class="page-header">
+			<h1>
+				{% block header %}{% endblock %}
+			</h1>
+		</div>
+		{% endblock %}
+
 
 		{% block content %}
 		Content goes here.
