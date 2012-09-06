@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 {% load bootstrap %}
 
+
+{% block title %}{% block header %}
+Email Confirmation
+{% endblock %}{% endblock %}
+
+
 {% block content %}
-
-
-<h1>
-	{% block title %}
-	Email Confirmation
-	{% endblock %}
-</h1>
-
 <form method="POST">
 	{% csrf_token %}
 	<p>
@@ -19,5 +17,4 @@
 		Confirm
 	</button>
 </form>
-
 {% endblock %}

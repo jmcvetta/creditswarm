@@ -2,13 +2,12 @@
 {% load bootstrap %}
 {% load url from future %}
 
+{% block title %}{% block header %}
+Login
+{% endblock %}{% endblock %}
+
+
 {% block content %}
-
-
-<h1>
-	{% block title %}Log In{% endblock %}
-</h1>
-
 <form class="form-horizontal" method="POST">
 	{{ form|bootstrap }}
 	{% csrf_token %}

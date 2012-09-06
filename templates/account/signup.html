@@ -19,17 +19,15 @@
 {% endblock %}
 
 
+{% block title %}{% block header %}
+Sign Up
+{% endblock %}{% endblock %}
+
+
 {% block content %}
-
-
-<h1>
-	{% block title %}Sign Up{% endblock %}
-</h1>
-
 <form class="form-horizontal" method="POST">
 	{{ form|bootstrap }}
 	{% csrf_token %}
 	<input type="submit" value="Sign Up">
 </form>
-
 {% endblock %}

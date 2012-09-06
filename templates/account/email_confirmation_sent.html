@@ -1,17 +1,15 @@
 {% extends "base.html" %}
 {% load bootstrap %}
 
+
+{% block title %}{% block header %}
+Email Confirmation Sent
+{% endblock %}{% endblock %}
+
+
 {% block content %}
-
-
-<h1>
-	{% block title %}Email Confirmation Sent{% endblock %}
-</h1>
-
-
 <p>
 	A confirmation email has been sent to {{ email }}.  Please click the link 
 	enclosed in the email to activate your account.
 </p>
-
 {% endblock %}
