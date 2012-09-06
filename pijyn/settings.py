@@ -216,7 +216,7 @@ INSTALLED_APPS += (
     'storages', 
 )
 
-#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
 
