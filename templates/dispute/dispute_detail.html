@@ -11,7 +11,7 @@ Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number 
 
 <ul>
 	<li>
-		Credit Swarm Dispute Number: {{ object.pk }}
+		Dispute Number: {{ object.dispute_number }}
 	</li>
 	<li>
 		Credit Reporting Agency: {{ object.get_agency_display }}
@@ -182,11 +182,11 @@ Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number 
 
 <p>
 	{% if object.ready_to_submit %}
-	<a href="{% url "dispute-submit" object.pk %}" class="btn btn-primary">
+	<a href="{% url "dispute-submit" object.pk %}" class="btn btn-success">
 	{% else %}
 	<a href="#" class="btn btn-primary disabled">
 	{% endif %}
-		<i class="icon-ok"></i> Confirm and Submit Dispute
+		<i class="icon-ok"></i> Preview and Confirm
 	</a>
 	<a href="{% url "dispute-edit" object.pk %}" class="btn">
 		Edit Dispute

@@ -1,0 +1,36 @@
+{% load url from future %}================================================================================
+
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                             CREDIT REPORT DISPUTE
+            National Credit Report Dispute Adjudication Corporation
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Dispute Number:  {{ object.dispute_number }}
+Date Dispute Submitted:  {% now "d M Y" %}
+
+DISPUTED REPORT:
+    Credit Reporting Agency: {{ object.get_agency_display }}
+    Credit Report Number: {{ object.report_number }}
+
+CITIZEN INFORMATION:{% with profile=object.user.get_profile %}
+    Family Name:  {{ profile.family_name }}
+    Given Name:  {{ profile.given_name }}
+    Address: {{ profile.address1 }}{% if profile.address2 %}
+             {{ profile.address2 }}{% endif %}
+    City: {{ profile.city }}
+    State: {{ profile.state }}
+    Zip Code: {{ profile.zip }}
+    Date of Birth: {{ profile.date_of_birth|date:"d M Y" }}
+    SSN: {{ profile.ssn }}{% endwith %}
+
+--------------------------------------------------------------------------------
+{% for acct in object.account_set.all %}
+DISPUTED ACCOUNT DETAIL:
+    Creditor Name: {{ acct.creditor }}
+    Account Number with this Creditor: {{ acct.account_number }}
+    Reason for Dispute:  {{ acct.get_reason_display }}
+    Explanation: {{ acct.explanation }}
+    Supporting Document:  {{ acct.evidence.url }}
+{% endfor %}
+
+================================================================================

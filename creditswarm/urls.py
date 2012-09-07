@@ -12,7 +12,7 @@ from dispute.views import DisputeCreateView
 from dispute.views import DisputeDetailView
 from dispute.views import DisputeUpdateView
 from dispute.views import DisputeDeleteView
-from dispute.views import dispute_submit
+from dispute.views import DisputeConfirmationView
 #
 from dispute.views import AccountCreateView
 from dispute.views import AccountUpdateView
@@ -58,7 +58,7 @@ urlpatterns = patterns('',
     url(r'^dispute/(?P<pk>\d+)/$', DisputeDetailView.as_view(), name='dispute-detail'),
     url(r'^dispute/(?P<pk>\d+)/edit/$', DisputeUpdateView.as_view(), name='dispute-edit'),
     url(r'^dispute/(?P<pk>\d+)/delete/$', DisputeDeleteView.as_view(), name='dispute-delete'),
-    url(r'^dispute/(?P<pk>\d+)/submit/$', dispute_submit, name='dispute-submit'),
+    url(r'^dispute/(?P<pk>\d+)/submit/$', DisputeConfirmationView.as_view(), name='dispute-submit'),
     #
     # Account
     #

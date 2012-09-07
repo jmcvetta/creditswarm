@@ -187,19 +187,27 @@ class DisputeDeleteView(DraftMixin, DeleteView):
     success_url = '/'
 
 
-@login_required
-def dispute_submit(request, pk):
-    d = get_object_or_404(Dispute, pk=pk)
-    if not d.user == request.user:
-        raise OwnershipError('You do not own the requested object.')
-    if not d.status == 'D':
-        raise RuntimeError('Can only submit disputes that are in Draft status.')
-    d.status = 'Q' # Queued for send
-    d.ts_submitted = timezone.now()
-    d.save()
-    messages.add_message(request, messages.INFO, 'Dispute %s has been submitted.' % d)
-    return HttpResponseRedirect(reverse('home'))
-
+class DisputeConfirmationView(OwnedSingleObjectMixin, DetailView):
+    '''
+    When called with GET, display a summary of the dispute to be submitted
+        and a confirm button.
+    When called with POST via confirm button, actually submit the dispute.
+    '''
+    
+    model = Dispute
+    template_name_suffix = '_confirmation'
+    
+    def submit(self, request, *args, **kwargs):
+        d = self.get_object()
+        d.status = 'Q' # Queued for send
+        d.ts_submitted = timezone.now()
+        d.save()
+        messages.add_message(request, messages.INFO, 'Dispute %s has been submitted.' % d.dispute_number)
+        return HttpResponseRedirect(reverse('home'))
+    
+    def post(self, *args, **kwargs):
+        return self.submit(*args, **kwargs)
+    
 
 #-------------------------------------------------------------------------------
 #

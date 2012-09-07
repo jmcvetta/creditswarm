@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+
+{% block title %}{% block header %}
+Confirm Dispute Details
+{% endblock %}{% endblock %}
+
+
+{% block content %}
+
+<h2>
+	Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number }}
+</h2>
+
+<pre>
+{% include "dispute/dispute_summary.txt" %}
+</pre>
+
+<form method="POST">
+	<button type="submit" class="btn btn-warning">
+		<i class="icon-ok"></i> Confirm and Submit Dispute
+	</button>
+	<a href="{% url "dispute-detail" object.pk %}" class="btn">Edit Again</a>
+	{% csrf_token %}
+</form>
+
+{% endblock %}
