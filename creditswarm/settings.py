@@ -3,6 +3,7 @@
 
 import dj_database_url
 import os
+import logging
 from django.conf import global_settings
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS
@@ -10,17 +11,10 @@ AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
     
 PWD = os.getenv("PWD", "/app")
 
-DEBUG = False
+DEBUG = os.getenv('DEBUG', False)
+if DEBUG:
+    DEBUG = True # Value will be a string from environ otherwise
 TEMPLATE_DEBUG = DEBUG
-
-
-# We import DEBUG only from local_settings now, because other settings are
-# controlled by it.  We will re-import the whole local settings module at
-# the end of this file.
-try:
-    from local_settings import DEBUG
-except ImportError:
-    pass
 
 
 ADMINS = (
@@ -271,14 +265,3 @@ if not DEBUG:
         'sslify.middleware.SSLifyMiddleware',
     ) + MIDDLEWARE_CLASSES
 
-
-#-------------------------------------------------------------------------------
-#
-# Local Settings - Must be last item in settings.py!
-#
-#-------------------------------------------------------------------------------
-
-try:
-    from local_settings import *
-except ImportError:
-    pass
