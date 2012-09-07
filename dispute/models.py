@@ -88,7 +88,15 @@ class Dispute(models.Model):
         An formatted number officially designating this dispute.
         '''
         s = u'%012d' % self.pk
-        return 'NCRDAC-' + s[:3] + '-' + s[3:6] + '-' + s[6:9] + '-' + s[9:]
+        return s[:3] + '-' + s[3:6] + '-' + s[6:9] + '-' + s[9:]
+    
+    @property
+    def dispute_id(self):
+        '''
+        An formatted string, consisting of the prefix NCRDAC- and the dispute 
+        number, officially designating this dispute.
+        '''
+        return 'NCRDAC-' + self.dispute_number
 
 
 class Inquiry(models.Model):
