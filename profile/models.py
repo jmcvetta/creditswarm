@@ -22,6 +22,6 @@ class UserProfile(models.Model):
     address2 = models.CharField(max_length=128, null=True, blank=True)
     city = models.CharField(max_length=128)
     state = USStateField()
-    zip = USPostalCodeField(verbose_name='Zip Code')
+    zip = models.CharField(max_length=10, verbose_name='Zip Code')
     home_phone = PhoneNumberField(blank=False, null=False)
     work_phone = PhoneNumberField(blank=True, null=True)
