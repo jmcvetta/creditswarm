@@ -3,20 +3,28 @@
 
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
+from django.contrib.localflavor.us.forms import USSocialSecurityNumberField
+from django.contrib.localflavor.us.forms import USPhoneNumberField
+from django.contrib.localflavor.us.forms import USStateSelect
+from django.contrib.localflavor.us.forms import USStateField
+from django.contrib.localflavor.us.forms import USZipCodeField
+
 #
 import account.forms
 from profile.models import UserProfile
 
 class BaseUserForm(forms.Form):
-    given_name = forms.CharField(max_length=128, label='Given Name')
-    family_name = forms.CharField(max_length=128, label='Family Name')
+    given_name = forms.CharField(max_length=128, label='First Name')
+    family_name = forms.CharField(max_length=128, label='Last Name')
+    ssn = forms.CharField(max_length=128, label='Social Security Number')
+    date_of_birth = forms.DateField(label='Date of Birth')
     address1 = forms.CharField(max_length=128, label='Address 1')
     address2 = forms.CharField(max_length=128, required=False, label="Address 2")
     city = forms.CharField(max_length=128)
-    state = forms.CharField(max_length=128)
-    zip = forms.CharField(max_length=128, label='Zip Code')
-    date_of_birth = forms.DateField(label='Date of Birth')
-    ssn = forms.CharField(max_length=128, label='Social Security Number')
+    state = USStateField(widget=USStateSelect)
+    zip = USZipCodeField(label='Zip Code')
+    home_phone = USPhoneNumberField(label='Home Phone Number')
+    work_phone = USPhoneNumberField(label='Work Phone Number', required=False)
 
 class SettingsForm(account.forms.SettingsForm, BaseUserForm):
     pass

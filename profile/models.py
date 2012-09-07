@@ -3,6 +3,9 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.localflavor.us.models import PhoneNumberField
+from django.contrib.localflavor.us.models import USPostalCodeField
+from django.contrib.localflavor.us.models import USStateField
 
 
 class UserProfile(models.Model):  
@@ -11,12 +14,14 @@ class UserProfile(models.Model):
     # Personal Info 
     # - use encrypted fields before running in production!
     #
-    given_name = models.CharField(max_length=128, verbose_name='Given Name')
-    family_name = models.CharField(max_length=128, verbose_name='Family Name')
-    address1 = models.CharField(max_length=128, verbose_name='Address 1')
-    address2 = models.CharField(max_length=128, null=True, blank=True, verbose_name="Address 2")
+    family_name = models.CharField(max_length=128)
+    given_name = models.CharField(max_length=128)
+    ssn = models.CharField(max_length=128)
+    date_of_birth = models.DateField()
+    address1 = models.CharField(max_length=128)
+    address2 = models.CharField(max_length=128, null=True, blank=True)
     city = models.CharField(max_length=128)
-    state = models.CharField(max_length=128)
-    zip = models.CharField(max_length=128, verbose_name='Zip Code')
-    date_of_birth = models.DateField(verbose_name='Date of Birth')
-    ssn = models.CharField(max_length=128, verbose_name='Social Security Number')
+    state = USStateField()
+    zip = USPostalCodeField(verbose_name='Zip Code')
+    home_phone = PhoneNumberField(blank=False, null=False)
+    work_phone = PhoneNumberField(blank=True, null=True)

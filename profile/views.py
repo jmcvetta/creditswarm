@@ -28,15 +28,17 @@ class SettingsView(account.views.SettingsView):
     
     def update_profile(self, form):
         profile = self.request.user.get_profile()
-        profile.given_name = form.cleaned_data["given_name"] 
         profile.family_name = form.cleaned_data["family_name"] 
+        profile.given_name = form.cleaned_data["given_name"] 
+        profile.ssn = form.cleaned_data["ssn"] 
+        profile.date_of_birth = form.cleaned_data["date_of_birth"] 
         profile.address1 = form.cleaned_data["address1"] 
         profile.address2 = form.cleaned_data["address2"] 
         profile.city = form.cleaned_data["city"] 
         profile.state = form.cleaned_data["state"] 
         profile.zip = form.cleaned_data["zip"] 
-        profile.date_of_birth = form.cleaned_data["date_of_birth"] 
-        profile.ssn = form.cleaned_data["ssn"] 
+        profile.home_phone = form.cleaned_data["home_phone"] 
+        profile.work_phone = form.cleaned_data["work_phone"] 
         profile.save()
     
     def get_initial(self):
@@ -51,6 +53,8 @@ class SettingsView(account.views.SettingsView):
         initial["zip"] = profile.zip
         initial["date_of_birth"] = profile.date_of_birth
         initial["ssn"] = profile.ssn
+        initial["home_phone"] = profile.home_phone
+        initial["work_phone"] = profile.work_phone
         return initial
 
 class SignupView(account.views.SignupView):
@@ -73,6 +77,8 @@ class SignupView(account.views.SignupView):
         profile.zip = form.cleaned_data["zip"]
         profile.date_of_birth = form.cleaned_data["date_of_birth"]
         profile.ssn = form.cleaned_data["ssn"]
+        profile.home_phone = form.cleaned_data['home_phone']
+        profile.work_phone = form.cleaned_data['work_phone']
         profile.save()
     
 
