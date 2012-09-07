@@ -273,7 +273,7 @@ LOGIN_REDIRECT_URL = '/'
 #
 #-------------------------------------------------------------------------------
 
-if not DEBUG:
+if not (DEBUG or os.getenv('SSL_DISABLE')):
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     MIDDLEWARE_CLASSES = (
