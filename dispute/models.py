@@ -81,6 +81,14 @@ class Dispute(models.Model):
             or self.inquiry_set.all()
             or self.badinfo_set.all()
             )
+    
+    @property
+    def dispute_number(self):
+        '''
+        An formatted number officially designating this dispute.
+        '''
+        s = u'%012d' % self.pk
+        return 'NCRDAC-' + s[:3] + '-' + s[3:6] + '-' + s[6:9] + '-' + s[9:]
 
 
 class Inquiry(models.Model):
