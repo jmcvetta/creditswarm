@@ -3,6 +3,7 @@
 
 import dj_database_url
 import os
+import sys
 import logging
 from django.conf import global_settings
 
@@ -11,9 +12,9 @@ AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
     
 PWD = os.getenv("PWD", "/app")
 
-DEBUG = os.getenv('DEBUG', False)
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 if DEBUG:
-    DEBUG = True # Value will be a string from environ otherwise
+    logging.warn('Application is running in DEBUG mode.')
 TEMPLATE_DEBUG = DEBUG
 
 
@@ -139,17 +140,31 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+            },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+            },
+        },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
+            },
+        },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+            'stream': sys.stdout,
+            }
     },
     'loggers': {
         'django.request': {
