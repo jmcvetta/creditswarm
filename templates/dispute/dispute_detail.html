@@ -25,6 +25,13 @@ Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number 
 	</li>
 </ul>
 
+{% if object.status == "D" %}
+<p>
+	<a href="{% url "dispute-edit" object.pk %}" class="btn">
+		Edit credit report number
+	</a>
+</p>
+{% endif %}
 
 <hr />
 
@@ -188,10 +195,7 @@ Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number 
 	{% endif %}
 		<i class="icon-ok"></i> Preview and Confirm
 	</a>
-	<a href="{% url "dispute-edit" object.pk %}" class="btn">
-		Edit Dispute
-	</a>
-	<a href="{% url "dispute-delete" object.pk %}" class="btn btn-danger">
+	<a href="{% url "dispute-delete" object.pk %}" class="btn btn-danger pull-right">
 		<i class="icon-trash"></i> Delete
 	</a>
 </p>

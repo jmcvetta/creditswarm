@@ -32,7 +32,7 @@ Disputed Credit Iniquiry
 	<input type="submit" class="btn btn-primary" value="Save" />
 	{% if object %}
 	<a href="{% url "dispute-detail" object.dispute.pk %}" class="btn">Cancel</a>
-	<a href="{% url "inquiry-delete" object.pk %}" class="btn btn-danger">
+	<a href="{% url "inquiry-delete" object.pk %}" class="btn btn-danger pull-right">
 		Delete
 	</a>
 	{% endif %}

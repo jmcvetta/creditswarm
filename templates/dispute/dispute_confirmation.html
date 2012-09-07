@@ -21,8 +21,12 @@ Confirm Dispute Details
 	<button type="submit" class="btn btn-warning">
 		<i class="icon-ok"></i> Confirm and Submit Dispute
 	</button>
-	<a href="{% url "dispute-detail" object.pk %}" class="btn">Edit Again</a>
+	<a href="{% url "dispute-detail" object.pk %}" class="btn">Edit</a>
 	{% csrf_token %}
 </form>
+<p class="lead">
+	Once your dispute has been submitted, you will <b>not</b> be able to edit 
+	any of the information.
+</p>
 
 {% endblock %}
