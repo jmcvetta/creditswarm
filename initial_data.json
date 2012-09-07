@@ -4,7 +4,7 @@
 		"model": "sites.site", 
 		"fields": { 
 			"name": "Credit Swarm", 
-			"domain":"testing.pijyn.com"
+			"domain": "creditswarm.herokuapp.com"
 		} 
 	}
 ]
