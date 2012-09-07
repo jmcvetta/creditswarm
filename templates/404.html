@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+
+{% block title %}{% block header %}
+404 - Not Found
+{% endblock %}{% endblock %}
+
+
+{% block content %}
+
+<p>
+	Could not find the requested item:
+	{{ request_path }}
+</p>
+
+{% endblock %}
