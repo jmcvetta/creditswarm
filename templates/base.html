@@ -12,13 +12,20 @@
     <meta name="author" content="Pijyn, Inc.">
 
     <!-- Le styles -->
-    <link href="{{ STATIC_URL }}/css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}/css/bootstrap.min.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
-    <link href="{{ STATIC_URL }}/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}/css/bootstrap-responsive.min.css" rel="stylesheet">
+    {% comment %}
+    jasny extensions to Boostrap - required for clickable table rows.   Should these
+    stylesheets be here in base.html; or should they only be included on templates
+    that require them?
+    {% endcomment %}
+    <link href="{{ STATIC_URL }}/css/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}/css/jasny-bootstrap-responsive.min.css" rel="stylesheet">
     {% block extracss %}{% endblock %}
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -128,6 +135,11 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ STATIC_URL }}/js/jquery-1.8.0.min.js"></script>
     <script src="{{ STATIC_URL }}/js/bootstrap.js"></script>
+    {% comment %}
+    jasny extensions to Boostrap - required for clickable table rows.   Should these
+    stylesheets be here in base.html; or should they only be included on templates
+    that require them?
+    {% endcomment %}
     <script src="{{ STATIC_URL }}/js/bootstrap-rowlink.js"></script>
     {% block extrascript %}{% endblock %}
 
