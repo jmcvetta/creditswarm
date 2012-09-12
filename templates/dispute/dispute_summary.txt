@@ -30,7 +30,7 @@ DISPUTED ACCOUNT DETAIL:
     Account Number with this Creditor: {{ acct.account_number }}
     Reason for Dispute:  {{ acct.get_reason_display }}
     Explanation: {{ acct.explanation }}
-    Supporting Document:  {{ acct.evidence.url }}
+    Supporting Document:  {% if acct.evidence %}{{ acct.evidence.url }}{% endif %}
 {% endfor %}
 
 ================================================================================
