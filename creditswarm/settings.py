@@ -209,6 +209,8 @@ GOOGLE_OAUTH2_CLIENT_SECRET  = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET')
 FACEBOOK_APP_ID              = os.getenv('FACEBOOK_APP_ID')
 FACEBOOK_API_SECRET          = os.getenv('FACEBOOK_API_SECRET')
 
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+
 LOGIN_URL          = '/login-form/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL    = '/login-error/'
