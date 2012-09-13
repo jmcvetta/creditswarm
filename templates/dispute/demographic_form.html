@@ -16,7 +16,7 @@ Incorrect Personal Information
 	{% if object %}
 	<a href="{% url "dispute-detail" object.dispute.pk %}" class="btn">Cancel</a>
 	<a href="{% url "demographic-delete" object.pk %}" class="btn btn-danger pull-right">
-		Delete
+		<i class="icon-trash"></i> Delete
 	</a>
 	{% endif %}
 </form>
