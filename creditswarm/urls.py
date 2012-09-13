@@ -46,12 +46,6 @@ urlpatterns = patterns('',
         name='logout',
         ),
     #
-    # Account management
-    #
-    url(r"^account/signup/$", SignupView.as_view(), name="account_signup"),
-    url(r"^account/settings/$", SettingsView.as_view(), name="account_settings"),
-    url(r"^account/", include("account.urls")),
-    #
     # Social Auth
     #
     url(r'', include('social_auth.urls')),

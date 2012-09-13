@@ -12,5 +12,4 @@ docutils                   # Documentation utilities
 django-storages            # S3 storage for file attachments
 boto                       # Python interface to Amazon Web Services
 newrelic                   # Cloud-based monitoring service
-django-user-accounts       # User account support
 django-sslify              # Require SSL site-wide

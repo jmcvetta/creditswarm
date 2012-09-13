@@ -250,23 +250,23 @@ STATIC_URL = 'https://s3.amazonaws.com/creditswarm-public'
 #
 #-------------------------------------------------------------------------------
 
-INSTALLED_APPS += (
-    'account',  # django-user-accounts
-    'profile',  # User profile model & views
-)
-
-AUTH_PROFILE_MODULE = 'profile.UserProfile'
-
-
-TEMPLATE_CONTEXT_PROCESSORS += (
-    "account.context_processors.account",
-)
-
-ACCOUNT_EMAIL_UNIQUE = True
-ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
-
-LOGIN_URL          = '/account/login'
-LOGIN_REDIRECT_URL = '/'
+#INSTALLED_APPS += (
+#    'account',  # django-user-accounts
+#    'profile',  # User profile model & views
+#)
+#
+#AUTH_PROFILE_MODULE = 'profile.UserProfile'
+#
+#
+#TEMPLATE_CONTEXT_PROCESSORS += (
+#    "account.context_processors.account",
+#)
+#
+#ACCOUNT_EMAIL_UNIQUE = True
+#ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
+#
+#LOGIN_URL          = '/account/login'
+#LOGIN_REDIRECT_URL = '/'
 
 
 #-------------------------------------------------------------------------------
