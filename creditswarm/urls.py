@@ -21,6 +21,8 @@ from dispute.views import AccountDeleteView
 from dispute.views import InquiryCreateView
 from dispute.views import InquiryUpdateView
 from dispute.views import InquiryDeleteView
+#
+from profile.views import UserProfileView
 
 
 admin.autodiscover()
@@ -48,13 +50,20 @@ urlpatterns = patterns('',
     #
     url(r'', include('social_auth.urls')),
     #
+    # Account management
+    #
+    url(r'^profile/edit$', 
+        UserProfileView.as_view(),
+        name='profile-edit',
+        ),
+    #
     # Dispute
     #
     url(r'^dispute/new/$', DisputeCreateView.as_view(), name='dispute-new'),
     url(r'^dispute/(?P<pk>\d+)/$', DisputeDetailView.as_view(), name='dispute-detail'),
     url(r'^dispute/(?P<pk>\d+)/edit/$', DisputeUpdateView.as_view(), name='dispute-edit'),
     url(r'^dispute/(?P<pk>\d+)/delete/$', DisputeDeleteView.as_view(), name='dispute-delete'),
-    url(r'^dispute/(?P<pk>\d+)/submit/$', DisputeConfirmationView.as_view(), name='dispute-submit'),
+    url(r'^dispute/(?P<pk>\d+)/submit/$', DisputeConfirmationView.as_view(), name='dispute-confirm'),
     #
     # Account
     #

@@ -222,7 +222,18 @@ SOCIAL_AUTH_DEFAULT_USERNAME = 'creditswarm_user'
 
 #SOCIAL_AUTH_EXPIRATION = 'expires'
 
-#AUTH_PROFILE_MODULE = 'profile.UserProfile'
+
+#-------------------------------------------------------------------------------
+#
+# User Profile
+#
+#-------------------------------------------------------------------------------
+
+INSTALLED_APPS += (
+    'profile', 
+)
+
+AUTH_PROFILE_MODULE = 'profile.UserProfile'
 
 
 #-------------------------------------------------------------------------------

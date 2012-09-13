@@ -189,7 +189,7 @@ Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number 
 
 <p>
 	{% if object.ready_to_submit %}
-	<a href="{% url "dispute-submit" object.pk %}" class="btn btn-success">
+	<a href="{% url "dispute-confirm" object.pk %}" class="btn btn-success">
 	{% else %}
 	<a href="#" class="btn btn-primary disabled">
 	{% endif %}

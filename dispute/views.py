@@ -25,6 +25,8 @@ from dispute.models import Inquiry
 from dispute.forms import DisputeForm
 from dispute.forms import AccountForm
 from dispute.forms import InquiryForm
+#
+from profile.models import UserProfile
 
 
 #-------------------------------------------------------------------------------
@@ -196,6 +198,18 @@ class DisputeConfirmationView(OwnedSingleObjectMixin, DetailView):
     
     model = Dispute
     template_name_suffix = '_confirmation'
+    
+    def get(self, request, *args, **kwargs):
+        try:
+            request.user.get_profile()
+            return super(DisputeConfirmationView, self).get(request, *args, **kwargs)
+        except UserProfile.DoesNotExist:
+            messages.add_message(request, messages.INFO, 'You must complete your profile before submitting a dispute.')
+            pk = self.kwargs.get(self.pk_url_kwarg, None)
+            redirect = reverse('dispute-confirm', args=[pk])
+            url = '%s?next=%s' % (reverse('profile-edit'), redirect)
+            return HttpResponseRedirect(url)
+    
     
     def submit(self, request, *args, **kwargs):
         d = self.get_object()
