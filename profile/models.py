@@ -9,6 +9,9 @@ from django.contrib.localflavor.us.models import USStateField
 
 
 class UserProfile(models.Model):  
+    '''
+    Demographic information about a consumer user.
+    '''
     user = models.OneToOneField(User)
     #
     # Personal Info 
