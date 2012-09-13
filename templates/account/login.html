@@ -8,6 +8,16 @@ Login
 
 
 {% block content %}
+
+<p>
+	<a href="{% url "socialauth_begin" "google-oauth2" %}" class="btn">
+		Login with Google
+	</a>
+	<a href="{% url "socialauth_begin" "facebook" %}" class="btn">
+		Login with Facebook
+	</a>
+</p>
+
 <form method="POST">
 	{{ form|bootstrap }}
 	{% csrf_token %}
