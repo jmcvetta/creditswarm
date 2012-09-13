@@ -17,7 +17,8 @@ class UserProfileForm(forms.ModelForm):
     state = USStateField(widget=USStateSelect)
     zip = USZipCodeField(label='Zip Code')
     phone = USPhoneNumberField(label='Home Phone Number')
-    ssn = USSocialSecurityNumberField()
+    ssn = USSocialSecurityNumberField(label='Social Security Number', 
+        help_text='SSN is required by credit reporting agencies.')
 
     class Meta:
         model = UserProfile
