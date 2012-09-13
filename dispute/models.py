@@ -93,10 +93,10 @@ class Dispute(models.Model):
     @property
     def dispute_id(self):
         '''
-        An formatted string, consisting of the prefix NCRDAC- and the dispute 
+        An formatted string, consisting of the prefix NCDAC- and the dispute 
         number, officially designating this dispute.
         '''
-        return 'NCRDAC-' + self.dispute_number
+        return 'NCDAC-' + self.dispute_number
 
 
 class Inquiry(models.Model):
