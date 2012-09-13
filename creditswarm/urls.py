@@ -21,9 +21,7 @@ from dispute.views import AccountDeleteView
 from dispute.views import InquiryCreateView
 from dispute.views import InquiryUpdateView
 from dispute.views import InquiryDeleteView
-#
-from profile.views import SignupView
-from profile.views import SettingsView
+
 
 admin.autodiscover()
 
