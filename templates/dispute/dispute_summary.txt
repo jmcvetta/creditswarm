@@ -36,8 +36,8 @@ DISPUTED ACCOUNT DETAIL:
 --------------------------------------------------------------------------------
 {% for dem in object.demographic_set.all %}
 INCORRECT PERSONAL INFORMATION:
-	Problem: {{ dem.problem }}
-	Explanation: {{ dem.explanation }}
+    Problem: {{ dem.get_problem_display }}
+    Explanation: {{ dem.explanation }}
 {% endfor %}
 
 ================================================================================

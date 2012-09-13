@@ -36,13 +36,13 @@ DETAIL_REASON_CHOICES = [
     ]
 
 BAD_INFO_TYPE_CHOICES = [
-    ('name', 'Name'),
-    ('dob', 'Date of Birth'),
-    ('employer', 'Employer'),
-    ('address', 'Address'),
-    ('spouse', 'Spouse'),
-    ('phone', 'Telephone'),
-    ('other', 'Other'),
+    ('name', 'Incorrect Name'),
+    ('dob', 'Incorrect Date of Birth'),
+    ('employer', 'Incorrect Employer'),
+    ('address', 'Incorrect Address'),
+    ('spouse', 'Incorrect Spouse'),
+    ('phone', 'Incorrect Telephone'),
+    ('other', 'Other Incorrect Information'),
     ]
 
 class Dispute(models.Model):
@@ -80,7 +80,7 @@ class Dispute(models.Model):
         return bool(
             self.account_set.all() 
             or self.inquiry_set.all()
-            or self.badinfo_set.all()
+            or self.demographic_set.all()
             )
     
     @property
@@ -107,8 +107,6 @@ class Inquiry(models.Model):
     dispute = models.ForeignKey(Dispute) # Maybe should be attached to CreditReport?
     company_name = models.CharField(max_length=128)
     date = models.DateField(default=datetime.date.today)
-    explanation = models.TextField(blank=False, null=False, 
-        help_text='Explain why this inquiry record is incorrect.')
     
     class Meta:
         verbose_name = 'Credit Inquiry'

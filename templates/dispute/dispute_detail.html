@@ -153,9 +153,6 @@ Inquiries
 			<th>
 				Inquiry Date
 			</th>
-			<th>
-				Explanation
-			</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -172,9 +169,6 @@ Inquiries
 			</td>
 			<td>
 				{{ inquiry.date }}
-			</td>
-			<td>
-				{{ inquiry.explanation|truncatechars:80 }}
 			</td>
 		</tr>
 		{% endfor %}
@@ -233,10 +227,10 @@ Demographic Info
 			<td>
 				{% if object.status == "D" %}
 				<a href="{% url "demographic-edit" dem.pk %}">
-					{{ dem.problem }}
+					{{ dem.get_problem_display }}
 				</a>
 				{% else %}
-					{{ dem.problem }}
+					{{ dem.get_problem_display }}
 				{% endif %}
 			</td>
 			<td>

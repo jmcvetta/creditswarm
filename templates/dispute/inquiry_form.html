@@ -35,6 +35,8 @@ Disputed Credit Iniquiry
 	<a href="{% url "inquiry-delete" object.pk %}" class="btn btn-danger pull-right">
 		<i class="icon-trash"></i> Delete
 	</a>
+	{% else %}
+	<a href="javascript:history.go(-1)" class="btn">Cancel</a>
 	{% endif %}
 </form>
 
