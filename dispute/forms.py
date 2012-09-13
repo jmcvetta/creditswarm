@@ -5,9 +5,9 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from dispute.models import Dispute
-from dispute.models import BadInfo
 from dispute.models import Account
 from dispute.models import Inquiry
+from dispute.models import Demographic
 
 
 class DisputeForm(forms.ModelForm):
@@ -25,4 +25,9 @@ class AccountForm(forms.ModelForm):
 class InquiryForm(forms.ModelForm):
     class Meta:
         model = Inquiry
+        exclude = ['dispute']
+
+class DemographicForm(forms.ModelForm):
+    class Meta:
+        model = Demographic
         exclude = ['dispute']

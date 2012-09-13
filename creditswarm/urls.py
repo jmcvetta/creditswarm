@@ -22,6 +22,10 @@ from dispute.views import InquiryCreateView
 from dispute.views import InquiryUpdateView
 from dispute.views import InquiryDeleteView
 #
+from dispute.views import DemographicCreateView
+from dispute.views import DemographicUpdateView
+from dispute.views import DemographicDeleteView
+#
 from profile.views import UserProfileView
 
 
@@ -76,6 +80,12 @@ urlpatterns = patterns('',
     url(r'^dispute/(?P<dispute_pk>\d+)/inquiry/new/$', InquiryCreateView.as_view(), name='inquiry-new'),
     url(r'^dispute/inquiry/(?P<pk>\d+)/edit/$', InquiryUpdateView.as_view(), name='inquiry-edit'),
     url(r'^dispute/inquiry/(?P<pk>\d+)/delete/$', InquiryDeleteView.as_view(), name='inquiry-delete'),
+    #
+    # Demographic
+    #
+    url(r'^dispute/(?P<dispute_pk>\d+)/demographic/new/$', DemographicCreateView.as_view(), name='demographic-new'),
+    url(r'^dispute/demographic/(?P<pk>\d+)/edit/$', DemographicUpdateView.as_view(), name='demographic-edit'),
+    url(r'^dispute/demographic/(?P<pk>\d+)/delete/$', DemographicDeleteView.as_view(), name='demographic-delete'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

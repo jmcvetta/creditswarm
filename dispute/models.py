@@ -42,6 +42,7 @@ BAD_INFO_TYPE_CHOICES = [
     ('address', 'Address'),
     ('spouse', 'Spouse'),
     ('phone', 'Telephone'),
+    ('other', 'Other'),
     ]
 
 class Dispute(models.Model):
@@ -135,9 +136,9 @@ class Account(models.Model):
         verbose_name = 'Account Detail'
 
 
-class BadInfo(models.Model):
+class Demographic(models.Model):
     '''
-    Bad demographic info
+    Disputed demographic info
     '''
     dispute = models.ForeignKey(Dispute)
     problem = models.CharField(max_length=32, blank=True, null=True, 

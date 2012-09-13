@@ -9,6 +9,12 @@ Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number 
 
 {% block content %}
 
+<!------------------------------------------------------------------------------
+	
+Credit Report
+
+------------------------------------------------------------------------------->
+
 <ul>
 	<li>
 		Dispute Number: {{ object.dispute_number }}
@@ -32,6 +38,13 @@ Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number 
 	</a>
 </p>
 {% endif %}
+
+
+<!------------------------------------------------------------------------------
+	
+Account Details
+
+------------------------------------------------------------------------------->
 
 <hr />
 
@@ -112,6 +125,13 @@ Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number 
 </p>
 {% endif %}
 
+
+<!------------------------------------------------------------------------------
+	
+Inquiries
+
+------------------------------------------------------------------------------->
+
 <hr />
 
 <h2>
@@ -177,13 +197,86 @@ Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number 
 </p>
 {% endif %}
 
+
+<!------------------------------------------------------------------------------
+	
+Demographic Info
+
+------------------------------------------------------------------------------->
+
+<hr />
+
+<h2>
+	Incorrect Personal Information
+</h2>
+
+{% if object.demographic_set.all %}
+
+{% if object.status == "D" %}
+<table class="table table-striped" data-provides="rowlink">
+{% else %}
+<table class="table table-striped">
+{% endif %}
+	<thead>
+		<tr>
+			<th>
+				Problem
+			</th>
+			<th>
+				Explanation
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for dem in object.demographic_set.all %}
+		<tr>
+			<td>
+				{% if object.status == "D" %}
+				<a href="{% url "demographic-edit" dem.pk %}">
+					{{ dem.problem }}
+				</a>
+				{% else %}
+					{{ dem.problem }}
+				{% endif %}
+			</td>
+			<td>
+				{{ dem.explanation|truncatechars:80 }}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% else %}
+
+<p>
+	<strong>No personal information added.</strong>
+</p>
+
+{% endif %}
+
+{% if object.status == "D" %}
+<p>
+	<a href="{% url "demographic-new" object.pk %}" class="btn">
+		Add new personal information...
+	</a>
+</p>
+{% endif %}
+
+
+<!------------------------------------------------------------------------------
+
+Preview and Confirm
+
+------------------------------------------------------------------------------->
+
 <hr />
 
 {% if object.status == "D" %}
 
 {% if not object.ready_to_submit %}
 <p>
-	<i>You must add at least one disputed account detail or inquiry before sumbitting your dispute.</i>
+	<i>You must add at least one disputed account detail or inquiry before submitting your dispute.</i>
 </p>
 {% endif %}
 

@@ -33,4 +33,11 @@ DISPUTED ACCOUNT DETAIL:
     Supporting Document:  {% if acct.evidence %}{{ acct.evidence.url }}{% endif %}
 {% endfor %}
 
+--------------------------------------------------------------------------------
+{% for dem in object.demographic_set.all %}
+INCORRECT PERSONAL INFORMATION:
+	Problem: {{ dem.problem }}
+	Explanation: {{ dem.explanation }}
+{% endfor %}
+
 ================================================================================

@@ -22,9 +22,11 @@ from django.contrib.auth.decorators import login_required
 from dispute.models import Dispute
 from dispute.models import Account
 from dispute.models import Inquiry
+from dispute.models import Demographic
 from dispute.forms import DisputeForm
 from dispute.forms import AccountForm
 from dispute.forms import InquiryForm
+from dispute.forms import DemographicForm
 #
 from profile.models import UserProfile
 
@@ -256,3 +258,21 @@ class InquiryUpdateView(DisputeChildUpdateView):
     
 class InquiryDeleteView(DisputeChildDeleteView):
     model = Inquiry
+
+
+#-------------------------------------------------------------------------------
+#
+# Demographic Views
+#
+#-------------------------------------------------------------------------------
+
+class DemographicCreateView(DisputeChildCreateView):
+    model = Demographic
+    form_class = DemographicForm
+
+class DemographicUpdateView(DisputeChildUpdateView):
+    model = Demographic
+    form_class = DemographicForm
+    
+class DemographicDeleteView(DisputeChildDeleteView):
+    model = Demographic
