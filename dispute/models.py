@@ -1,5 +1,4 @@
-# Copyright (c) 2012 Jason McVetta.  This is Free Software, released under the
-# terms of the AGPL v3.  See www.gnu.org/licenses/agpl-3.0.html for details.
+# Copyright (c) 2012 Jason McVetta.
 
 import datetime
 #
@@ -63,11 +62,14 @@ class Dispute(models.Model):
         verbose_name='Credit Reporting Agency')
     report_number = models.CharField(max_length=128)
     
-    def get_absolute_url(self):
-        return reverse('dispute-detail', kwargs={'pk': self.pk})
-    
     class Meta:
         ordering = ['-ts_updated']
+        permissions = [
+            ('cra_view', 'CRA can view dispute'),
+            ]
+    
+    def get_absolute_url(self):
+        return reverse('dispute-detail', kwargs={'pk': self.pk})
     
     def __str__(self):
         return '%s: %s %s (%s)' % (self.pk, self.get_agency_display(), self.report_number, self.user)
