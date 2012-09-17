@@ -5,6 +5,7 @@ ipython                    # Interactive Python shell
 dj_database_url            # Get database URL from Heroku environment variables
 pillow                     # Heroku-compatible imaging library
 gunicorn                   # Production webserver
+gevent                     # High speed event handling library
 django-social-auth         # Authenticate using social account
 django-bcrypt              # More secure password hashing
 django-bootstrap-form      # Format Django forms to look nice with Twitter Bootstrap 
