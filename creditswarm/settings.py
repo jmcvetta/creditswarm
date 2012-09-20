@@ -20,7 +20,6 @@ def env_setting(name, default=None):
         logging.error(msg)
     return result
 
-
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS
 AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
     
@@ -38,9 +37,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {'default': dj_database_url.config(default='sqlite:///' +
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'db.sqlite') )}
+#DATABASES = {'default': dj_database_url.config(default='sqlite:///' +
+        #os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'db.sqlite') )}
 
+DATABASES = {'default': dj_database_url.config() }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -264,8 +264,8 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
 
-AWS_ACCESS_KEY_ID = env_setting('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env_setting('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 # NOTE: This bucket is publicly accessible
 AWS_STORAGE_BUCKET_NAME = 'creditswarm-public'
 STATIC_URL = 'https://s3.amazonaws.com/creditswarm-public'
