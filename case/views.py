@@ -17,6 +17,7 @@ from django.views.generic import DeleteView
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import login
 
 #
 from case.models import Case
@@ -276,3 +277,34 @@ class DemographicUpdateView(CaseChildUpdateView):
     
 class DemographicDeleteView(CaseChildDeleteView):
     model = Demographic
+
+
+#-------------------------------------------------------------------------------
+#
+# Credtt Reporting Agency Views
+#
+#-------------------------------------------------------------------------------
+
+class CraLoginView(TemplateView):
+    template_name = 'cra_login.html'
+
+def cra_login(request, *args, **kwargs):
+    #return login(request, *args, **kwargs, template_name='cra_login.html')
+    return login(request, *args, template_name='cra_login.html', **kwargs)
+
+class CraCaseDetailView(DetailView):
+    model = Case
+    #template_name_suffix = '_cra_detail'
+    
+    def get(self, request, *args, **kwargs):
+        if self.get_object().status == 'D':
+            raise StatusError('Requested action cannot be performed on objects with Draft status.')
+        return super(CraCaseDetailView, self).get(request, *args, **kwargs)
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.has_perm('case.cra_view'):
+            msg = 'You must login with a Credit Reporting Agency account to access this resource.'
+            messages.add_message(request, messages.INFO, msg)
+            url = '%s?next=%s' % (reverse('cra-login'), request.path)
+            return HttpResponseRedirect(url)
+        return super(CraCaseDetailView, self).dispatch(request, *args, **kwargs)

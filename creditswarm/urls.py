@@ -25,6 +25,10 @@ from case.views import DemographicCreateView
 from case.views import DemographicUpdateView
 from case.views import DemographicDeleteView
 #
+from case.views import cra_login
+from case.views import CraCaseDetailView
+from case.views import CraLoginView
+#
 from profile.views import UserProfileView
 
 
@@ -85,6 +89,11 @@ urlpatterns = patterns('',
     url(r'^case/(?P<case_pk>\d+)/demographic/new/$', DemographicCreateView.as_view(), name='demographic-new'),
     url(r'^case/demographic/(?P<pk>\d+)/edit/$', DemographicUpdateView.as_view(), name='demographic-edit'),
     url(r'^case/demographic/(?P<pk>\d+)/delete/$', DemographicDeleteView.as_view(), name='demographic-delete'),
+    #
+    # Credit Reporting Agency
+    #
+    url(r'^cra/login/$', cra_login, name='cra-login'),
+    url(r'^cra/case/(?P<pk>\d+)/$', CraCaseDetailView.as_view(), name='cra-case-detail'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% load url from future %}
+
+{% block title %}{% block header %}
+Credit Reporting Agency Login
+{% endblock %}{% endblock %}
+
+
+{% block content %}
+
+<p>
+	Login with your CRA account.  
+</p>
+
+<p>
+	If you do not have an account, please contact customer service.
+</p>
+
+<form method="POST" class="form-horizontal">
+	{{ form|bootstrap }}
+	{% csrf_token %}
+	<button type="submit" class="btn btn-primary">
+		Login
+	</button>
+</form>
+
+{% endblock %}
