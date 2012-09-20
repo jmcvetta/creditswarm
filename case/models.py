@@ -66,11 +66,11 @@ class Case(models.Model):
     class Meta:
         ordering = ['-ts_updated']
         permissions = [
-            ('cra_view', 'CRA can view dispute'),
+            ('cra_view', 'CRA can view case'),
             ]
     
     def get_absolute_url(self):
-        return reverse('dispute-detail', kwargs={'pk': self.pk})
+        return reverse('case-detail', kwargs={'pk': self.pk})
     
     def __str__(self):
         return '%s: %s %s (%s)' % (self.pk, self.get_agency_display(), self.report_number, self.user)
@@ -97,7 +97,7 @@ class Case(models.Model):
     @property
     def case_id(self):
         '''
-        An formatted string, consisting of the prefix NCDAC- and the dispute 
+        An formatted string, consisting of the prefix NCDAC- and the case 
         number, officially designating this case.
         '''
         return 'NCDAC-' + self.case_number
