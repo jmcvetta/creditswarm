@@ -75,7 +75,7 @@ Account Details
 		Explanation
 	</dt>
 	<dd>
-		{{ account.explanation|default:"-" }}
+		{{ account.explanation|linebreaks|default:"-" }}
 	</dd>
 	<dt>
 		Supporting Document
@@ -137,6 +137,9 @@ Inquiries
 			{{ inquiry.date }}
 		</dd>
 	</dl>
+	{% if not forloop.last %}
+		<hr />
+	{% endif %}
 	{% endfor %}
 
 {% else %}
@@ -164,7 +167,7 @@ Demographic Info
 
 	{% for dem in object.demographic_set.all %}
 	<h3>
-		{{ dem.get_problem_display }} (Incorrect Personal Information)
+		{{ dem.get_problem_display|slice:"10:" }} (Incorrect Personal Information)
 	</h3>
 	<dl>
 		<dt>
@@ -177,7 +180,7 @@ Demographic Info
 			Explanation
 		</dt>
 		<dd>
-			{{ dem.explanation }}
+			{{ dem.explanation|linebreaks }}
 		</dd>
 	</dl>
 	{% if not forloop.last %}

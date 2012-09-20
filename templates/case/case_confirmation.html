@@ -17,6 +17,10 @@ Confirm Dispute Details
 
 <hr />
 
+<p class="lead">
+	Once your case has been submitted, you will <b>not</b> be able to edit 
+	any of the information.
+</p>
 <form method="POST">
 	<button type="submit" class="btn btn-warning">
 		<i class="icon-ok"></i> Confirm and Submit Case
@@ -24,9 +28,5 @@ Confirm Dispute Details
 	<a href="{% url "case-detail" object.pk %}" class="btn">Edit</a>
 	{% csrf_token %}
 </form>
-<p class="lead">
-	Once your case has been submitted, you will <b>not</b> be able to edit 
-	any of the information.
-</p>
 
 {% endblock %}
