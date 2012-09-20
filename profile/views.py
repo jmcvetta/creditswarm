@@ -66,4 +66,7 @@ class UserProfileView(UpdateView):
     
     def form_valid(self, form):
         form.instance.user = self.request.user
+        self.request.user.first_name = form.instance.given_name
+        self.request.user.last_name = form.instance.family_name
+        self.request.user.save()
         return super(UserProfileView, self).form_valid(form)
