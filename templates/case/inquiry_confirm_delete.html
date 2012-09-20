@@ -3,7 +3,7 @@
 
 
 {% block title %}{% block header %}
-Are you sure you want to delete this account?
+Are you sure you want to delete this cased credit inquiry?
 {% endblock %}{% endblock %}
 
 
@@ -29,7 +29,7 @@ Are you sure you want to delete this account?
 	<button type="submit" class="btn btn-danger">
 		<i class="icon-trash"></i> Yes, Delete It!
 	</button>
-	<a href="{% url "dispute-detail" object.dispute.pk %}" class="btn">
+	<a href="{% url "case-detail" object.case.pk %}" class="btn">
 		Cancel
 	</a>
 </form>

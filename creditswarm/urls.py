@@ -4,26 +4,26 @@ from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 
-from dispute.views import home_view
-from dispute.views import LoginView
+from case.views import home_view
+from case.views import LoginView
 #
-from dispute.views import DisputeCreateView
-from dispute.views import DisputeDetailView
-from dispute.views import DisputeUpdateView
-from dispute.views import DisputeDeleteView
-from dispute.views import DisputeConfirmationView
+from case.views import CaseCreateView
+from case.views import CaseDetailView
+from case.views import CaseUpdateView
+from case.views import CaseDeleteView
+from case.views import CaseConfirmationView
 #
-from dispute.views import AccountCreateView
-from dispute.views import AccountUpdateView
-from dispute.views import AccountDeleteView
+from case.views import AccountCreateView
+from case.views import AccountUpdateView
+from case.views import AccountDeleteView
 #
-from dispute.views import InquiryCreateView
-from dispute.views import InquiryUpdateView
-from dispute.views import InquiryDeleteView
+from case.views import InquiryCreateView
+from case.views import InquiryUpdateView
+from case.views import InquiryDeleteView
 #
-from dispute.views import DemographicCreateView
-from dispute.views import DemographicUpdateView
-from dispute.views import DemographicDeleteView
+from case.views import DemographicCreateView
+from case.views import DemographicUpdateView
+from case.views import DemographicDeleteView
 #
 from profile.views import UserProfileView
 
@@ -60,31 +60,31 @@ urlpatterns = patterns('',
         name='profile-edit',
         ),
     #
-    # Dispute
+    # Case
     #
-    url(r'^dispute/new/$', DisputeCreateView.as_view(), name='dispute-new'),
-    url(r'^dispute/(?P<pk>\d+)/$', DisputeDetailView.as_view(), name='dispute-detail'),
-    url(r'^dispute/(?P<pk>\d+)/edit/$', DisputeUpdateView.as_view(), name='dispute-edit'),
-    url(r'^dispute/(?P<pk>\d+)/delete/$', DisputeDeleteView.as_view(), name='dispute-delete'),
-    url(r'^dispute/(?P<pk>\d+)/submit/$', DisputeConfirmationView.as_view(), name='dispute-confirm'),
+    url(r'^case/new/$', CaseCreateView.as_view(), name='case-new'),
+    url(r'^case/(?P<pk>\d+)/$', CaseDetailView.as_view(), name='case-detail'),
+    url(r'^case/(?P<pk>\d+)/edit/$', CaseUpdateView.as_view(), name='case-edit'),
+    url(r'^case/(?P<pk>\d+)/delete/$', CaseDeleteView.as_view(), name='case-delete'),
+    url(r'^case/(?P<pk>\d+)/submit/$', CaseConfirmationView.as_view(), name='case-confirm'),
     #
     # Account
     #
-    url(r'^dispute/(?P<dispute_pk>\d+)/account/new/$', AccountCreateView.as_view(), name='account-new'),
-    url(r'^dispute/account/(?P<pk>\d+)/edit/$', AccountUpdateView.as_view(), name='account-edit'),
-    url(r'^dispute/account/(?P<pk>\d+)/delete/$', AccountDeleteView.as_view(), name='account-delete'),
+    url(r'^case/(?P<case_pk>\d+)/account/new/$', AccountCreateView.as_view(), name='account-new'),
+    url(r'^case/account/(?P<pk>\d+)/edit/$', AccountUpdateView.as_view(), name='account-edit'),
+    url(r'^case/account/(?P<pk>\d+)/delete/$', AccountDeleteView.as_view(), name='account-delete'),
     #
     # Inquiry
     #
-    url(r'^dispute/(?P<dispute_pk>\d+)/inquiry/new/$', InquiryCreateView.as_view(), name='inquiry-new'),
-    url(r'^dispute/inquiry/(?P<pk>\d+)/edit/$', InquiryUpdateView.as_view(), name='inquiry-edit'),
-    url(r'^dispute/inquiry/(?P<pk>\d+)/delete/$', InquiryDeleteView.as_view(), name='inquiry-delete'),
+    url(r'^case/(?P<case_pk>\d+)/inquiry/new/$', InquiryCreateView.as_view(), name='inquiry-new'),
+    url(r'^case/inquiry/(?P<pk>\d+)/edit/$', InquiryUpdateView.as_view(), name='inquiry-edit'),
+    url(r'^case/inquiry/(?P<pk>\d+)/delete/$', InquiryDeleteView.as_view(), name='inquiry-delete'),
     #
     # Demographic
     #
-    url(r'^dispute/(?P<dispute_pk>\d+)/demographic/new/$', DemographicCreateView.as_view(), name='demographic-new'),
-    url(r'^dispute/demographic/(?P<pk>\d+)/edit/$', DemographicUpdateView.as_view(), name='demographic-edit'),
-    url(r'^dispute/demographic/(?P<pk>\d+)/delete/$', DemographicDeleteView.as_view(), name='demographic-delete'),
+    url(r'^case/(?P<case_pk>\d+)/demographic/new/$', DemographicCreateView.as_view(), name='demographic-new'),
+    url(r'^case/demographic/(?P<pk>\d+)/edit/$', DemographicUpdateView.as_view(), name='demographic-edit'),
+    url(r'^case/demographic/(?P<pk>\d+)/delete/$', DemographicDeleteView.as_view(), name='demographic-delete'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

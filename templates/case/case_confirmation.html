@@ -14,18 +14,18 @@ Confirm Dispute Details
 </h2>
 
 <pre>
-{% include "dispute/dispute_summary.txt" %}
+{% include "case/case_summary.txt" %}
 </pre>
 
 <form method="POST">
 	<button type="submit" class="btn btn-warning">
 		<i class="icon-ok"></i> Confirm and Submit Dispute
 	</button>
-	<a href="{% url "dispute-detail" object.pk %}" class="btn">Edit</a>
+	<a href="{% url "case-detail" object.pk %}" class="btn">Edit</a>
 	{% csrf_token %}
 </form>
 <p class="lead">
-	Once your dispute has been submitted, you will <b>not</b> be able to edit 
+	Once your case has been submitted, you will <b>not</b> be able to edit 
 	any of the information.
 </p>
 

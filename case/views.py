@@ -19,14 +19,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 #
-from dispute.models import Dispute
-from dispute.models import Account
-from dispute.models import Inquiry
-from dispute.models import Demographic
-from dispute.forms import DisputeForm
-from dispute.forms import AccountForm
-from dispute.forms import InquiryForm
-from dispute.forms import DemographicForm
+from case.models import Case
+from case.models import Account
+from case.models import Inquiry
+from case.models import Demographic
+from case.forms import CaseForm
+from case.forms import AccountForm
+from case.forms import InquiryForm
+from case.forms import DemographicForm
 #
 from profile.models import UserProfile
 
@@ -65,8 +65,8 @@ class OwnedSingleObjectMixin(ProtectedView):
         obj = super(OwnedSingleObjectMixin, self).get_object(queryset=queryset)
         if hasattr(obj, 'user'):
             user = obj.user
-        elif hasattr(obj, 'dispute'):
-            user = obj.dispute.user
+        elif hasattr(obj, 'case'):
+            user = obj.case.user
         else:
             user = None # WTF?
         if user == self.request.user:
@@ -81,57 +81,57 @@ class DraftMixin(OwnedSingleObjectMixin):
         obj = super(DraftMixin, self).get_object(queryset=queryset)
         if hasattr(obj, 'status'):
             status = obj.status
-        elif hasattr(obj, 'dispute'):
-            status = obj.dispute.status
+        elif hasattr(obj, 'case'):
+            status = obj.case.status
         else:
             status = None # WTF?
         if not status == 'D':
             raise StatusError('Requested action can only be performed on objects with Draft status.')
         return obj
 
-class DisputeChildCreateView(ProtectedView, CreateView):
+class CaseChildCreateView(ProtectedView, CreateView):
     
-    def __get_dispute_from_kwargs(self):
-        dispute_pk = self.kwargs.get('dispute_pk', None)
-        return Dispute.objects.get(pk=dispute_pk)
+    def __get_case_from_kwargs(self):
+        case_pk = self.kwargs.get('case_pk', None)
+        return Case.objects.get(pk=case_pk)
     
     def get(self, request, *args, **kwargs):
-        d = self.__get_dispute_from_kwargs()
-        if not d.user == self.request.user:
+        c = self.__get_case_from_kwargs()
+        if not c.user == self.request.user:
             raise OwnershipError('You do not own the requested object.')
-        if not d.status == 'D':
+        if not c.status == 'D':
             raise StatusError('Requested action can only be performed on objects with Draft status.')
-        return super(DisputeChildCreateView, self).get(request, *args, **kwargs)
+        return super(CaseChildCreateView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        d = self.__get_dispute_from_kwargs()
-        if not d.user == self.request.user:
+        c = self.__get_case_from_kwargs()
+        if not c.user == self.request.user:
             raise OwnershipError('You do not own the requested object.')
-        if not d.status == 'D':
+        if not c.status == 'D':
             raise StatusError('Requested action can only be performed on objects with Draft status.')
-        return super(DisputeChildCreateView, self).post(request, *args, **kwargs)
+        return super(CaseChildCreateView, self).post(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form.instance.dispute = self.__get_dispute_from_kwargs()
-        return super(DisputeChildCreateView, self).form_valid(form)
+        form.instance.case = self.__get_case_from_kwargs()
+        return super(CaseChildCreateView, self).form_valid(form)
     
     def get_success_url(self):
-        dispute_pk = self.kwargs.get('dispute_pk', None)
-        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
+        case_pk = self.kwargs.get('case_pk', None)
+        return reverse('case-detail', kwargs={'pk': case_pk})
 
 
-class DisputeChildUpdateView(DraftMixin, UpdateView):
+class CaseChildUpdateView(DraftMixin, UpdateView):
     
     def get_success_url(self):
-        dispute_pk = self.get_object().dispute.pk
-        return reverse('dispute-detail', kwargs={'pk': dispute_pk})
+        case_pk = self.get_object().case.pk
+        return reverse('case-detail', kwargs={'pk': case_pk})
     
-class DisputeChildDeleteView(DraftMixin, DeleteView):
+class CaseChildDeleteView(DraftMixin, DeleteView):
     
     def delete(self, request, *args, **kwargs):
-        dispute_pk = self.get_object().dispute.pk
-        self.success_url = reverse('dispute-detail', kwargs={'pk': dispute_pk})
-        return super(DisputeChildDeleteView, self).delete(request, *args, **kwargs)
+        case_pk = self.get_object().case.pk
+        self.success_url = reverse('case-detail', kwargs={'pk': case_pk})
+        return super(CaseChildDeleteView, self).delete(request, *args, **kwargs)
 
            
 #-------------------------------------------------------------------------------
@@ -146,69 +146,69 @@ class LoginView(TemplateView):
 def home_view(request):
     if request.user.is_authenticated():
         #return render(request, 'home.html')
-        return DisputeListView.as_view()(request)
+        return CaseListView.as_view()(request)
     else:
         return render(request, 'landing.html')
 
 #-------------------------------------------------------------------------------
 #
-# Dispute Views
+# Case Views
 #
 #-------------------------------------------------------------------------------
 
-class DisputeListView(ListView):
-    model = Dispute
+class CaseListView(ListView):
+    model = Case
     template_name = 'home.html'
     
     def get_queryset(self):
-        return Dispute.objects.filter(user=self.request.user)
+        return Case.objects.filter(user=self.request.user)
 
 
-class DisputeCreateView(ProtectedView, CreateView):
-    model = Dispute
-    form_class = DisputeForm
+class CaseCreateView(ProtectedView, CreateView):
+    model = Case
+    form_class = CaseForm
     
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(DisputeCreateView, self).form_valid(form)
+        return super(CaseCreateView, self).form_valid(form)
 
 
-class DisputeDetailView(OwnedSingleObjectMixin, DetailView):
-    model = Dispute
+class CaseDetailView(OwnedSingleObjectMixin, DetailView):
+    model = Case
 
 
-class DisputeUpdateView(DraftMixin, UpdateView):
-    model = Dispute
-    form_class = DisputeForm
+class CaseUpdateView(DraftMixin, UpdateView):
+    model = Case
+    form_class = CaseForm
     
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(DisputeUpdateView, self).form_valid(form)
+        return super(CaseUpdateView, self).form_valid(form)
 
 
-class DisputeDeleteView(DraftMixin, DeleteView):
-    model = Dispute
+class CaseDeleteView(DraftMixin, DeleteView):
+    model = Case
     success_url = '/'
 
 
-class DisputeConfirmationView(OwnedSingleObjectMixin, DetailView):
+class CaseConfirmationView(OwnedSingleObjectMixin, DetailView):
     '''
-    When called with GET, display a summary of the dispute to be submitted
+    When called with GET, display a summary of the case to be submitted
         and a confirm button.
-    When called with POST via confirm button, actually submit the dispute.
+    When called with POST via confirm button, actually submit the case.
     '''
     
-    model = Dispute
+    model = Case
     template_name_suffix = '_confirmation'
     
     def get(self, request, *args, **kwargs):
         try:
             request.user.get_profile()
-            return super(DisputeConfirmationView, self).get(request, *args, **kwargs)
+            return super(CaseConfirmationView, self).get(request, *args, **kwargs)
         except UserProfile.DoesNotExist:
-            messages.add_message(request, messages.INFO, 'You must complete your profile before submitting a dispute.')
+            messages.add_message(request, messages.INFO, 'You must complete your profile before submitting a case.')
             pk = self.kwargs.get(self.pk_url_kwarg, None)
-            redirect = reverse('dispute-confirm', args=[pk])
+            redirect = reverse('case-confirm', args=[pk])
             url = '%s?next=%s' % (reverse('profile-edit'), redirect)
             return HttpResponseRedirect(url)
     
@@ -218,7 +218,7 @@ class DisputeConfirmationView(OwnedSingleObjectMixin, DetailView):
         d.status = 'Q' # Queued for send
         d.ts_submitted = timezone.now()
         d.save()
-        messages.add_message(request, messages.INFO, 'Dispute %s has been submitted.' % d.dispute_number)
+        messages.add_message(request, messages.INFO, 'Case %s has been submitted.' % d.case_number)
         return HttpResponseRedirect(reverse('home'))
     
     def post(self, *args, **kwargs):
@@ -231,15 +231,15 @@ class DisputeConfirmationView(OwnedSingleObjectMixin, DetailView):
 #
 #-------------------------------------------------------------------------------
 
-class AccountCreateView(DisputeChildCreateView):
+class AccountCreateView(CaseChildCreateView):
     model = Account
     form_class = AccountForm
 
-class AccountUpdateView(DisputeChildUpdateView):
+class AccountUpdateView(CaseChildUpdateView):
     model = Account
     form_class = AccountForm
     
-class AccountDeleteView(DisputeChildDeleteView):
+class AccountDeleteView(CaseChildDeleteView):
     model = Account
 
 #-------------------------------------------------------------------------------
@@ -248,15 +248,15 @@ class AccountDeleteView(DisputeChildDeleteView):
 #
 #-------------------------------------------------------------------------------
 
-class InquiryCreateView(DisputeChildCreateView):
+class InquiryCreateView(CaseChildCreateView):
     model = Inquiry
     form_class = InquiryForm
 
-class InquiryUpdateView(DisputeChildUpdateView):
+class InquiryUpdateView(CaseChildUpdateView):
     model = Inquiry
     form_class = InquiryForm
     
-class InquiryDeleteView(DisputeChildDeleteView):
+class InquiryDeleteView(CaseChildDeleteView):
     model = Inquiry
 
 
@@ -266,13 +266,13 @@ class InquiryDeleteView(DisputeChildDeleteView):
 #
 #-------------------------------------------------------------------------------
 
-class DemographicCreateView(DisputeChildCreateView):
+class DemographicCreateView(CaseChildCreateView):
     model = Demographic
     form_class = DemographicForm
 
-class DemographicUpdateView(DisputeChildUpdateView):
+class DemographicUpdateView(CaseChildUpdateView):
     model = Demographic
     form_class = DemographicForm
     
-class DemographicDeleteView(DisputeChildDeleteView):
+class DemographicDeleteView(CaseChildDeleteView):
     model = Demographic

@@ -44,9 +44,10 @@ BAD_INFO_TYPE_CHOICES = [
     ('other', 'Other Incorrect Information'),
     ]
 
-class Dispute(models.Model):
+
+class Case(models.Model):
     '''
-    A credit report dispute
+    A Credit Swarm dispute case, containing one or more varieties of Dispute
     '''
     user = models.ForeignKey(User)
     ts_created = models.DateTimeField(auto_now_add=True,
@@ -86,27 +87,41 @@ class Dispute(models.Model):
             )
     
     @property
-    def dispute_number(self):
+    def case_number(self):
         '''
-        An formatted number officially designating this dispute.
+        An formatted number officially designating this case.
         '''
         s = u'%012d' % self.pk
         return s[:3] + '-' + s[3:6] + '-' + s[6:9] + '-' + s[9:]
     
     @property
-    def dispute_id(self):
+    def case_id(self):
         '''
         An formatted string, consisting of the prefix NCDAC- and the dispute 
-        number, officially designating this dispute.
+        number, officially designating this case.
         '''
-        return 'NCDAC-' + self.dispute_number
+        return 'NCDAC-' + self.case_number
 
 
-class Inquiry(models.Model):
+class Dispute(models.Model):
+    '''
+    Abstract base class for the several varieties of credit dispute
+    '''
+    case = models.ForeignKey(Case) 
+    ts_created = models.DateTimeField(auto_now_add=True,
+        verbose_name='Created Timestamp')
+    ts_updated = models.DateTimeField(auto_now=True,
+        verbose_name='Updated Timestamp')
+
+    class Meta:
+        abstract = True
+
+
+
+class Inquiry(Dispute):
     '''
     A disputed credit score inquiry
     '''
-    dispute = models.ForeignKey(Dispute) # Maybe should be attached to CreditReport?
     company_name = models.CharField(max_length=128)
     date = models.DateField(default=datetime.date.today)
     
@@ -115,11 +130,10 @@ class Inquiry(models.Model):
         verbose_name_plural = 'Credit Inquiries'
     
 
-class Account(models.Model):
+class Account(Dispute):
     '''
     A disputed account detail
     '''
-    dispute = models.ForeignKey(Dispute)
     creditor = models.CharField(max_length=128, help_text='Name of creditor company')
     account_number = models.CharField(max_length=128)
     reason = models.CharField(max_length=32, choices=DETAIL_REASON_CHOICES, 
@@ -136,11 +150,10 @@ class Account(models.Model):
         verbose_name = 'Account Detail'
 
 
-class Demographic(models.Model):
+class Demographic(Dispute):
     '''
     Disputed demographic info
     '''
-    dispute = models.ForeignKey(Dispute)
     problem = models.CharField(max_length=32, blank=True, null=True, 
         choices=BAD_INFO_TYPE_CHOICES)
     explanation = models.TextField(blank=True, null=True)

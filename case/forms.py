@@ -3,30 +3,30 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from dispute.models import Dispute
-from dispute.models import Account
-from dispute.models import Inquiry
-from dispute.models import Demographic
+from case.models import Case
+from case.models import Account
+from case.models import Inquiry
+from case.models import Demographic
 
 
-class DisputeForm(forms.ModelForm):
+class CaseForm(forms.ModelForm):
     class Meta:
-        model = Dispute
+        model = Case
         exclude = ['user', 'status', 'ts_submitted']
 
 
 class AccountForm(forms.ModelForm):
     class Meta:
         model = Account
-        exclude = ['dispute']
+        exclude = ['case']
 
 
 class InquiryForm(forms.ModelForm):
     class Meta:
         model = Inquiry
-        exclude = ['dispute']
+        exclude = ['case']
 
 class DemographicForm(forms.ModelForm):
     class Meta:
         model = Demographic
-        exclude = ['dispute']
+        exclude = ['case']

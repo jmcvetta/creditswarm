@@ -143,7 +143,7 @@ INSTALLED_APPS = (
     'django_bcrypt',
     'south',
     'bootstrapform',
-    'dispute',
+    'case',
 )
 
 # A sample logging configuration. The only tangible logging

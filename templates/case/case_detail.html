@@ -17,7 +17,7 @@ Credit Report
 
 <ul>
 	<li>
-		Dispute Number: {{ object.dispute_number }}
+		Dispute Case Id: {{ object.case_id }}
 	</li>
 	<li>
 		Credit Reporting Agency: {{ object.get_agency_display }}
@@ -33,7 +33,7 @@ Credit Report
 
 {% if object.status == "D" %}
 <p>
-	<a href="{% url "dispute-edit" object.pk %}" class="btn">
+	<a href="{% url "case-edit" object.pk %}" class="btn">
 		Edit credit report number
 	</a>
 </p>
@@ -270,19 +270,19 @@ Preview and Confirm
 
 {% if not object.ready_to_submit %}
 <p>
-	<i>You must add at least one disputed account detail or inquiry before submitting your dispute.</i>
+	<i>You must add at least one cased account detail or inquiry before submitting your case.</i>
 </p>
 {% endif %}
 
 <p>
 	{% if object.ready_to_submit %}
-	<a href="{% url "dispute-confirm" object.pk %}" class="btn btn-success">
+	<a href="{% url "case-confirm" object.pk %}" class="btn btn-success">
 	{% else %}
 	<a href="#" class="btn btn-primary disabled">
 	{% endif %}
 		<i class="icon-ok"></i> Preview and Confirm
 	</a>
-	<a href="{% url "dispute-delete" object.pk %}" class="btn btn-danger pull-right">
+	<a href="{% url "case-delete" object.pk %}" class="btn btn-danger pull-right">
 		<i class="icon-trash"></i> Delete
 	</a>
 </p>
@@ -291,7 +291,7 @@ Preview and Confirm
 
 <h3>
 	<i class="icon-ok-sign"></i>
-	This dispute was submitted on {{ object.ts_submitted|date:"d M Y" }}
+	This case was submitted on {{ object.ts_submitted|date:"d M Y" }}
 </h3>
 
 {% endif %}

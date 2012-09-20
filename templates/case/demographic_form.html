@@ -14,7 +14,7 @@ Incorrect Personal Information
 	{{ form|bootstrap }}
 	<input type="submit" class="btn btn-primary" value="Save" />
 	{% if object %}
-	<a href="{% url "dispute-detail" object.dispute.pk %}" class="btn">Cancel</a>
+	<a href="{% url "case-detail" object.case.pk %}" class="btn">Cancel</a>
 	<a href="{% url "demographic-delete" object.pk %}" class="btn btn-danger pull-right">
 		<i class="icon-trash"></i> Delete
 	</a>

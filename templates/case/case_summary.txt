@@ -5,7 +5,7 @@
                National Credit Dispute Adjudication Corporation
                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Dispute Number:  {{ object.dispute_id }}
+Dispute Number:  {{ object.case_id }}
 Date Dispute Submitted:  {% now "d M Y" %}
 
 DISPUTED REPORT:

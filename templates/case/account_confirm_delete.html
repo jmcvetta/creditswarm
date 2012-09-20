@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load url from future %}
 
+
 {% block title %}{% block header %}
-Are you sure you want to delete this Credit Report Dispute?
+Are you sure you want to delete this account?
 {% endblock %}{% endblock %}
 
 
@@ -10,28 +11,27 @@ Are you sure you want to delete this Credit Report Dispute?
 
 <ul>
 	<li>
-		Credit Swarm Dispute Number: {{ object.pk }}
+		Creditor Name: {{ object.creditor }}
 	</li>
 	<li>
-		Credit Reporting Agency: {{ object.get_agency_display }}
+		Account Number: {{ object.account_number }}
 	</li>
 	<li>
-		Credit Report Number: {{ object.report_number }}
+		Reason: {{ object.get_reason_display }}
 	</li>
 	<li>
-		Status: 
-		{{ object.get_status_display }}
+		Explanation: {{ object.explanation }}
 	</li>
 </ul>
-
 
 <form method="POST">
 	{% csrf_token %}
 	<button type="submit" class="btn btn-danger">
 		<i class="icon-trash"></i> Yes, Delete It!
 	</button>
-	<a href="{% url "dispute-detail" object.pk %}" class="btn">
+	<a href="{% url "case-detail" object.case.pk %}" class="btn">
 		Cancel
 	</a>
 </form>
+
 {% endblock %}

@@ -17,20 +17,20 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for dispute in object_list %}
+		{% for case in object_list %}
 		<tr>
 			<td>
-				<a href="{% url "dispute-detail" dispute.pk %}">
-					{{ dispute.dispute_number }}
+				<a href="{% url "case-detail" case.pk %}">
+					{{ case.case_number }}
 				</a>
 			</td>
-			<td>{{ dispute.get_agency_display }}</td>
-			<td>{{ dispute.report_number }}</td>
+			<td>{{ case.get_agency_display }}</td>
+			<td>{{ case.report_number }}</td>
 			<td>
-				{% if dispute.status = "D" %}
+				{% if case.status = "D" %}
 				<i class="icon-minus-sign"></i> No
 				{% else %}
-				<i class="icon-ok-sign"></i> {{ dispute.ts_submitted|date:"d M Y" }}
+				<i class="icon-ok-sign"></i> {{ case.ts_submitted|date:"d M Y" }}
 				{% endif %}
 			</td>
 		</tr>
@@ -39,14 +39,14 @@
 </table>
 {% else %}
 <p>
-	You have not filed any disputes.
+	You have not filed any cases.
 </p>
 {% endif %}
 
 <hr />
 
 <p>
-	<a class="btn btn-primary" href="{% url "dispute-new" %}">File New Dispute</a>
+	<a class="btn btn-primary" href="{% url "case-new" %}">File New Dispute</a>
 </p>
 
 
