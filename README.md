@@ -1,3 +1,3 @@
-# Pijyn
+# Credit Swarm
 
-File credit report disputes online for free
+Credit report dispute collection system
