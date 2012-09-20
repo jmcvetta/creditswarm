@@ -13,13 +13,13 @@ Confirm Dispute Details
 	Dispute: {{ object.get_agency_display }} credit report #{{ object.report_number }}
 </h2>
 
-<pre>
-{% include "case/case_summary.txt" %}
-</pre>
+{% include "case/case_detail_display.html" %}
+
+<hr />
 
 <form method="POST">
 	<button type="submit" class="btn btn-warning">
-		<i class="icon-ok"></i> Confirm and Submit Dispute
+		<i class="icon-ok"></i> Confirm and Submit Case
 	</button>
 	<a href="{% url "case-detail" object.pk %}" class="btn">Edit</a>
 	{% csrf_token %}

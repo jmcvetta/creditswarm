@@ -1,0 +1,196 @@
+{% load url from future %}
+
+<!------------------------------------------------------------------------------
+	
+Credit Report
+
+------------------------------------------------------------------------------->
+
+<dl>
+	<dt>
+		Dispute Case ID
+	</dt>
+	<dd>
+		{{ object.case_id }}
+	</dd>
+	<dt>
+		Credit Reporting Agency
+	</dt>
+	<dd>
+		{{ object.get_agency_display }}
+	</dd>
+	<dt>
+		Credit Report Number
+	</dt>
+	<dd>
+		{{ object.report_number }}
+	</dd>
+	<dt>
+		Status
+	</dt>
+	<dd>
+		{{ object.get_status_display }}
+	</dd>
+</dl>
+
+<!------------------------------------------------------------------------------
+	
+Account Details
+
+------------------------------------------------------------------------------->
+
+<hr />
+
+<h2>
+	Disputed Account Details
+</h2>
+
+{% if object.account_set.all %}
+
+{% for account in object.account_set.all %}
+
+<h3>
+	{{ account.creditor }} #{{ account.account_number }} (Disputed Account Detail)
+</h3>
+<dl>
+	<dt>
+		Creditor
+	</dt>
+	<dd>
+		{{ account.creditor }}
+	</dd>
+	<dt>
+		Account Number
+	</dt>
+	<dd>
+		{{ account.account_number }}
+	</dd>
+	<dt>
+		Reason
+	</dt>
+	<dd>
+		{{ account.get_reason_display }}
+	</dd>
+	<dt>
+		Explanation
+	</dt>
+	<dd>
+		{{ account.explanation|default:"-" }}
+	</dd>
+	<dt>
+		Supporting Document
+	</dt>
+	<dd>
+		{% if account.evidence %}
+		<a href="{{ account.evidence.url }}">
+			{{ account.evidence }}
+		</a>
+		{% else %}
+		-
+		{% endif %}
+	</dd>
+</dl>
+{% if not forloop.last %}
+<hr />
+{% endif %}
+
+{% endfor %}
+
+{% else %}
+
+<p>
+	No disputed account details.
+</p>
+
+{% endif %}
+
+
+<!------------------------------------------------------------------------------
+	
+Inquiries
+
+------------------------------------------------------------------------------->
+
+<hr />
+
+<h2>
+	Disputed Inquiries
+</h2>
+
+{% if object.inquiry_set.all %}
+
+	{% for inquiry in object.inquiry_set.all %}
+	<h3>
+		{{ inquiry.company_name }} {{ inquiry.date|date:"d M Y" }} (Disputed Credit Inquiry)
+	</h3>
+	<dl>
+		<dt>
+			Company Name
+		</dt>
+		<dd>
+			{{ inquiry.company_name }}
+		</dd>
+		<dt>
+			Date of Inquiry
+		</dt>
+		<dd>
+			{{ inquiry.date }}
+		</dd>
+	</dl>
+	{% endfor %}
+
+{% else %}
+
+	<p>
+		<strong>No disputed inquiries.</strong>
+	</p>
+
+{% endif %}
+
+
+<!------------------------------------------------------------------------------
+	
+Demographic Info
+
+------------------------------------------------------------------------------->
+
+<hr />
+
+<h2>
+	Incorrect Personal Information
+</h2>
+
+{% if object.demographic_set.all %}
+
+	{% for dem in object.demographic_set.all %}
+	<h3>
+		{{ dem.get_problem_display }} (Incorrect Personal Information)
+	</h3>
+	<dl>
+		<dt>
+			Problem
+		</dt>
+		<dd>
+			{{ dem.get_problem_display }}
+		</dd>
+		<dt>
+			Explanation
+		</dt>
+		<dd>
+			{{ dem.explanation }}
+		</dd>
+	</dl>
+	{% if not forloop.last %}
+		<hr />
+	{% endif %}
+	{% endfor %}
+
+{% else %}
+
+<p>
+	No incorrect personal information.
+</p>
+
+{% endif %}
+
+

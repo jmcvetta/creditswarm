@@ -1,0 +1,245 @@
+{% load url from future %}
+
+<!------------------------------------------------------------------------------
+	
+Credit Report
+
+------------------------------------------------------------------------------->
+
+<ul>
+	<li>
+		Dispute Case Id: {{ object.case_id }}
+	</li>
+	<li>
+		Credit Reporting Agency: {{ object.get_agency_display }}
+	</li>
+	<li>
+		Credit Report Number: {{ object.report_number }}
+	</li>
+	<li>
+		Status: 
+		{{ object.get_status_display }}
+	</li>
+</ul>
+
+<p>
+	<a href="{% url "case-edit" object.pk %}" class="btn">
+		Edit credit report number
+	</a>
+</p>
+
+
+<!------------------------------------------------------------------------------
+	
+Account Details
+
+------------------------------------------------------------------------------->
+
+<hr />
+
+<h2>
+	Disputed Account Details
+</h2>
+
+{% if object.account_set.all %}
+
+<table class="table table-striped" data-provides="rowlink">
+	<thead>
+		<tr>
+			<th>
+				Creditor
+			</th>
+			<th>
+				Account Number
+			</th>
+			<th>
+				Reason
+			</th>
+			<th>
+				Explanation
+			</th>
+			<th>
+				Evidence
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for account in object.account_set.all %}
+		<tr>
+			<td>
+				<a href="{% url "account-edit" account.pk %}">
+					{{ account.creditor }}
+				</a>
+			</td>
+			<td>
+				{{ account.account_number }}
+			</td>
+			<td>
+				{{ account.get_reason_display }}
+			</td>
+			<td>
+				{{ account.explanation|truncatechars:80 }}
+			</td>
+			<td>
+				{% if account.evidence %}
+				<a href="{{ account.evidence.url }}">
+					{{ account.evidence.name }}
+				</a>
+				{% endif %}
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+{% else %}
+<p>
+	<strong>No account details added.</strong>
+</p>
+{% endif %}
+
+<p>
+	<a href="{% url "account-new" object.pk %}" class="btn">
+		Add new account detail...
+	</a>
+</p>
+
+
+<!------------------------------------------------------------------------------
+	
+Inquiries
+
+------------------------------------------------------------------------------->
+
+<hr />
+
+<h2>
+	Disputed Inquiries
+</h2>
+
+{% if object.inquiry_set.all %}
+
+<table class="table table-striped" data-provides="rowlink">
+	<thead>
+		<tr>
+			<th>
+				Company Name
+			</th>
+			<th>
+				Inquiry Date
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for inquiry in object.inquiry_set.all %}
+		<tr>
+			<td>
+				<a href="{% url "inquiry-edit" inquiry.pk %}">
+					{{ inquiry.company_name }}
+				</a>
+			</td>
+			<td>
+				{{ inquiry.date }}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% else %}
+
+<p>
+	<strong>No inquiries added.</strong>
+</p>
+
+{% endif %}
+
+<p>
+	<a href="{% url "inquiry-new" object.pk %}" class="btn">
+		Add new inquiry...
+	</a>
+</p>
+
+
+<!------------------------------------------------------------------------------
+	
+Demographic Info
+
+------------------------------------------------------------------------------->
+
+<hr />
+
+<h2>
+	Incorrect Personal Information
+</h2>
+
+{% if object.demographic_set.all %}
+
+<table class="table table-striped" data-provides="rowlink">
+	<thead>
+		<tr>
+			<th>
+				Problem
+			</th>
+			<th>
+				Explanation
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for dem in object.demographic_set.all %}
+		<tr>
+			<td>
+				<a href="{% url "demographic-edit" dem.pk %}">
+					{{ dem.get_problem_display }}
+				</a>
+			</td>
+			<td>
+				{{ dem.explanation|truncatechars:80 }}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% else %}
+
+<p>
+	<strong>No personal information added.</strong>
+</p>
+
+{% endif %}
+
+<p>
+	<a href="{% url "demographic-new" object.pk %}" class="btn">
+		Add new personal information...
+	</a>
+</p>
+
+
+<!------------------------------------------------------------------------------
+
+Preview and Confirm
+
+------------------------------------------------------------------------------->
+
+<hr />
+
+{% if not object.ready_to_submit %}
+<p>
+	<i>You must add at least one cased account detail or inquiry before submitting your case.</i>
+</p>
+{% endif %}
+
+<p>
+	{% if object.ready_to_submit %}
+	<a href="{% url "case-confirm" object.pk %}" class="btn btn-success">
+	{% else %}
+	<a href="#" class="btn btn-primary disabled">
+	{% endif %}
+		<i class="icon-ok"></i> Preview and Confirm
+	</a>
+	<a href="{% url "case-delete" object.pk %}" class="btn btn-danger pull-right">
+		<i class="icon-trash"></i> Delete
+	</a>
+</p>
