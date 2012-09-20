@@ -6,6 +6,21 @@ import sys
 import logging
 from django.conf import global_settings
 
+
+def env_setting(name, default=None):
+    '''
+    Attempts to return the value of `name` from environment variables.  
+    If `name` is not set, logs an error message and returns default.
+    '''
+    try:
+        result = os.environ[name]
+    except:
+        result = default
+        msg = 'Could not load setting "%s" from environment.  App may not function correctly' % name
+        logging.error(msg)
+    return result
+
+
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS
 AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
     
@@ -249,8 +264,8 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
 
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_ACCESS_KEY_ID = env_setting('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env_setting('AWS_SECRET_ACCESS_KEY')
 # NOTE: This bucket is publicly accessible
 AWS_STORAGE_BUCKET_NAME = 'creditswarm-public'
 STATIC_URL = 'https://s3.amazonaws.com/creditswarm-public'
