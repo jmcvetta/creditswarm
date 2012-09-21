@@ -9,4 +9,5 @@ set -x
 
 virtualenv --no-site-packages venv
 source ./venv/bin/activate
-time pip install -r requirements.txt
+#time pip install -r requirements.txt
+time pip install -r requirements.dev.txt
