@@ -296,8 +296,7 @@ AWS_STORAGE_BUCKET_NAME = 'creditswarm-public'
 STATIC_URL = 'https://s3.amazonaws.com/creditswarm-public/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = 'creditswarm.storage.CachedS3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 #-------------------------------------------------------------------------------
 #
