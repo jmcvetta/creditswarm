@@ -41,7 +41,11 @@ MANAGERS = ADMINS
 #DATABASES = {'default': dj_database_url.config(default='sqlite:///' +
         #os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'db.sqlite') )}
 
-DATABASES = {'default': dj_database_url.config() }
+#DATABASES = {'default': dj_database_url.config() }
+from postgresify import postgresify
+
+DATABASES = postgresify()
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -395,6 +399,9 @@ if DEBUG:
     INSTALLED_APPS += (
         'debug_toolbar',
         )
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+        }
 
 
 #-------------------------------------------------------------------------------
