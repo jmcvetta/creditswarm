@@ -379,3 +379,20 @@ if CELERY_ENABLED:
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.BCryptPasswordHasher',
 ) + PASSWORD_HASHERS
+
+
+#-------------------------------------------------------------------------------
+#
+# Debug Toolbar
+#
+#-------------------------------------------------------------------------------
+
+if DEBUG:
+    MIDDLEWARE_CLASSES = (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        ) + MIDDLEWARE_CLASSES
+    INTERNAL_IPS = ('127.0.0.1',)
+    INSTALLED_APPS += (
+        'debug_toolbar',
+        )
+
