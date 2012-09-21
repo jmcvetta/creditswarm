@@ -12,7 +12,7 @@ from case.models import Demographic
 class CaseForm(forms.ModelForm):
     class Meta:
         model = Case
-        exclude = ['user', 'status', 'ts_submitted']
+        exclude = ['user', 'status', 'ts_submitted', 'ts_transmitted']
 
 
 class AccountForm(forms.ModelForm):

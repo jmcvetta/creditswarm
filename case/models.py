@@ -3,14 +3,12 @@
 import datetime
 #
 from django.db import models
+from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 #
 from storages.backends.s3boto import S3BotoStorage
-#
-from celery.task import Task
-from celery.registry import tasks
 #
 from templated_email import send_templated_mail
 #
@@ -59,6 +57,7 @@ class Case(models.Model):
     ts_updated = models.DateTimeField(auto_now=True,
         verbose_name='Updated Timestamp')
     ts_submitted = models.DateTimeField(blank=True, null=True)
+    ts_transmitted = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='D')
     #
     # Credit Report
@@ -126,6 +125,7 @@ class Case(models.Model):
             template_suffix = 'html',
             )
         self.status = 'S'
+        self.ts_transmitted = timezone.now()
         self.save()
 
 
