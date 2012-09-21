@@ -6,5 +6,20 @@
 Blah blah blah legal text.
 
 Click here to access the consumer credit dispute data:
-{% url "cra-case-detail" object.pk %}
+    https://{{ current_site.domain }}{% url "cra-case-detail" object.pk %}
+{% endblock %}
+
+{% block html %}
+<h1>
+	Complaint headline
+</h1>
+
+<p>
+	Blah blah blah legal text.
+</p>
+<p>
+	<a href="https://{{ current_site.domain }}{% url "cra-case-detail" object.pk %}">
+		Click here to access the consumer credit dispute data.
+	</a>
+</p>
 {% endblock %}
