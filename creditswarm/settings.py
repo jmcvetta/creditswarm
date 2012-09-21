@@ -415,3 +415,8 @@ if DEBUG:
 #-------------------------------------------------------------------------------
 
 CACHES = memcacheify()
+
+# Required for caching user-specific fragments.  
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
+    )

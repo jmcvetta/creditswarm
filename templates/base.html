@@ -1,4 +1,6 @@
 {% load url from future %}
+{% load cache %}
+
 {% block completehtml %}
 
 
@@ -46,6 +48,7 @@
   <body>
 
 	{% block navigation %}
+	{% cache 900 nav_bar request.user.username %}
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -84,6 +87,7 @@
         </div>
       </div>
     </div>
+    {% endcache %}
 	{% endblock %}
 
     <div class="container">
