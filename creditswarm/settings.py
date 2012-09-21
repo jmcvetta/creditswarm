@@ -140,7 +140,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'django_bcrypt',
     'south',
     'bootstrapform',
     'case',
@@ -368,3 +367,14 @@ CELERY_RESULT_BACKEND = 'amqp'
 CELERY_ENABLED = bool(os.getenv('CELERY_ENABLED', False))
 if CELERY_ENABLED:
     logging.info('Using Celery to queue background tasks.')
+
+
+#-------------------------------------------------------------------------------
+#
+# BCrypt
+#
+#-------------------------------------------------------------------------------
+
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+) + global_settings.PASSWORD_HASHERS
