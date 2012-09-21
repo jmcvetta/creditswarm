@@ -4,7 +4,7 @@
 		"model": "sites.site", 
 		"fields": { 
 			"name": "Credit Swarm", 
-			"domain": "localhost:5000"
+			"domain": "creditswarm.herokuapp.com"
 		} 
 	}
 ]
