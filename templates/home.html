@@ -5,8 +5,14 @@
 
 {% block content %}
 
-<h2>Disputes on File</h2>
-{% if object_list %}
+<h2>
+	Dispute Cases on File
+</h2>
+
+<h3>
+	Drafts
+</h3>
+{% if draft_cases %}
 <table class="table table-striped" data-provides="rowlink">
 	<thead>
 		<tr>
@@ -17,7 +23,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for case in object_list %}
+		{% for case in draft_cases %}
 		<tr>
 			<td>
 				<a href="{% url "case-detail" case.pk %}">
@@ -39,15 +45,58 @@
 </table>
 {% else %}
 <p>
-	You have not filed any cases.
+	You have no draft cases.
 </p>
 {% endif %}
-
-<hr />
 
 <p>
 	<a class="btn btn-primary" href="{% url "case-new" %}">File New Dispute</a>
 </p>
+
+
+<hr />
+
+<h3>
+	Sent
+</h3>
+{% if sent_cases %}
+<table class="table table-striped" data-provides="rowlink">
+	<thead>
+		<tr>
+			<td>Dispute #</td>
+			<td>Credit Reporting Agency</td>
+			<td>Credit Report Number</td>
+			<td>Submitted</td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for case in sent_cases %}
+		<tr>
+			<td>
+				<a href="{% url "case-detail" case.pk %}">
+					{{ case.case_number }}
+				</a>
+			</td>
+			<td>{{ case.get_agency_display }}</td>
+			<td>{{ case.report_number }}</td>
+			<td>
+				{% if case.status = "D" %}
+				<i class="icon-minus-sign"></i> No
+				{% else %}
+				<i class="icon-ok-sign"></i> {{ case.ts_submitted|date:"d M Y" }}
+				{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+<p>
+	You have no sent cases.
+</p>
+{% endif %}
+
+<hr />
 
 
 {% endblock %}

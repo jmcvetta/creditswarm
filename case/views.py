@@ -149,7 +149,7 @@ class LoginView(TemplateView):
 def home_view(request):
     if request.user.is_authenticated():
         #return render(request, 'home.html')
-        return CaseListView.as_view()(request)
+        return HomeTemplateView.as_view()(request)
     else:
         return render(request, 'landing.html')
 
@@ -158,6 +158,17 @@ def home_view(request):
 # Case Views
 #
 #-------------------------------------------------------------------------------
+
+class HomeTemplateView(TemplateView):
+    template_name = 'home.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(HomeTemplateView, self).get_context_data(**kwargs)
+        cases = Case.objects.filter(user=self.request.user)
+        context['draft_cases'] = cases.filter(status='D')
+        context['sent_cases'] = cases.exclude(status='D')
+        return context
+
 
 class CaseListView(ListView):
     model = Case
