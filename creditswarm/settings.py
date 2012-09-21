@@ -22,6 +22,7 @@ def env_setting(name, default=None):
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS
 AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
+PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS
     
 PWD = os.getenv("PWD", "/app")
 
@@ -377,4 +378,4 @@ if CELERY_ENABLED:
 
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.BCryptPasswordHasher',
-) + global_settings.PASSWORD_HASHERS
+) + PASSWORD_HASHERS
