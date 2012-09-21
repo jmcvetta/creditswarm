@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% load cache %}
 
+{% cache 900 landing %}
 {% block completehtml %}
 <!DOCTYPE html>
 <html lang="en" class=" js no-touch csstransforms csstransforms3d csstransitions fontface video audio">
@@ -79,3 +81,4 @@
 </body>
 </html>
 {% endblock %}
+{% endcache %}
