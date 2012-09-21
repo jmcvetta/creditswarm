@@ -1,10 +1,14 @@
 # Copyright (c) 2012 Jason McVetta.
 
-import dj_database_url
 import os
 import sys
 import logging
+import djcelery
 from django.conf import global_settings
+from boto.s3.connection import SubdomainCallingFormat
+from postgresify import postgresify
+from memcacheify import memcacheify
+
 
 
 def env_setting(name, default=None):
@@ -42,7 +46,6 @@ MANAGERS = ADMINS
         #os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'db.sqlite') )}
 
 #DATABASES = {'default': dj_database_url.config() }
-from postgresify import postgresify
 
 DATABASES = postgresify()
 
@@ -281,9 +284,9 @@ INSTALLED_APPS += (
     'storages', 
 )
 
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
+
+# Is this necessary/useful?
+AWS_CALLING_FORMAT = SubdomainCallingFormat
 
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
@@ -291,6 +294,8 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = 'creditswarm-public'
 STATIC_URL = 'https://s3.amazonaws.com/creditswarm-public'
 
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 #-------------------------------------------------------------------------------
 #
@@ -337,7 +342,6 @@ if not (DEBUG or os.getenv('SSL_DISABLE')):
 #
 #-------------------------------------------------------------------------------
 
-import djcelery
 djcelery.setup_loader()
 
 INSTALLED_APPS += (
@@ -410,5 +414,4 @@ if DEBUG:
 #
 #-------------------------------------------------------------------------------
 
-from memcacheify import memcacheify
 CACHES = memcacheify()
