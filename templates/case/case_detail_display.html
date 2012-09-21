@@ -13,6 +13,14 @@ Credit Report
 	<dd>
 		{{ object.case_id }}
 	</dd>
+	{% if object.ts_transmitted %}
+	<dt>
+		Dispute Case Transmitted
+	</dt>
+	<dd>
+		{{ object.ts_transmitted }}
+	</dd>
+	{% endif %}
 	<dt>
 		Credit Reporting Agency
 	</dt>
@@ -26,10 +34,40 @@ Credit Report
 		{{ object.report_number }}
 	</dd>
 	<dt>
-		Status
+		Consumer Given Name
 	</dt>
 	<dd>
-		{{ object.get_status_display }}
+		{{ object.user.get_profile.given_name }}
+	</dd>
+	<dt>
+		Consumer Family Name
+	</dt>
+	<dd>
+		{{ object.user.get_profile.family_name }}
+	</dd>
+	<dt>
+		Consumer Address
+	</dt>
+	<dd>
+		{{ object.user.get_profile.address1 }}
+		{% if object.user.get_profile.address2 %}
+		<br>{{ object.user.get_profile.address2 }}
+		{% endif %}
+		<br>{{ object.user.get_profile.city }}, 
+		{{ object.user.get_profile.state }} 
+		{{ object.user.get_profile.zip }}
+	</dd>
+	<dt>
+		Consumer Date of Birth
+	</dt>
+	<dd>
+		{{ object.user.get_profile.date_of_birth }}
+	</dd>
+	<dt>
+		Consumer SSN
+	</dt>
+	<dd>
+		{{ object.user.get_profile.ssn }}
 	</dd>
 </dl>
 

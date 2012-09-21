@@ -6,21 +6,26 @@ Credit Report
 
 ------------------------------------------------------------------------------->
 
-<ul>
-	<li>
-		Dispute Case Id: {{ object.case_id }}
-	</li>
-	<li>
-		Credit Reporting Agency: {{ object.get_agency_display }}
-	</li>
-	<li>
-		Credit Report Number: {{ object.report_number }}
-	</li>
-	<li>
-		Status: 
-		{{ object.get_status_display }}
-	</li>
-</ul>
+<dl>
+	<dt>
+		Dispute Case ID
+	</dt>
+	<dd>
+		{{ object.case_id }}
+	</dd>
+	<dt>
+		Credit Reporting Agency
+	</dt>
+	<dd>
+		{{ object.get_agency_display }}
+	</dd>
+	<dt>
+		Credit Report Number
+	</dt>
+	<dd>
+		{{ object.report_number }}
+	</dd>
+</dl>
 
 <p>
 	<a href="{% url "case-edit" object.pk %}" class="btn">
