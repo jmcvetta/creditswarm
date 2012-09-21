@@ -1,5 +1,6 @@
 {% load url from future %}
 {% load cache %}
+{% load compress %}
 
 {% block completehtml %}
 
@@ -14,21 +15,25 @@
     <meta name="author" content="Pijyn, Inc.">
 
     <!-- Le styles -->
-    <link href="{{ STATIC_URL }}/css/bootstrap.min.css" rel="stylesheet">
+    {% compress css %}
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
-    <link href="{{ STATIC_URL }}/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
     {% comment %}
     jasny extensions to Boostrap - required for clickable table rows.   Should these
     stylesheets be here in base.html; or should they only be included on templates
     that require them?
     {% endcomment %}
-    <link href="{{ STATIC_URL }}/css/jasny-bootstrap.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}/css/jasny-bootstrap-responsive.min.css" rel="stylesheet">
-    {% block extracss %}{% endblock %}
+    <link href="{{ STATIC_URL }}css/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/jasny-bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/datepicker.css" rel="stylesheet">
+    {% block extracss %}
+    {% endblock %}
+    {% endcompress %}
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -36,11 +41,11 @@
     <![endif]-->
 
     <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="{{ STATIC_URL }}/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
     
     {% block extrahead %}{% endblock %}
   </head>
@@ -141,17 +146,22 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ STATIC_URL }}/js/jquery-1.8.0.min.js"></script>
-    <script src="{{ STATIC_URL }}/js/bootstrap.js"></script>
+    {% compress js %}
+    <script src="{{ STATIC_URL }}js/jquery-1.8.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
     {% comment %}
     jasny extensions to Boostrap - required for clickable table rows.   Should these
     stylesheets be here in base.html; or should they only be included on templates
     that require them?
     {% endcomment %}
-    <script src="{{ STATIC_URL }}/js/bootstrap-rowlink.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-rowlink.js"></script>
+    {% endcompress %}
     {% block extrascript %}{% endblock %}
 
   
 
-</body><link rel="stylesheet" type="text/css" href="data:text/css,"></html>
+</body>
+<link rel="stylesheet" type="text/css" href="data:text/css,">
+</html>
 {% endblock %}

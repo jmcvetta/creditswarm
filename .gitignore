@@ -8,3 +8,4 @@ venv/
 local_settings.py
 db.sqlite
 celerybeat-schedule
+static/CACHE

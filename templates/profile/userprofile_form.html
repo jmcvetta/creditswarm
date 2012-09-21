@@ -1,13 +1,10 @@
 {% extends "base.html" %}
 {% load bootstrap %}
-
-{% block extracss %} 
-<link href="{{ STATIC_URL }}/css/datepicker.css" rel="stylesheet">
-{% endblock %}
+{% load compress %}
 
 
 {% block extrascript %} 
-<script src="{{ STATIC_URL }}/js/bootstrap-datepicker.js"></script>
+{% compress js inline %}
 <script>
 	$(function(){
 		$('#id_date_of_birth').datepicker({
@@ -15,6 +12,7 @@
 		});
 	})
 </script>
+{% endcompress %}
 {% endblock %}
 
 

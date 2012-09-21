@@ -19,3 +19,5 @@ django-debug-toolbar       # In-browser debugging utility
 django-sslify              # Require SSL site-wide
 django-heroku-memcacheify  # Automatic Django memcached configuration on Heroku.
 django-heroku-postgresify  # Automatic Django database configuration on Heroku.
+django-compressor          # Compress CSS and JS into static files
+slimit                     # JavaScript minifier

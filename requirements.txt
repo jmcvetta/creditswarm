@@ -1,3 +1,4 @@
+BeautifulSoup==3.2.1
 Django==1.4.1
 Pillow==1.7.7
 South==0.7.6
@@ -12,6 +13,7 @@ dj-database-url==0.2.1
 django-appconf==0.5
 django-bootstrap-form==2.0.5
 django-celery==3.0.9
+django-compressor==1.2
 django-debug-toolbar==0.9.4
 django-heroku-memcacheify==0.3
 django-heroku-postgresify==0.2
@@ -29,10 +31,13 @@ ipython==0.13
 kombu==2.4.7
 newrelic==1.5.0.103
 oauth2==1.5.211
+odict==1.5.0
+ply==3.4
 psycopg2==2.4.5
 py-bcrypt==0.2
 pylibmc==1.2.3
 python-dateutil==1.5
 python-openid==2.2.5
 pytz==2012d
+slimit==0.7.4
 wsgiref==0.1.2
