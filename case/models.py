@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 #
 from storages.backends.s3boto import S3BotoStorage
+#
+from creditswarm.settings import CREDIT_REPORTING_AGENCIES as agencies
 
 
 STATUS_CHOICES = [
@@ -15,12 +17,7 @@ STATUS_CHOICES = [
     ('S', 'Sent'),
     ]
 
-# Credit Reporting Agencies
-CRA_CHOICES = [
-    ('xp', 'Experian'),
-    ('eq', 'Equifax'),
-    ('tu', 'TransUnion'),
-    ]
+CRA_CHOICES = [(key, agencies[key]['name']) for key in agencies]
 
 DETAIL_REASON_CHOICES = [
     ('unknown_acct', 'Unknown Account'),

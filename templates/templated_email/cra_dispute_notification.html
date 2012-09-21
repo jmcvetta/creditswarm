@@ -1,0 +1,10 @@
+{% load url from future %}
+
+{% block subject %}Consumer credit report dispute (submitted via Credit Swarm){% endblock %}
+
+{% block plain %}
+Blah blah blah legal text.
+
+Click here to access the consumer credit dispute data:
+{% url "cra-case-detail" object.pk %}
+{% endblock %}

@@ -28,6 +28,7 @@ from case.forms import CaseForm
 from case.forms import AccountForm
 from case.forms import InquiryForm
 from case.forms import DemographicForm
+from case.tasks import SendDisputeEmailTask
 #
 from profile.models import UserProfile
 
@@ -215,11 +216,12 @@ class CaseConfirmationView(OwnedSingleObjectMixin, DetailView):
     
     
     def submit(self, request, *args, **kwargs):
-        d = self.get_object()
-        d.status = 'Q' # Queued for send
-        d.ts_submitted = timezone.now()
-        d.save()
-        messages.add_message(request, messages.INFO, 'Case %s has been submitted.' % d.case_number)
+        case_obj = self.get_object()
+        case_obj.status = 'Q' # Queued for send
+        case_obj.ts_submitted = timezone.now()
+        case_obj.save()
+        SendDisputeEmailTask.delay(case_obj)
+        messages.add_message(request, messages.INFO, 'Case %s has been submitted.' % case_obj.case_number)
         return HttpResponseRedirect(reverse('home'))
     
     def post(self, *args, **kwargs):

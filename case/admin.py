@@ -5,8 +5,14 @@ from case.models import Case
 from case.models import Account
 from case.models import Inquiry
 
+def make_draft(modeladmin, request, queryset):
+    queryset.update(status='D')
+make_draft.short_description = 'Set case status to "Draft"'
+
 class CaseAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'user', 'ts_updated']
+    list_display = ['pk', 'user', 'status', 'agency', 'report_number', 'ts_updated']
+    list_filter = ['status']
+    actions = [make_draft]
 
 class AccountAdmin(admin.ModelAdmin):
     list_display = ['pk', 'case', 'creditor', 'account_number']

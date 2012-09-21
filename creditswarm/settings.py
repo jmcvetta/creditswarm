@@ -190,6 +190,23 @@ LOGGING = {
 }
 
 
+# Credit Reporting Agencies
+CREDIT_REPORTING_AGENCIES = {
+    'xp': {
+        'name': 'Experian',
+        'email': 'experian@creditswarm.com',
+        },
+    'eq': {
+        'name': 'Equifax',
+        'email': 'equifax@creditswarm.com',
+        },
+    'tu': {
+        'name': 'TransUnion',
+        'email': 'transunion@creditswarm.com',
+        },
+    }
+
+
 #-------------------------------------------------------------------------------
 #
 # Sendgrid
@@ -309,3 +326,24 @@ if not (DEBUG or os.getenv('SSL_DISABLE')):
         'sslify.middleware.SSLifyMiddleware',
     ) + MIDDLEWARE_CLASSES
 
+
+#-------------------------------------------------------------------------------
+#
+# Celery
+#
+#-------------------------------------------------------------------------------
+
+import djcelery
+djcelery.setup_loader()
+
+INSTALLED_APPS += (
+    'djcelery',
+    'djkombu',
+    )
+
+BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
+BROKER_HOST = "localhost"
+BROKER_PORT = 5672
+BROKER_USER = "guest"
+BROKER_PASSWORD = "guest"
+BROKER_VHOST = "/"
