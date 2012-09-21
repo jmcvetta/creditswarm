@@ -5,10 +5,17 @@ import datetime
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 #
 from storages.backends.s3boto import S3BotoStorage
 #
-from creditswarm.settings import CREDIT_REPORTING_AGENCIES as agencies
+from celery.task import Task
+from celery.registry import tasks
+#
+from templated_email import send_templated_mail
+#
+from creditswarm.settings import DEFAULT_FROM_EMAIL
+from creditswarm.settings import CREDIT_REPORTING_AGENCIES as AGENCIES
 
 
 STATUS_CHOICES = [
@@ -17,7 +24,7 @@ STATUS_CHOICES = [
     ('S', 'Sent'),
     ]
 
-CRA_CHOICES = [(key, agencies[key]['name']) for key in agencies]
+CRA_CHOICES = [(key, AGENCIES[key]['name']) for key in AGENCIES]
 
 DETAIL_REASON_CHOICES = [
     ('unknown_acct', 'Unknown Account'),
@@ -98,6 +105,28 @@ class Case(models.Model):
         number, officially designating this case.
         '''
         return 'NCDAC-' + self.case_number
+    
+    def email_cra(self):
+        '''
+        Sends a dispute email for to the Credit Reporting Agency
+        '''
+        send_templated_mail(
+            template_name = 'cra_dispute_notification',
+            from_email = DEFAULT_FROM_EMAIL,
+            recipient_list = [AGENCIES[self.agency]['email'],],
+            context = {
+                'object': self,
+                'current_site': Site.objects.get_current(),
+                },
+            # Optional:
+            # cc=['cc@example.com'],
+            # bcc=['bcc@example.com'],
+            # headers={'My-Custom-Header':'Custom Value'},
+            # template_ 
+            template_suffix = 'html',
+            )
+        self.status = 'S'
+        self.save()
 
 
 class Dispute(models.Model):

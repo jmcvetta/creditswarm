@@ -15,5 +15,4 @@ boto                       # Python interface to Amazon Web Services
 newrelic                   # Cloud-based monitoring service
 django-sslify              # Require SSL site-wide
 django-celery              # Distributed task queue
-django-kombu               # Kombu transport using the Django database
 django-templated-email     # Template-based email

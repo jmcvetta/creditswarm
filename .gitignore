@@ -7,3 +7,4 @@ venv/
 .pydevproject
 local_settings.py
 db.sqlite
+celerybeat-schedule

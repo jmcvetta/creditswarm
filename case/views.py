@@ -18,7 +18,8 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login
-
+#
+from creditswarm import settings
 #
 from case.models import Case
 from case.models import Account
@@ -220,7 +221,10 @@ class CaseConfirmationView(OwnedSingleObjectMixin, DetailView):
         case_obj.status = 'Q' # Queued for send
         case_obj.ts_submitted = timezone.now()
         case_obj.save()
-        SendDisputeEmailTask.delay(case_obj)
+        if settings.CELERY_ENABLED:
+            SendDisputeEmailTask.delay(case_obj)
+        else:
+            case_obj.email_cra()
         messages.add_message(request, messages.INFO, 'Case %s has been submitted.' % case_obj.case_number)
         return HttpResponseRedirect(reverse('home'))
     

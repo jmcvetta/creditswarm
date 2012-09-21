@@ -22,23 +22,6 @@ class SendDisputeEmailTask(Task):
         '''
         Sends a dispute email for a given Case object.
         '''
-        #c = Case.objects.get(pk=case_pk)
-        send_templated_mail(
-            template_name = 'cra_dispute_notification',
-            from_email = DEFAULT_FROM_EMAIL,
-            recipient_list = [AGENCIES[case_obj.agency]['email'],],
-            context = {
-                'object': case_obj,
-                'current_site': Site.objects.get_current(),
-                },
-            # Optional:
-            # cc=['cc@example.com'],
-            # bcc=['bcc@example.com'],
-            # headers={'My-Custom-Header':'Custom Value'},
-            # template_ 
-            template_suffix = 'html',
-            )
-        case_obj.status = 'S'
-        case_obj.save()
+        case_obj.email_cra()
         
 tasks.register(SendDisputeEmailTask)
