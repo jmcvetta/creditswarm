@@ -27,7 +27,6 @@ def env_setting(name, default=None):
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS
 AUTHENTICATION_BACKENDS = global_settings.AUTHENTICATION_BACKENDS
 PASSWORD_HASHERS = global_settings.PASSWORD_HASHERS
-STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS
     
 PWD = os.getenv("PWD", "/app")
 
@@ -293,10 +292,10 @@ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 # NOTE: This bucket is publicly accessible
 AWS_STORAGE_BUCKET_NAME = 'creditswarm-public'
-STATIC_URL = 'https://s3.amazonaws.com/creditswarm-public/'
+STATIC_URL = 'https://s3.amazonaws.com/creditswarm-public'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 #-------------------------------------------------------------------------------
 #
@@ -421,25 +420,3 @@ CACHES = memcacheify()
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
     )
-
-
-#-------------------------------------------------------------------------------
-#
-# Compressor
-#
-#-------------------------------------------------------------------------------
-
-INSTALLED_APPS += (
-    "compressor",
-)
-
-STATICFILES_FINDERS = STATICFILES_FINDERS + (
-    'compressor.finders.CompressorFinder',
-)
-
-COMPRESS_STORAGE = STATICFILES_STORAGE
-COMPRESS_OFFLINE = True
-COMPRESS_ROOT = os.path.join(PWD, 'static')
-COMPRESS_ENABLED = True
-# The default rJSMin filter breaks rowlink js
-COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.SlimItFilter']
