@@ -89,14 +89,13 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PWD, 'static')
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PWD, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -420,3 +419,56 @@ CACHES = memcacheify()
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
     )
+
+
+#-------------------------------------------------------------------------------
+#
+# Asset Pipeline
+#
+#-------------------------------------------------------------------------------
+
+INSTALLED_APPS += (
+    'pipeline',
+)
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+#STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+#STATICFILES_STORAGE = 'creditswarm.storage.S3PipelineStorage'
+#PIPELINE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+
+
+
+PIPELINE_CSS = {
+    'base': {
+        'source_filenames': [
+            'css/bootstrap.css',
+            'css/bootstrap-responsive.css',
+            'css/jasny-bootstrap.min.css',
+            'css/jasny-bootstrap-responsive.min.css',
+            'css/datepicker.css',
+            ],
+        'output_filename': 'css/base.min.css'
+        },
+    'landing': {        
+        'source_filenames': [
+            'css/landing.css',
+            ],
+        'output_filename': 'css/landing.min.css'
+        }
+    }
+
+PIPELINE_JS = {
+    'base': {
+        'source_filenames': [
+            'js/jquery-1.8.0.min.js',
+            'js/bootstrap.js',
+            'js/bootstrap-datepicker.js',
+            'js/bootstrap-rowlink.js',
+            ],
+        'output_filename': 'base.min.js'
+        },
+    }
+
+PIPELINE_YUI_BINARY = '/usr/bin/yui-compressor'
+PIPELINE = True
