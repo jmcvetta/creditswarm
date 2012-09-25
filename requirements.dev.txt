@@ -19,3 +19,4 @@ django-debug-toolbar       # In-browser debugging utility
 django-sslify              # Require SSL site-wide
 django-heroku-memcacheify  # Automatic Django memcached configuration on Heroku.
 django-heroku-postgresify  # Automatic Django database configuration on Heroku.
+mock                       # Mocking library for testing (required by boto tests, but not marked as dependency of boto)
