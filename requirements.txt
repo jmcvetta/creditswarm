@@ -23,7 +23,7 @@ django-templated-email==0.4.7
 docutils==0.9.1
 gevent==0.13.8
 greenlet==0.4.0
-gunicorn==0.14.6
+gunicorn==19.5.0
 httplib2==0.7.5
 ipython==0.13
 kombu==2.4.7
